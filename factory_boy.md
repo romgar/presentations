@@ -6,9 +6,9 @@
 
 Why factory_boy ?
 
-- It's easier to create objects for testing
-- It can avoid painful test code refactoring if your models are changing
-- It makes your tests more readable
+- Simplify object creation for testing purpose
+- Avoid painful test code refactoring if your models are changing
+- Tests are more readable
 
 ---
 
