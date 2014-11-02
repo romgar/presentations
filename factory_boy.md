@@ -223,3 +223,18 @@ Less infos, and you focus on what is really important for your test.
                 author__favorite_breakfast_cereals="Honey smacks")
             self.assertEquals(query.count(), 1)
 
+---
+
+# factory_boy extras
+
+factory_boy can manage Django model relationships
+
+- ForeignKey
+- ManyToMany
+- ManyToMany with intermediary table
+- GenericForeignKey
+
+**factory.fuzzy** module, to generate random datas for some defined types : string,
+ integer, float, decimal, date, datetime, choiceField, ...
+
+**@post_generation** decorator to add some logic after factory object creation
