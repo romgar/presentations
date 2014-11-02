@@ -7,8 +7,8 @@
 Why factory_boy ?
 
 - It's easier to create objects for testing
-- It makes your tests more readable
 - It can avoid painful test code refactoring if your models are changing
+- It makes your tests more readable
 
 ---
 
@@ -53,7 +53,7 @@ Factory definition (django model like)
         class Meta:
             model = Author
 
-        name = factory.Sequence(lambda n: u'author#%s' % n)
+        name = factory.Sequence(lambda n: u'name#%s' % n)
 
     class BookFactory(factory.django.DjangoModelFactory):
         class Meta:
@@ -87,7 +87,63 @@ Specify nested objects values
             BookFactory.create(
                 title="Game of Scones",
                 author__name="George RR Martin")
+---
 
+# Avoid test code refactoring
+
+We have just added a "new_field" in Author model that is **required**
+
+    !python
+    class Author(models.Model):
+        name = models.CharField(max_length=666)
+        new_field = models.CharField(max_length=666)
+
+    class Book(models.Model):
+        author = models.ForeignKey(Author)
+        title = models.CharField(max_length=255)
+
+---
+
+# Avoid test code refactoring
+
+Without factory_boy, we have to update each test that is using Author model
+
+    !python
+    class TestAuthor(TestCase):
+    
+        def test_author_1(self):
+            Author.objects.create(
+                name = "George RR Martin",
+                new_field = "new value 1")
+
+        def test_author_2(self):
+            Author.objects.create(
+                name = "George RR Martin",
+                new_field = "new value 2")
+        ...
+
+Of course, you can create a setUp class to resolve this problem, but how to
+deal with several TestCase classes that need Author objects ?
+
+A function that factorise Author creation ? Yep. factory_boy already 
+does the job :-)
+
+---
+
+# Avoid test code refactoring
+
+With factory_boy, we just have to update the factory.
+
+    !python
+    class AuthorFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Author
+
+        name = factory.Sequence(lambda n: u'author#%s' % n)
+        new_field = factory.Sequence(lambda n: u'new_field#%s' % n)
+
+Each old test is not impacted by the newly added field, and we can use the 
+"new_field" on new tests.
 
 ---
 
@@ -103,7 +159,7 @@ Only initialise data that are really important.
 
 # Test readability
 
-Example with models that contains more fields
+Example with models that contain more fields
 
     !python
     class Author(factory.django.DjangoModelFactory):
@@ -166,3 +222,4 @@ Less infos, and you focus on what is really important for your test.
                 category="cooking",
                 author__favorite_breakfast_cereals="Honey smacks")
             self.assertEquals(query.count(), 1)
+
