@@ -6,31 +6,84 @@
 
 Why factory_boy ?
 
-- Reason 1
-- Reason 2
-- Reason 3
+- It's easier to create objects for testing
+- It makes your tests more readable
+- It can avoid painful test code refactoring if your models are changing
 
 ---
 
-# Code Sample
+# Simplify nested object creation
 
-Object creation simplification !!
+Object creation with/without factory_boy
 
     !python
-    class FooTests(unittest.TestCase):
+    class Author(models.Model):
+        name = models.CharField(max_length=666)
 
-        def test_with_factory_boy(self):
-            # We need a 200€, paid order, shipping to australia, for a VIP
-            OrderFactory(amount=200, status='PAID', 
-            customer__is_vip=True, address__country='AU')
-            # Run the tests here
+    class Book(models.Model):
+        author = models.ForeignKey(Author)
+        title = models.CharField(max_length=255)
+
+
+    class TestObjectCreation(TestCase):
 
         def test_without_factory_boy(self):
-            address = Address(street="42 fubar street", zipcode="42Z42",
-                city="Sydney", country="AU",
-            )
-            customer = Customer(first_name="John", last_name="Doe",
-                phone="+1234", email="john.doe@example.org",
-                active=True, is_vip=True, address=address,
-            )
-            # etc.
+            author = Author.objects.create(name="George RR Martin")
+            Book.objects.create(author=author, title="Game of Scones")
+
+        def test_with_factory_boy(self):
+            BookFactory.create()            
+
+---
+
+# Simplify nested object creation
+
+Factory definition (django model like)
+
+    !python
+    class Author(models.Model):
+        name = models.CharField(max_length=666)
+
+    class Book(models.Model):
+        author = models.ForeignKey(Author)
+        title = models.CharField(max_length=255)
+
+
+    class AuthorFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Author
+
+        name = factory.Sequence(lambda n: u'author#%s' % n)
+
+    class BookFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Book
+
+        author = factory.SubFactory(AuthorFactory)
+        title = factory.Sequence(lambda n: u'title#%s' % n)
+
+---
+
+# Simplify nested object creation
+
+Specify nested object values
+
+    !python
+    class Author(factory.django.DjangoModelFactory):
+        name = models.CharField(max_length=666)
+
+    class Book(models.Model):
+        author = models.ForeignKey(Author)
+        title = models.CharField(max_length=255)
+
+
+    class TestCreateObject(TestCase):
+
+        def test_without_factory_boy(self):
+            author = Author.objects.create(name="George RR Martin")
+            Book.objects.create(author=author, title="Game of Scones")
+
+        def test_with_factory_boy(self):
+            BookFactory.create(
+                title="Game of Scones",
+                author__name="George RR Martin")
