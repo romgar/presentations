@@ -66,7 +66,7 @@ Factory definition (django model like)
 
 # Simplify nested object creation
 
-Specify nested object values
+Specify nested objects values
 
     !python
     class Author(factory.django.DjangoModelFactory):
@@ -77,7 +77,7 @@ Specify nested object values
         title = models.CharField(max_length=255)
 
 
-    class TestCreateObject(TestCase):
+    class TestObjectCreation(TestCase):
 
         def test_without_factory_boy(self):
             author = Author.objects.create(name="George RR Martin")
@@ -87,3 +87,82 @@ Specify nested object values
             BookFactory.create(
                 title="Game of Scones",
                 author__name="George RR Martin")
+
+
+---
+
+# Test readability
+
+Only initialise data that are really important.
+
+- Only focus on what is useful for the test
+- Tests are more understandable, as we directly see what is needed
+- Don't forget that other people will read your tests for code comprehension
+
+---
+
+# Test readability
+
+Example with models that contains more fields
+
+    !python
+    class Author(factory.django.DjangoModelFactory):
+        name = models.CharField(max_length=666)
+        birth_date = models.DateTimeField()
+        favorite_color = models.CharField(max_length=50)
+        favorite_expression = models.CharField(max_length=1050)
+        favorite_breakfast_cereals = models.CharField(max_length=111)
+
+    class Book(models.Model):
+        author = models.ForeignKey(Author)
+        title = models.CharField(max_length=255)
+        publication_date = models.DateTimeField()
+        category = models.CharField(max_length=255)
+
+---
+
+# Test readability
+
+Too many useless data impact test readability, and are... useless !
+
+    !python
+    class TestBookAuthorFavoriteCereals(TestCase):
+
+        def test_without_factory_boy(self):
+            author = Author.objects.create(
+                name="George RR Martin",
+                birth_date=datetime(1948, 9, 20),
+                favorite_color="black",
+                favorite_expression="Breakfast is coming !",
+                favorite_breakfast_cereals="Honey smacks"
+            )
+            book = Book.objects.create(
+                author = author,
+                title="Game of scones",
+                publication_date=datetime(2014, 9, 9),
+                category="cooking"
+            )
+
+            query = Book.objects.filter(
+                category="cooking",
+                author__favorite_breakfast_cereals="Honey smacks")
+            self.assertEquals(query.count(), 1)
+
+---
+
+# Test readability
+
+Less infos, and you focus on what is really important for your test.
+
+    !python
+    class TestBookAuthorFavoriteCereals(TestCase):
+
+        def test_with_factory_boy(self):
+            BookFactory.create(
+                category="cooking",
+                author__favorite_breakfast_cereals="Honey smacks")
+
+            query = Book.objects.filter(
+                category="cooking",
+                author__favorite_breakfast_cereals="Honey smacks")
+            self.assertEquals(query.count(), 1)
