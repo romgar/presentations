@@ -20,7 +20,7 @@
 # Testing
 
 - Use py.test : more pythonic, reuse database options, ...
-
+- Hypothesis: use randomised data, find edge cases for you
 
 ---
 
@@ -35,6 +35,9 @@
 # Security
 
 - Test 12 basic security issues: ponycheckup.com
+- Example of Django protections:
+    - Timing attack on password,
+    - HTTP headers renamed (Bla -> HTTP_X_BLA)
 
 ---
 
@@ -49,7 +52,7 @@
 
 # Performance issues
 
-- Tools: django-debug-toolbad, django-devserver
+- Tools: django-debug-toolbar, django-devserver
 - Step 1: reduce SQL queries (select_related, prefetch_related on reverse FKey/M2M)
 - Step 2: do less work
    - move work out of request/response cycle (celery)
@@ -66,8 +69,30 @@
 
 ---
 
+# ORM
+
+- Lookup, transforms, expressions
+- StoreField : key -> value (PostGre, Django 1.8)
+- ArrayField : [ ] (PostGre, Django 1.8)
+
+---
+
 # Useful tools
 
 - git-crypt: encrypt/decrypt files on github
+- cookiecutter: django project templating
 
+---
 
+# Iwoca
+
+- Lend money to small/medium businesses,
+- Non middle-age technologies (Django, Twisted, Crossbar.io, AngularJS)
+
+---
+
+# Conclusion
+
+- REALLY friendly
+- Not so technical -> djangounderthehood.com
+- Pies in pieminister and welsh cakes were ... waouh.
