@@ -42,7 +42,8 @@
 
 - Trying to resolve a problem that takes ages at the end
 - Hard to diagnostise
-- Ask for help, do some breaks.
+- Ask for help, do some breaks
+- Crazy example (Django on Desktop)
 
 ---
 
@@ -55,3 +56,18 @@
    - only fetch what you need (QuerySet.defer())
    - do calculations on the db (annotate, aggregate)
 - Step 3: caching (hard to invalidate, johnny-cache or django-cache-machine)
+
+---
+
+# Real-time
+
+- Swamp dragon (Django + tornado + redis, or Django + Pusher)
+- Custom run_server command to test without tornado
+
+---
+
+# Useful tools
+
+- git-crypt: encrypt/decrypt files on github
+
+
