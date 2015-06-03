@@ -32,23 +32,26 @@
 
 ---
 
-# Avoid test code refactoring
-
-We have just added a "new_field" in Author model that is **required**
-
-    !python
-    class Author(models.Model):
-        name = models.CharField(max_length=666)
-        new_field = models.CharField(max_length=666)
-
-    class Book(models.Model):
-        author = models.ForeignKey(Author)
-        title = models.CharField(max_length=255)
-
----
-
 # Security
+
 - Test 12 basic security issues: ponycheckup.com
 
 ---
 
+# Rabbit hole
+
+- Trying to resolve a problem that takes ages at the end
+- Hard to diagnostise
+- Ask for help, do some breaks.
+
+---
+
+# Performance issues
+
+- Tools: django-debug-toolbad, django-devserver
+- Step 1: reduce SQL queries (select_related, prefetch_related on reverse FKey/M2M)
+- Step 2: do less work
+   - move work out of request/response cycle (celery)
+   - only fetch what you need (QuerySet.defer())
+   - do calculations on the db (annotate, aggregate)
+- Step 3: caching (hard to invalidate, johnny-cache or django-cache-machine)
