@@ -173,5 +173,6 @@ Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 # Conclusion
 
 - REALLY friendly
+- Take care of yourself !!
 - Not so technical -> djangounderthehood.com
 - Pies in pieminister and welsh cakes were ... waouh.

@@ -252,11 +252,11 @@
             <header><h1>Security</h1></header>
             
             
-            <section><ul>
-<li>Test 12 basic security issues: ponycheckup.com</li>
-<li>Example of Django protections:<ul>
-<li>Timing attack on password,</li>
-<li>HTTP headers renamed (Bla -&gt; HTTP_X_BLA)</li>
+            <section><p><em>(@erikpub, @ubernostrum)</em></p>
+<ul>
+<li>Test 12 basic security issues: <a href="https://www.ponycheckup.com/">ponycheckup.com</a></li>
+<li>Examples of Django protections:<ul>
+<li>Timing attack on password</li>
 </ul>
 </li>
 </ul></section>
@@ -289,12 +289,15 @@
             <header><h1>Rabbit hole</h1></header>
             
             
-            <section><ul>
+            <section><p><em>(@asendecka, @thomaswturner)</em></p>
+<h1>Definition</h1>
+<ul>
 <li>Trying to resolve a problem that takes ages at the end</li>
-<li>Hard to diagnostise</li>
+<li>Hard to diagnose</li>
 <li>Ask for help, do some breaks</li>
-<li>Crazy example (Django on Desktop)</li>
-</ul></section>
+</ul>
+<h1>Example (Django on Desktop)</h1>
+<p>Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)</p></section>
             
           </div>
           <div class="presenter_notes">
@@ -324,14 +327,22 @@
             <header><h1>Performance issues</h1></header>
             
             
-            <section><ul>
-<li>Tools: django-debug-toolbar, django-devserver</li>
+            <section><p><em>(@piquadrat_ch)</em></p>
+<h2>Big Three</h2>
+<ul>
 <li>Step 1: reduce SQL queries (select_related, prefetch_related on reverse FKey/M2M)</li>
-<li>Step 2: do less work</li>
+<li>Step 2: do less work<ul>
 <li>move work out of request/response cycle (celery)</li>
 <li>only fetch what you need (QuerySet.defer())</li>
 <li>do calculations on the db (annotate, aggregate)</li>
-<li>Step 3: caching (hard to invalidate, johnny-cache or django-cache-machine)</li>
+</ul>
+</li>
+<li>Step 3: caching (hard to invalidate, <em>johnny-cache</em> or <em>django-cache-machine</em>)</li>
+</ul>
+<h2>Tools</h2>
+<ul>
+<li><em>django-debug-toolbar</em></li>
+<li><em>django-devserver</em></li>
 </ul></section>
             
           </div>
@@ -362,8 +373,9 @@
             <header><h1>Real-time</h1></header>
             
             
-            <section><ul>
-<li>Swamp dragon (Django + tornado + redis, or Django + Pusher)</li>
+            <section><p><em>(@aaronbassett)</em></p>
+<ul>
+<li>Swamp dragon (Django + (tornado + redis) =&gt; Pusher)</li>
 <li>Custom run_server command to test without tornado</li>
 </ul></section>
             
@@ -389,17 +401,32 @@
       
       <!-- slide source: djangocon_2015.md -->
       <div class="slide-wrapper">
-        <div class="slide">
+        <div class="slide has_code">
           <div class="inner">
             
             <header><h1>ORM</h1></header>
             
             
-            <section><ul>
+            <section><p><em>(@akaariai)</em></p>
+<ul>
 <li>Lookup, transforms, expressions</li>
-<li>StoreField : key -&gt; value (PostGre, Django 1.8)</li>
-<li>ArrayField : [ ] (PostGre, Django 1.8)</li>
-</ul></section>
+</ul>
+<h2>HStoreField (PostGreSQL, Django 1.8+)</h2>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno">2 </span>    <span class="n">data</span> <span class="o">=</span> <span class="n">HStoreField</span><span class="p">()</span>
+<span class="lineno">3 </span>
+<span class="lineno">4 </span><span class="n">Dog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;breed&#39;</span><span class="p">:</span> <span class="s">&#39;labrador&#39;</span><span class="p">,</span> <span class="s">&#39;owner&#39;</span><span class="p">:</span> <span class="s">&#39;Bob&#39;</span><span class="p">})</span>
+<span class="lineno">5 </span><span class="n">Dog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">data__breed</span><span class="o">=</span><span class="s">&#39;collie&#39;</span><span class="p">)</span>
+</pre></div>
+
+<h2>ArrayField (PostGreSQL, Django 1.8+)</h2>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno">2 </span>    <span class="n">tags</span> <span class="o">=</span> <span class="n">ArrayField</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="lineno">3 </span>
+<span class="lineno">4 </span><span class="n">Post</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;First post&#39;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;thoughts&#39;</span><span class="p">,</span> <span class="s">&#39;django&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">])</span>
+<span class="lineno">5 </span><span class="n">Post</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">tags__contains</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;django&#39;</span><span class="p">,</span> <span class="s">&#39;thoughts&#39;</span><span class="p">])</span>
+</pre></div>
+</section>
             
           </div>
           <div class="presenter_notes">
