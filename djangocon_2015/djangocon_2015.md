@@ -40,8 +40,28 @@ could be:
 
 # Testing
 
-- Use py.test : more pythonic, reuse database options, ...
-- Hypothesis: use randomised data, find edge cases for you
+(@magopian, @RaeKnowler)
+
+## py.test
+
+More pythonic
+
+    !python
+    assert 3 == 4 # instead of self.assertEqual(3, 4)
+
+**pytest-django** with really interesting runner options:
+
+- reuse database: *--reuse-db* and *--create-db*
+- launch only last failed tests
+
+## Hypothesis
+
+Use randomised data and find edge cases for you
+
+    !python
+    @given(floats())
+    def test_negation_is_self_inverse(x):
+        assert x == -(-x)
 
 ---
 
