@@ -123,16 +123,36 @@ Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 
 # Real-time
 
-- Swamp dragon (Django + tornado + redis, or Django + Pusher)
+*(@aaronbassett)*
+
+- Swamp dragon (Django + (tornado + redis) => Pusher)
 - Custom run_server command to test without tornado
 
 ---
 
 # ORM
 
-- Lookup, transforms, expressions
-- StoreField : key -> value (PostGre, Django 1.8)
-- ArrayField : [ ] (PostGre, Django 1.8)
+*(@akaariai)*
+
+- Improving API for lookup, transforms, expressions
+
+## HStoreField (PostGreSQL, Django 1.8+)
+
+    !python
+    class Dog(models.Model):
+        data = HStoreField()
+
+    Dog.objects.create(data={'breed': 'labrador', 'owner': 'Bob'})
+    Dog.objects.filter(data__breed='collie')
+
+## ArrayField (PostGreSQL, Django 1.8+)
+
+    !python
+    class Post(models.Model):
+        tags = ArrayField(models.CharField(max_length=200), blank=True)
+
+    Post.objects.create(name='First post', tags=['thoughts', 'django', 'd'])
+    Post.objects.filter(tags__contains=['django', 'thoughts'])
 
 ---
 
