@@ -81,19 +81,25 @@ Use randomised data and find edge cases for you
 
 # Security
 
-- Test 12 basic security issues: ponycheckup.com
-- Example of Django protections:
-    - Timing attack on password,
-    - HTTP headers renamed (Bla -> HTTP_X_BLA)
+*(@erikpub, @ubernostrum)*
+
+- Test 12 basic security issues: [ponycheckup.com](https://www.ponycheckup.com/)
+- Examples of Django protections:
+    * Timing attack on password
 
 ---
 
 # Rabbit hole
 
+*(@asendecka, @thomaswturner)*
+
+# Definition
 - Trying to resolve a problem that takes ages at the end
-- Hard to diagnostise
+- Hard to diagnose
 - Ask for help, do some breaks
-- Crazy example (Django on Desktop)
+
+# Example (Django on Desktop)
+Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 
 ---
 
