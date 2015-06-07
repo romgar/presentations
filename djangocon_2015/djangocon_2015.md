@@ -105,13 +105,19 @@ Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 
 # Performance issues
 
-- Tools: django-debug-toolbar, django-devserver
+*(@piquadrat_ch)*
+
+## Steps
 - Step 1: reduce SQL queries (select_related, prefetch_related on reverse FKey/M2M)
 - Step 2: do less work
-   - move work out of request/response cycle (celery)
-   - only fetch what you need (QuerySet.defer())
-   - do calculations on the db (annotate, aggregate)
+    * move work out of request/response cycle (celery)
+    * only fetch what you need (QuerySet.defer())
+    * do calculations on the db (annotate, aggregate)
 - Step 3: caching (hard to invalidate, johnny-cache or django-cache-machine)
+
+## Tools
+- django-debug-toolbar
+- django-devserver
 
 ---
 
