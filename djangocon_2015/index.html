@@ -25,7 +25,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>The Best of DjangoCon 2015</title>
+    <title>DjangoCon 2015 lightning recap</title>
     <!-- Styles -->
     
     <link rel="stylesheet" media="print" href="../theme/css/print.css">
@@ -53,7 +53,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>The Best of DjangoCon 2015</h1></header>
+            <header><h1>DjangoCon 2015 lightning recap</h1></header>
             
             
           </div>
@@ -259,6 +259,7 @@
 <li>Timing attack on password</li>
 </ul>
 </li>
+<li>Check your package versions <a href="https://requires.io/">requires.io</a></li>
 </ul></section>
             
           </div>
@@ -409,7 +410,7 @@
             
             <section><p><em>(@akaariai)</em></p>
 <ul>
-<li>Lookup, transforms, expressions</li>
+<li>Improving API for lookup, transforms, expressions</li>
 </ul>
 <h2>HStoreField (PostGreSQL, Django 1.8+)</h2>
 <div class="highlight"><pre><span class="lineno">1 </span><span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
@@ -450,16 +451,27 @@
       
       <!-- slide source: djangocon_2015.md -->
       <div class="slide-wrapper">
-        <div class="slide">
+        <div class="slide has_code">
           <div class="inner">
             
             <header><h1>Useful tools</h1></header>
             
             
-            <section><ul>
-<li>git-crypt: encrypt/decrypt files on github</li>
-<li>cookiecutter: django project templating</li>
-</ul></section>
+            <section><h2><a href="https://github.com/AGWA/git-crypt/">git-crypt</a></h2>
+<p>Encrypt/Decrypt files on GitHub</p>
+<p>Initialise your repository:</p>
+<div class="highlight"><pre><span class="lineno">1 </span>git-crypt init
+</pre></div>
+
+<p>Create a <em>.gitattributes</em> file to encrypt (in this example) <em>.key</em> files</p>
+<div class="highlight"><pre><span class="lineno">1 </span>secretfile filter=git-crypt diff=git-crypt
+<span class="lineno">2 </span>*.key filter=git-crypt diff=git-crypt
+</pre></div>
+
+<h2><a href="https://github.com/audreyr/cookiecutter">cookiecutter</a></h2>
+<p>Django project templating</p>
+<h2><a href="http://reinout.vanrees.org/weblog/2015/06/01/05-cardiff.html">CAMEL project</a></h2>
+<p>Convert LaTeX documents to data saved in database, and render it through Django.</p></section>
             
           </div>
           <div class="presenter_notes">
@@ -524,6 +536,7 @@
             
             <section><ul>
 <li>REALLY friendly</li>
+<li>Take care of yourself !!</li>
 <li>Not so technical -&gt; djangounderthehood.com</li>
 <li>Pies in pieminister and welsh cakes were ... waouh.</li>
 </ul></section>
@@ -557,7 +570,7 @@
       <caption>Table of Contents</caption>
       
       <tr id="toc-row-1">
-        <th><a href="#slide1">The Best of DjangoCon 2015</a></th>
+        <th><a href="#slide1">DjangoCon 2015 lightning recap</a></th>
         <td><a href="#slide1">1</a></td>
       </tr>
       
