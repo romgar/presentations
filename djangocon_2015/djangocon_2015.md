@@ -11,9 +11,28 @@
 ---
 
 # Architecture / Separating concerns
+@HannaKollo, @codeinthehole
 
 - Avoid big views.py files
 - Use service layers to move business logic from views.
+
+Instead of:
+
+    !python
+    def my_view(request):
+        params = request.GET
+        # Lot of code here before returning HttpResponse
+        # ...
+        return HttpResponse("This is a too big view")
+
+Use for example service layer:
+    !python
+    from my_project.services import deal_with_data
+
+    def my_view(request):
+        params = request.GET
+        deal_with_data(params)
+        return HttpResponse("We have separated business from view logic")
 
 ---
 
