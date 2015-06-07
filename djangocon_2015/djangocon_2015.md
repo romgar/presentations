@@ -14,8 +14,10 @@
 
 (**@HannaKollo**, **@codeinthehole**)
 
-- Avoid big views.py files
+- Avoid big views.py files.
 - Use service layers to move business logic from views.
+
+This:
 
     !python
     def my_view(request):
