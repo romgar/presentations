@@ -12,7 +12,7 @@
 
 # Architecture / Separating concerns
 
-(**@HannaKollo**, **@codeinthehole**)
+*(@HannaKollo, @codeinthehole)*
 
 - Avoid big views.py files.
 - Use service layers to move business logic from views.
@@ -40,7 +40,7 @@ could be:
 
 # Testing
 
-(@magopian, @RaeKnowler)
+*(@magopian, @RaeKnowler)*
 
 ## py.test
 
@@ -67,9 +67,15 @@ Use randomised data and find edge cases for you
 
 # Django admin
 
-- Other themes: django-flat-theme, django-suit (commercial)
+*(@olasitarska)*
+
 - Use for: small tricks to improve UI
-- Don't use for: end-users UI, big customisations
+- **Don't** use for: end-users UI, big customisations
+- Other themes: django-flat-theme, django-suit (commercial)
+
+![django admin dashboard with django-flat-theme][admin_dashboard]
+
+[admin_dashboard]: images/admin_dashboard.png
 
 ---
 
