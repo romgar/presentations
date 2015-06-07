@@ -107,17 +107,17 @@ Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 
 *(@piquadrat_ch)*
 
-## Steps
+## Big Three
 - Step 1: reduce SQL queries (select_related, prefetch_related on reverse FKey/M2M)
 - Step 2: do less work
     * move work out of request/response cycle (celery)
     * only fetch what you need (QuerySet.defer())
     * do calculations on the db (annotate, aggregate)
-- Step 3: caching (hard to invalidate, johnny-cache or django-cache-machine)
+- Step 3: caching (hard to invalidate, *johnny-cache* or *django-cache-machine*)
 
 ## Tools
-- django-debug-toolbar
-- django-devserver
+- *django-debug-toolbar*
+- *django-devserver*
 
 ---
 
