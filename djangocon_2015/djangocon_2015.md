@@ -12,23 +12,70 @@
 
 # Architecture / Separating concerns
 
-- Avoid big views.py files
+*(@HannaKollo, @codeinthehole)*
+
+- Avoid big views.py files.
 - Use service layers to move business logic from views.
+
+This:
+
+    !python
+    def my_view(request):
+        params = request.GET
+        # Lot of code here before returning HttpResponse
+        # ...
+        return HttpResponse("This is a too big view")
+
+could be:
+
+    !python
+    from my_project.services import deal_with_data
+
+    def my_view(request):
+        params = request.GET
+        deal_with_data(params)
+        return HttpResponse("We have separated business from view logic")
 
 ---
 
 # Testing
 
-- Use py.test : more pythonic, reuse database options, ...
-- Hypothesis: use randomised data, find edge cases for you
+*(@magopian, @RaeKnowler)*
+
+## py.test
+
+More pythonic
+
+    !python
+    assert 3 == 4 # instead of self.assertEqual(3, 4)
+
+**pytest-django** with really interesting runner options:
+
+- reuse database: *--reuse-db* and *--create-db*
+- launch only last failed tests
+
+## Hypothesis
+
+Use randomised data and find edge cases for you
+
+    !python
+    @given(floats())
+    def test_negation_is_self_inverse(x):
+        assert x == -(-x)
 
 ---
 
 # Django admin
 
-- Other themes: django-flat-theme, django-suit (commercial)
+*(@olasitarska)*
+
 - Use for: small tricks to improve UI
-- Don't use for: end-users UI, big customisations
+- **Don't** use for: end-users UI, big customisations
+- Other themes: django-flat-theme, django-suit (commercial)
+
+![django admin dashboard with django-flat-theme][admin_dashboard]
+
+[admin_dashboard]: images/admin_dashboard.png
 
 ---
 
