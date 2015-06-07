@@ -112,16 +112,34 @@
       
       <!-- slide source: djangocon_2015.md -->
       <div class="slide-wrapper">
-        <div class="slide">
+        <div class="slide has_code">
           <div class="inner">
             
             <header><h1>Architecture / Separating concerns</h1></header>
             
             
-            <section><ul>
-<li>Avoid big views.py files</li>
+            <section><p><em>(@HannaKollo, @codeinthehole)</em></p>
+<ul>
+<li>Avoid big views.py files.</li>
 <li>Use service layers to move business logic from views.</li>
-</ul></section>
+</ul>
+<p>This:</p>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="lineno">2 </span>    <span class="n">params</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span>
+<span class="lineno">3 </span>    <span class="c"># Lot of code here before returning HttpResponse</span>
+<span class="lineno">4 </span>    <span class="c"># ...</span>
+<span class="lineno">5 </span>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;This is a too big view&quot;</span><span class="p">)</span>
+</pre></div>
+
+<p>could be:</p>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="kn">from</span> <span class="nn">my_project.services</span> <span class="kn">import</span> <span class="n">deal_with_data</span>
+<span class="lineno">2 </span>
+<span class="lineno">3 </span><span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="lineno">4 </span>    <span class="n">params</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span>
+<span class="lineno">5 </span>    <span class="n">deal_with_data</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="lineno">6 </span>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;We have separated business from view logic&quot;</span><span class="p">)</span>
+</pre></div>
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -145,16 +163,30 @@
       
       <!-- slide source: djangocon_2015.md -->
       <div class="slide-wrapper">
-        <div class="slide">
+        <div class="slide has_code">
           <div class="inner">
             
             <header><h1>Testing</h1></header>
             
             
-            <section><ul>
-<li>Use py.test : more pythonic, reuse database options, ...</li>
-<li>Hypothesis: use randomised data, find edge cases for you</li>
-</ul></section>
+            <section><p><em>(@magopian, @RaeKnowler)</em></p>
+<h2>py.test</h2>
+<p>More pythonic</p>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="k">assert</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">4</span> <span class="c"># instead of self.assertEqual(3, 4)</span>
+</pre></div>
+
+<p><strong>pytest-django</strong> with really interesting runner options:</p>
+<ul>
+<li>reuse database: <em>--reuse-db</em> and <em>--create-db</em></li>
+<li>launch only last failed tests</li>
+</ul>
+<h2>Hypothesis</h2>
+<p>Use randomised data and find edge cases for you</p>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="nd">@given</span><span class="p">(</span><span class="n">floats</span><span class="p">())</span>
+<span class="lineno">2 </span><span class="k">def</span> <span class="nf">test_negation_is_self_inverse</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="lineno">3 </span>    <span class="k">assert</span> <span class="n">x</span> <span class="o">==</span> <span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -184,11 +216,13 @@
             <header><h1>Django admin</h1></header>
             
             
-            <section><ul>
-<li>Other themes: django-flat-theme, django-suit (commercial)</li>
+            <section><p><em>(@olasitarska)</em></p>
+<ul>
 <li>Use for: small tricks to improve UI</li>
-<li>Don't use for: end-users UI, big customisations</li>
-</ul></section>
+<li><strong>Don't</strong> use for: end-users UI, big customisations</li>
+<li>Other themes: django-flat-theme, django-suit (commercial)</li>
+</ul>
+<p><img alt="django admin dashboard with django-flat-theme" src="images/admin_dashboard.png" /></p></section>
             
           </div>
           <div class="presenter_notes">
