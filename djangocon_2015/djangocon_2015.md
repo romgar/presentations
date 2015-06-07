@@ -81,46 +81,78 @@ Use randomised data and find edge cases for you
 
 # Security
 
-- Test 12 basic security issues: ponycheckup.com
-- Example of Django protections:
-    - Timing attack on password,
-    - HTTP headers renamed (Bla -> HTTP_X_BLA)
+*(@erikpub, @ubernostrum)*
+
+- Test 12 basic security issues: [ponycheckup.com](https://www.ponycheckup.com/)
+- Examples of Django protections:
+    * Timing attack on password
 
 ---
 
 # Rabbit hole
 
+*(@asendecka, @thomaswturner)*
+
+# Definition
 - Trying to resolve a problem that takes ages at the end
-- Hard to diagnostise
+- Hard to diagnose
 - Ask for help, do some breaks
-- Crazy example (Django on Desktop)
+
+# Example (Django on Desktop)
+Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 
 ---
 
 # Performance issues
 
-- Tools: django-debug-toolbar, django-devserver
+*(@piquadrat_ch)*
+
+## Big Three
 - Step 1: reduce SQL queries (select_related, prefetch_related on reverse FKey/M2M)
 - Step 2: do less work
-   - move work out of request/response cycle (celery)
-   - only fetch what you need (QuerySet.defer())
-   - do calculations on the db (annotate, aggregate)
-- Step 3: caching (hard to invalidate, johnny-cache or django-cache-machine)
+    * move work out of request/response cycle (celery)
+    * only fetch what you need (QuerySet.defer())
+    * do calculations on the db (annotate, aggregate)
+- Step 3: caching (hard to invalidate, *johnny-cache* or *django-cache-machine*)
+
+## Tools
+- *django-debug-toolbar*
+- *django-devserver*
 
 ---
 
 # Real-time
 
-- Swamp dragon (Django + tornado + redis, or Django + Pusher)
+*(@aaronbassett)*
+
+- Swamp dragon (Django + (tornado + redis) => Pusher)
 - Custom run_server command to test without tornado
 
 ---
 
 # ORM
 
-- Lookup, transforms, expressions
-- StoreField : key -> value (PostGre, Django 1.8)
-- ArrayField : [ ] (PostGre, Django 1.8)
+*(@akaariai)*
+
+- Improving API for lookup, transforms, expressions
+
+## HStoreField (PostGreSQL, Django 1.8+)
+
+    !python
+    class Dog(models.Model):
+        data = HStoreField()
+
+    Dog.objects.create(data={'breed': 'labrador', 'owner': 'Bob'})
+    Dog.objects.filter(data__breed='collie')
+
+## ArrayField (PostGreSQL, Django 1.8+)
+
+    !python
+    class Post(models.Model):
+        tags = ArrayField(models.CharField(max_length=200), blank=True)
+
+    Post.objects.create(name='First post', tags=['thoughts', 'django', 'd'])
+    Post.objects.filter(tags__contains=['django', 'thoughts'])
 
 ---
 
@@ -141,5 +173,6 @@ Use randomised data and find edge cases for you
 # Conclusion
 
 - REALLY friendly
+- Take care of yourself !!
 - Not so technical -> djangounderthehood.com
 - Pies in pieminister and welsh cakes were ... waouh.
