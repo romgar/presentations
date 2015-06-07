@@ -1,4 +1,4 @@
-# The Best of DjangoCon 2015
+# DjangoCon 2015 lightning recap
 
 ---
 
@@ -86,6 +86,7 @@ Use randomised data and find edge cases for you
 - Test 12 basic security issues: [ponycheckup.com](https://www.ponycheckup.com/)
 - Examples of Django protections:
     * Timing attack on password
+- Check your package versions [requires.io](https://requires.io/)
 
 ---
 
@@ -158,8 +159,25 @@ Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 
 # Useful tools
 
-- git-crypt: encrypt/decrypt files on github
-- cookiecutter: django project templating
+## [git-crypt](https://github.com/AGWA/git-crypt/)
+Encrypt/Decrypt files on GitHub
+
+Initialise your repository:
+
+    !shell
+    git-crypt init
+
+Create a *.gitattributes* file to encrypt (in this example) *.key* files
+
+    !text
+    secretfile filter=git-crypt diff=git-crypt
+    *.key filter=git-crypt diff=git-crypt
+
+## [cookiecutter](https://github.com/audreyr/cookiecutter)
+Django project templating
+
+## [CAMEL project](http://reinout.vanrees.org/weblog/2015/06/01/05-cardiff.html)
+Convert LaTeX documents to data saved in database, and render it through Django.
 
 ---
 
