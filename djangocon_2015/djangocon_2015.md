@@ -60,6 +60,10 @@ Added value compare to manage test:
 - hide all logging when test are passing by default
 - the console output is more readable and intuitive
 
+---
+
+# Testing ... 2
+
 ## Hypothesis
 
 Use randomised data and find edge cases for you
@@ -78,12 +82,11 @@ Use randomised data and find edge cases for you
 - Use for: small tricks to improve UI
 - **Don't** use for: end-users UI, big customisations
 - Other themes: django-flat-theme, django-suit (commercial)
+- **Don't** allow admin to do massive damage to website. (deleting critical entry, etc)
 
 ![django admin dashboard with django-flat-theme][admin_dashboard]
 
 [admin_dashboard]: images/admin_dashboard.png
-
-- admin shouldn't allow massive damage to website. (deleting critical entry, etc)
 
 ---
 
