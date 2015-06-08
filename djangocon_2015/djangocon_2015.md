@@ -132,8 +132,12 @@ Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 
 *(@aaronbassett)*
 
-- Swamp dragon (Django + (tornado + redis) => Pusher)
-- Custom run_server command to test without tornado
+# Swamp dragon
+
+- Django + redis + tornado / Django + Pusher
+- Custom run_server command to launch Django and Swamp dragon servers
+
+
 
 ---
 
@@ -166,7 +170,7 @@ Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 # Useful tools
 
 ## [git-crypt](https://github.com/AGWA/git-crypt/)
-Encrypt/Decrypt files on GitHub
+Encrypt/decrypt files on GitHub
 
 Initialise your repository:
 
@@ -190,7 +194,11 @@ Convert LaTeX documents to data saved in database, and render it through Django.
 # Iwoca
 
 - Lend money to small/medium businesses,
-- Non middle-age technologies (Django, Twisted, Crossbar.io, AngularJS)
+- Non middle-age technologies
+
+![iwoca architecture][iwoca_architecture]
+
+[iwoca_architecture]: images/iwoca_architecture.png
 
 ---
 
@@ -200,3 +208,4 @@ Convert LaTeX documents to data saved in database, and render it through Django.
 - Take care of yourself !!
 - Not so technical -> djangounderthehood.com
 - Pies in pieminister and welsh cakes were ... waouh.
+- Presentation available @ [https://github.com/romgar/presentations/](https://github.com/romgar/presentations/)
