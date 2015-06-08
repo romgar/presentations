@@ -54,6 +54,12 @@ More pythonic
 - reuse database: *--reuse-db* and *--create-db*
 - launch only last failed tests
 
+Added value compare to manage test:
+
+- verbatim output when test is failing, (dict assertion will give exact missing or excess element, instead of full dict)
+- hide all logging when test are passing by default
+- the console output is more readable and intuitive
+
 ## Hypothesis
 
 Use randomised data and find edge cases for you
@@ -77,6 +83,8 @@ Use randomised data and find edge cases for you
 
 [admin_dashboard]: images/admin_dashboard.png
 
+- admin shouldn't allow massive damage to website. (deleting critical entry, etc)
+
 ---
 
 # Security
@@ -86,6 +94,7 @@ Use randomised data and find edge cases for you
 - Test 12 basic security issues: [ponycheckup.com](https://www.ponycheckup.com/)
 - Examples of Django protections:
     * Timing attack on password
+    * Sanity checks on choice field (can't give unexpected choice to server)
 - Check your package versions [requires.io](https://requires.io/)
 
 ---
