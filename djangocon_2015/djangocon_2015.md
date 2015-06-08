@@ -134,10 +134,9 @@ Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 
 # Swamp dragon
 
-- Django + redis + tornado / Django + Pusher
-- Custom run_server command to launch Django and Swamp dragon servers
+![swampdragon architecture][swampdragon_architecture]
 
-
+[swampdragon_architecture]: images/swampdragon_architecture.png
 
 ---
 
