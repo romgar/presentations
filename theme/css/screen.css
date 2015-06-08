@@ -561,3 +561,9 @@ aside {
   z-index: 64;
   display: none;
 }
+
+/** IWOCA CUSTOM ONE **/
+img[alt=iwoca-logo] {
+  width: 120px;
+  display: inline-block;
+}

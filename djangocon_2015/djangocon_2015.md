@@ -2,10 +2,21 @@
 
 ---
 
+# Me (Romain Garrigues @rgarrigues)
+
+- Web Developer @ ![iwoca-logo][iwoca_logo]
+- Python/Django developer for 5 years
+- Maintainer of some little django apps ([django-dirtyfields](https://github.com/smn/dirtyfields/), [django-deep-collector](https://github.com/iwoca/django-deep-collector/))
+- Presentation available @ [https://github.com/romgar/presentations/](https://github.com/romgar/presentations/)
+
+[iwoca_logo]: images/logo_iwoca.png
+
+---
+
 # Overall feeling
 
 - Focused on well being (and burnout/depression witness)
-- Accessible community (lot of first-time speakers)
+- Friendly community (lot of first-time speakers)
 - Need to go outside (meet people, see real talks)
 
 ---
@@ -44,15 +55,10 @@ could be:
 
 ## py.test
 
-More pythonic
-
-    !python
-    assert 3 == 4 # instead of self.assertEqual(3, 4)
-
-**pytest-django** with really interesting runner options:
-
-- reuse database: *--reuse-db* and *--create-db*
-- launch only last failed tests
+- Syntax more pythonic,
+- Error output more explicit,
+- Interesting options (launch only last failed tests)
+- pytest-django: *--reuse-db* and *--create-db*
 
 ## Hypothesis
 
@@ -126,8 +132,11 @@ Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 
 *(@aaronbassett)*
 
-- Swamp dragon (Django + (tornado + redis) => Pusher)
-- Custom run_server command to test without tornado
+# Swamp dragon
+
+![swampdragon architecture][swampdragon_architecture]
+
+[swampdragon_architecture]: images/swampdragon_architecture.png
 
 ---
 
@@ -160,7 +169,7 @@ Unbelievable stack (Django, C++, Firebird, CEF, Sikuli)
 # Useful tools
 
 ## [git-crypt](https://github.com/AGWA/git-crypt/)
-Encrypt/Decrypt files on GitHub
+Encrypt/decrypt files on GitHub
 
 Initialise your repository:
 
@@ -184,7 +193,11 @@ Convert LaTeX documents to data saved in database, and render it through Django.
 # Iwoca
 
 - Lend money to small/medium businesses,
-- Non middle-age technologies (Django, Twisted, Crossbar.io, AngularJS)
+- Non middle-age technologies
+
+![iwoca architecture][iwoca_architecture]
+
+[iwoca_architecture]: images/iwoca_architecture.png
 
 ---
 
@@ -194,3 +207,4 @@ Convert LaTeX documents to data saved in database, and render it through Django.
 - Take care of yourself !!
 - Not so technical -> djangounderthehood.com
 - Pies in pieminister and welsh cakes were ... waouh.
+- Presentation available @ [https://github.com/romgar/presentations/](https://github.com/romgar/presentations/)
