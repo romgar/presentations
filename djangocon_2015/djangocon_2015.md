@@ -2,6 +2,18 @@
 
 ---
 
+# Me (Romain Garrigues @rgarrigues)
+
+- Web Developer @ ![iwoca-logo][iwoca_logo]
+- Python/Django developer for 5 years
+- Maintainer of some little django apps ([django-dirtyfields](https://github.com/smn/dirtyfields/), [django-deep-collector](https://github.com/iwoca/django-deep-collector/))
+- Presentation available @ [https://github.com/romgar/presentations/](https://github.com/romgar/presentations/)
+
+[iwoca_logo]: images/logo_iwoca.png
+---
+
+---
+
 # Overall feeling
 
 - Focused on well being (and burnout/depression witness)
