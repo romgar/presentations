@@ -190,7 +190,7 @@ Convert LaTeX documents to data saved in database, and render it through Django.
 
 ---
 
-# Iwoca
+# ![iwoca-logo][iwoca_logo]
 
 - Lend money to small/medium businesses,
 - Non middle-age technologies
