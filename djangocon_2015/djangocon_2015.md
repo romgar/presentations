@@ -56,7 +56,6 @@ could be:
 ## py.test
 
 - Syntax more pythonic,
-- Error output more explicit,
 - Interesting options (launch only last failed tests)
 - pytest-django: *--reuse-db* and *--create-db*
 
@@ -86,8 +85,8 @@ Use randomised data and find edge cases for you
 *(@olasitarska)*
 
 - Use for: small tricks to improve UI
-- **Don't** use for: end-users UI, big customisations
 - Other themes: django-flat-theme, django-suit (commercial)
+- **Don't** use for: end-users UI, big customisations
 - **Don't** allow admin to do massive damage to website. (deleting critical entry, etc)
 
 ![django admin dashboard with django-flat-theme][admin_dashboard]
