@@ -70,7 +70,7 @@
             </aside>
             
             <aside class="page_number">
-              1/14
+              1/15
             </aside>
           </footer>
         </div>
@@ -87,7 +87,7 @@
             <section><ul>
 <li>Web Developer @ <img alt="iwoca-logo" src="images/logo_iwoca.png" /></li>
 <li>Python/Django developer for 5 years</li>
-<li>Maintainer of some little django apps (<a href="https://github.com/smn/dirtyfields/">django-dirtyfields</a>, <a href="https://github.com/iwoca/django-deep-collector/">django-deep-collector</a>)</li>
+<li>Maintainer of some little django apps (<a href="https://github.com/smn/django-dirtyfields">django-dirtyfields</a>, <a href="https://github.com/iwoca/django-deep-collector/">django-deep-collector</a>)</li>
 <li>Presentation available @ <a href="https://github.com/romgar/presentations/">https://github.com/romgar/presentations/</a></li>
 </ul></section>
             
@@ -105,7 +105,7 @@
             </aside>
             
             <aside class="page_number">
-              2/14
+              2/15
             </aside>
           </footer>
         </div>
@@ -139,7 +139,7 @@
             </aside>
             
             <aside class="page_number">
-              3/14
+              3/15
             </aside>
           </footer>
         </div>
@@ -159,20 +159,20 @@
 <li>Use service layers to move business logic from views.</li>
 </ul>
 <p>This:</p>
-<div class="highlight"><pre><span class="lineno">1 </span><span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<span class="lineno">2 </span>    <span class="n">params</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span>
-<span class="lineno">3 </span>    <span class="c"># Lot of code here before returning HttpResponse</span>
-<span class="lineno">4 </span>    <span class="c"># ...</span>
-<span class="lineno">5 </span>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;This is a too big view&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="lineno">2</span>     <span class="n">params</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span>
+<span class="lineno">3</span>     <span class="c"># Lot of code here before returning HttpResponse</span>
+<span class="lineno">4</span>     <span class="c"># ...</span>
+<span class="lineno">5</span>     <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;This is a too big view&quot;</span><span class="p">)</span>
 </pre></div>
 
 <p>could be:</p>
-<div class="highlight"><pre><span class="lineno">1 </span><span class="kn">from</span> <span class="nn">my_project.services</span> <span class="kn">import</span> <span class="n">deal_with_data</span>
-<span class="lineno">2 </span>
-<span class="lineno">3 </span><span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-<span class="lineno">4 </span>    <span class="n">params</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span>
-<span class="lineno">5 </span>    <span class="n">deal_with_data</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-<span class="lineno">6 </span>    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;We have separated business from view logic&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="kn">from</span> <span class="nn">my_project.services</span> <span class="kn">import</span> <span class="n">deal_with_data</span>
+<span class="lineno">2</span> 
+<span class="lineno">3</span> <span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="lineno">4</span>     <span class="n">params</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span>
+<span class="lineno">5</span>     <span class="n">deal_with_data</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="lineno">6</span>     <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;We have separated business from view logic&quot;</span><span class="p">)</span>
 </pre></div>
 </section>
             
@@ -190,7 +190,49 @@
             </aside>
             
             <aside class="page_number">
-              4/14
+              4/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: djangocon_2015.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Testing</h1></header>
+            
+            
+            <section><p><em>(@magopian, @RaeKnowler)</em></p>
+<h2>py.test</h2>
+<ul>
+<li>Syntax more pythonic,</li>
+<li>Interesting options (launch only last failed tests)</li>
+<li>pytest-django: <em>--reuse-db</em> and <em>--create-db</em></li>
+</ul>
+<p>Added value compare to manage test:</p>
+<ul>
+<li>verbatim output when test is failing, (dict assertion will give exact missing or excess element, instead of full dict)</li>
+<li>hide all logging when test are passing by default</li>
+<li>the console output is more readable and intuitive</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="djangocon_2015.md">djangocon_2015.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/15
             </aside>
           </footer>
         </div>
@@ -201,22 +243,14 @@
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Testing</h1></header>
+            <header><h1>Testing ... 2</h1></header>
             
             
-            <section><p><em>(@magopian, @RaeKnowler)</em></p>
-<h2>py.test</h2>
-<ul>
-<li>Syntax more pythonic,</li>
-<li>Error output more explicit,</li>
-<li>Interesting options (launch only last failed tests)</li>
-<li>pytest-django: <em>--reuse-db</em> and <em>--create-db</em></li>
-</ul>
-<h2>Hypothesis</h2>
+            <section><h2>Hypothesis</h2>
 <p>Use randomised data and find edge cases for you</p>
-<div class="highlight"><pre><span class="lineno">1 </span><span class="nd">@given</span><span class="p">(</span><span class="n">floats</span><span class="p">())</span>
-<span class="lineno">2 </span><span class="k">def</span> <span class="nf">test_negation_is_self_inverse</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="lineno">3 </span>    <span class="k">assert</span> <span class="n">x</span> <span class="o">==</span> <span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="nd">@given</span><span class="p">(</span><span class="n">floats</span><span class="p">())</span>
+<span class="lineno">2</span> <span class="k">def</span> <span class="nf">test_negation_is_self_inverse</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="lineno">3</span>     <span class="k">assert</span> <span class="n">x</span> <span class="o">==</span> <span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </section>
             
@@ -234,7 +268,7 @@
             </aside>
             
             <aside class="page_number">
-              5/14
+              6/15
             </aside>
           </footer>
         </div>
@@ -251,8 +285,9 @@
             <section><p><em>(@olasitarska)</em></p>
 <ul>
 <li>Use for: small tricks to improve UI</li>
-<li><strong>Don't</strong> use for: end-users UI, big customisations</li>
 <li>Other themes: django-flat-theme, django-suit (commercial)</li>
+<li><strong>Don't</strong> use for: end-users UI, big customisations</li>
+<li><strong>Don't</strong> allow admin to do massive damage to website. (deleting critical entry, etc)</li>
 </ul>
 <p><img alt="django admin dashboard with django-flat-theme" src="images/admin_dashboard.png" /></p></section>
             
@@ -270,7 +305,7 @@
             </aside>
             
             <aside class="page_number">
-              6/14
+              7/15
             </aside>
           </footer>
         </div>
@@ -289,6 +324,7 @@
 <li>Test 12 basic security issues: <a href="https://www.ponycheckup.com/">ponycheckup.com</a></li>
 <li>Examples of Django protections:<ul>
 <li>Timing attack on password</li>
+<li>Sanity checks on choice field (can't give unexpected choice to server)</li>
 </ul>
 </li>
 <li>Check your package versions <a href="https://requires.io/">requires.io</a></li>
@@ -308,7 +344,7 @@
             </aside>
             
             <aside class="page_number">
-              7/14
+              8/15
             </aside>
           </footer>
         </div>
@@ -346,7 +382,7 @@
             </aside>
             
             <aside class="page_number">
-              8/14
+              9/15
             </aside>
           </footer>
         </div>
@@ -392,7 +428,7 @@
             </aside>
             
             <aside class="page_number">
-              9/14
+              10/15
             </aside>
           </footer>
         </div>
@@ -424,7 +460,7 @@
             </aside>
             
             <aside class="page_number">
-              10/14
+              11/15
             </aside>
           </footer>
         </div>
@@ -443,19 +479,19 @@
 <li>Improving API for lookup, transforms, expressions</li>
 </ul>
 <h2>HStoreField (PostGreSQL, Django 1.8+)</h2>
-<div class="highlight"><pre><span class="lineno">1 </span><span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-<span class="lineno">2 </span>    <span class="n">data</span> <span class="o">=</span> <span class="n">HStoreField</span><span class="p">()</span>
-<span class="lineno">3 </span>
-<span class="lineno">4 </span><span class="n">Dog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;breed&#39;</span><span class="p">:</span> <span class="s">&#39;labrador&#39;</span><span class="p">,</span> <span class="s">&#39;owner&#39;</span><span class="p">:</span> <span class="s">&#39;Bob&#39;</span><span class="p">})</span>
-<span class="lineno">5 </span><span class="n">Dog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">data__breed</span><span class="o">=</span><span class="s">&#39;collie&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno">2</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">HStoreField</span><span class="p">()</span>
+<span class="lineno">3</span> 
+<span class="lineno">4</span> <span class="n">Dog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;breed&#39;</span><span class="p">:</span> <span class="s">&#39;labrador&#39;</span><span class="p">,</span> <span class="s">&#39;owner&#39;</span><span class="p">:</span> <span class="s">&#39;Bob&#39;</span><span class="p">})</span>
+<span class="lineno">5</span> <span class="n">Dog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">data__breed</span><span class="o">=</span><span class="s">&#39;collie&#39;</span><span class="p">)</span>
 </pre></div>
 
 <h2>ArrayField (PostGreSQL, Django 1.8+)</h2>
-<div class="highlight"><pre><span class="lineno">1 </span><span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-<span class="lineno">2 </span>    <span class="n">tags</span> <span class="o">=</span> <span class="n">ArrayField</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="lineno">3 </span>
-<span class="lineno">4 </span><span class="n">Post</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;First post&#39;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;thoughts&#39;</span><span class="p">,</span> <span class="s">&#39;django&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">])</span>
-<span class="lineno">5 </span><span class="n">Post</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">tags__contains</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;django&#39;</span><span class="p">,</span> <span class="s">&#39;thoughts&#39;</span><span class="p">])</span>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno">2</span>     <span class="n">tags</span> <span class="o">=</span> <span class="n">ArrayField</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="lineno">3</span> 
+<span class="lineno">4</span> <span class="n">Post</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;First post&#39;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;thoughts&#39;</span><span class="p">,</span> <span class="s">&#39;django&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">])</span>
+<span class="lineno">5</span> <span class="n">Post</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">tags__contains</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;django&#39;</span><span class="p">,</span> <span class="s">&#39;thoughts&#39;</span><span class="p">])</span>
 </pre></div>
 </section>
             
@@ -473,7 +509,7 @@
             </aside>
             
             <aside class="page_number">
-              11/14
+              12/15
             </aside>
           </footer>
         </div>
@@ -481,7 +517,7 @@
       
       <!-- slide source: djangocon_2015.md -->
       <div class="slide-wrapper">
-        <div class="slide has_code">
+        <div class="slide">
           <div class="inner">
             
             <header><h1>Useful tools</h1></header>
@@ -490,14 +526,14 @@
             <section><h2><a href="https://github.com/AGWA/git-crypt/">git-crypt</a></h2>
 <p>Encrypt/decrypt files on GitHub</p>
 <p>Initialise your repository:</p>
-<div class="highlight"><pre><span class="lineno">1 </span>git-crypt init
-</pre></div>
-
+<pre><code>!shell
+git-crypt init
+</code></pre>
 <p>Create a <em>.gitattributes</em> file to encrypt (in this example) <em>.key</em> files</p>
-<div class="highlight"><pre><span class="lineno">1 </span>secretfile filter=git-crypt diff=git-crypt
-<span class="lineno">2 </span>*.key filter=git-crypt diff=git-crypt
-</pre></div>
-
+<pre><code>!text
+secretfile filter=git-crypt diff=git-crypt
+*.key filter=git-crypt diff=git-crypt
+</code></pre>
 <h2><a href="https://github.com/audreyr/cookiecutter">cookiecutter</a></h2>
 <p>Django project templating</p>
 <h2><a href="http://reinout.vanrees.org/weblog/2015/06/01/05-cardiff.html">CAMEL project</a></h2>
@@ -517,7 +553,7 @@
             </aside>
             
             <aside class="page_number">
-              12/14
+              13/15
             </aside>
           </footer>
         </div>
@@ -551,7 +587,7 @@
             </aside>
             
             <aside class="page_number">
-              13/14
+              14/15
             </aside>
           </footer>
         </div>
@@ -587,7 +623,7 @@
             </aside>
             
             <aside class="page_number">
-              14/14
+              15/15
             </aside>
           </footer>
         </div>
@@ -632,56 +668,62 @@
       
       
       <tr id="toc-row-6">
-        <th><a href="#slide6">Django admin</a></th>
+        <th><a href="#slide6">Testing ... 2</a></th>
         <td><a href="#slide6">6</a></td>
       </tr>
       
       
       <tr id="toc-row-7">
-        <th><a href="#slide7">Security</a></th>
+        <th><a href="#slide7">Django admin</a></th>
         <td><a href="#slide7">7</a></td>
       </tr>
       
       
       <tr id="toc-row-8">
-        <th><a href="#slide8">Rabbit hole</a></th>
+        <th><a href="#slide8">Security</a></th>
         <td><a href="#slide8">8</a></td>
       </tr>
       
       
       <tr id="toc-row-9">
-        <th><a href="#slide9">Performance issues</a></th>
+        <th><a href="#slide9">Rabbit hole</a></th>
         <td><a href="#slide9">9</a></td>
       </tr>
       
       
       <tr id="toc-row-10">
-        <th><a href="#slide10">Real-time</a></th>
+        <th><a href="#slide10">Performance issues</a></th>
         <td><a href="#slide10">10</a></td>
       </tr>
       
       
       <tr id="toc-row-11">
-        <th><a href="#slide11">ORM</a></th>
+        <th><a href="#slide11">Real-time</a></th>
         <td><a href="#slide11">11</a></td>
       </tr>
       
       
       <tr id="toc-row-12">
-        <th><a href="#slide12">Useful tools</a></th>
+        <th><a href="#slide12">ORM</a></th>
         <td><a href="#slide12">12</a></td>
       </tr>
       
       
       <tr id="toc-row-13">
-        <th><a href="#slide13"><img alt="iwoca-logo" src="images/logo_iwoca.png" /></a></th>
+        <th><a href="#slide13">Useful tools</a></th>
         <td><a href="#slide13">13</a></td>
       </tr>
       
       
       <tr id="toc-row-14">
-        <th><a href="#slide14">Conclusion</a></th>
+        <th><a href="#slide14"><img alt="iwoca-logo" src="images/logo_iwoca.png" /></a></th>
         <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Conclusion</a></th>
+        <td><a href="#slide15">15</a></td>
       </tr>
       
       
