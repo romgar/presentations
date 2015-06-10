@@ -70,7 +70,7 @@
             </aside>
             
             <aside class="page_number">
-              1/14
+              1/13
             </aside>
           </footer>
         </div>
@@ -104,7 +104,7 @@
             </aside>
             
             <aside class="page_number">
-              2/14
+              2/13
             </aside>
           </footer>
         </div>
@@ -155,7 +155,7 @@
             </aside>
             
             <aside class="page_number">
-              3/14
+              3/13
             </aside>
           </footer>
         </div>
@@ -180,42 +180,7 @@
 <li>reuse database: <em>--reuse-db</em> and <em>--create-db</em></li>
 <li>launch only last failed tests</li>
 </ul>
-<p>Added value compare to manage test:</p>
-<ul>
-<li>verbatim output when test is failing, (dict assertion will give exact missing or excess element, instead of full dict)</li>
-<li>hide all logging when test are passing by default</li>
-<li>the console output is more readable and intuitive</li>
-</ul></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="djangocon_2015.md">djangocon_2015.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              4/14
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: djangocon_2015.md -->
-      <div class="slide-wrapper">
-        <div class="slide has_code">
-          <div class="inner">
-            
-            <header><h1>Testing ... 2</h1></header>
-            
-            
-            <section><h2>Hypothesis</h2>
+<h2>Hypothesis</h2>
 <p>Use randomised data and find edge cases for you</p>
 <div class="highlight"><pre><span class="lineno">1 </span><span class="nd">@given</span><span class="p">(</span><span class="n">floats</span><span class="p">())</span>
 <span class="lineno">2 </span><span class="k">def</span> <span class="nf">test_negation_is_self_inverse</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -237,7 +202,7 @@
             </aside>
             
             <aside class="page_number">
-              5/14
+              4/13
             </aside>
           </footer>
         </div>
@@ -256,7 +221,6 @@
 <li>Use for: small tricks to improve UI</li>
 <li><strong>Don't</strong> use for: end-users UI, big customisations</li>
 <li>Other themes: django-flat-theme, django-suit (commercial)</li>
-<li><strong>Don't</strong> allow admin to do massive damage to website. (deleting critical entry, etc)</li>
 </ul>
 <p><img alt="django admin dashboard with django-flat-theme" src="images/admin_dashboard.png" /></p></section>
             
@@ -274,7 +238,7 @@
             </aside>
             
             <aside class="page_number">
-              6/14
+              5/13
             </aside>
           </footer>
         </div>
@@ -293,7 +257,6 @@
 <li>Test 12 basic security issues: <a href="https://www.ponycheckup.com/">ponycheckup.com</a></li>
 <li>Examples of Django protections:<ul>
 <li>Timing attack on password</li>
-<li>Sanity checks on choice field (can't give unexpected choice to server)</li>
 </ul>
 </li>
 <li>Check your package versions <a href="https://requires.io/">requires.io</a></li>
@@ -313,7 +276,7 @@
             </aside>
             
             <aside class="page_number">
-              7/14
+              6/13
             </aside>
           </footer>
         </div>
@@ -351,7 +314,7 @@
             </aside>
             
             <aside class="page_number">
-              8/14
+              7/13
             </aside>
           </footer>
         </div>
@@ -397,7 +360,7 @@
             </aside>
             
             <aside class="page_number">
-              9/14
+              8/13
             </aside>
           </footer>
         </div>
@@ -431,7 +394,7 @@
             </aside>
             
             <aside class="page_number">
-              10/14
+              9/13
             </aside>
           </footer>
         </div>
@@ -480,7 +443,7 @@
             </aside>
             
             <aside class="page_number">
-              11/14
+              10/13
             </aside>
           </footer>
         </div>
@@ -524,7 +487,7 @@
             </aside>
             
             <aside class="page_number">
-              12/14
+              11/13
             </aside>
           </footer>
         </div>
@@ -557,7 +520,7 @@
             </aside>
             
             <aside class="page_number">
-              13/14
+              12/13
             </aside>
           </footer>
         </div>
@@ -592,7 +555,7 @@
             </aside>
             
             <aside class="page_number">
-              14/14
+              13/13
             </aside>
           </footer>
         </div>
@@ -631,62 +594,56 @@
       
       
       <tr id="toc-row-5">
-        <th><a href="#slide5">Testing ... 2</a></th>
+        <th><a href="#slide5">Django admin</a></th>
         <td><a href="#slide5">5</a></td>
       </tr>
       
       
       <tr id="toc-row-6">
-        <th><a href="#slide6">Django admin</a></th>
+        <th><a href="#slide6">Security</a></th>
         <td><a href="#slide6">6</a></td>
       </tr>
       
       
       <tr id="toc-row-7">
-        <th><a href="#slide7">Security</a></th>
+        <th><a href="#slide7">Rabbit hole</a></th>
         <td><a href="#slide7">7</a></td>
       </tr>
       
       
       <tr id="toc-row-8">
-        <th><a href="#slide8">Rabbit hole</a></th>
+        <th><a href="#slide8">Performance issues</a></th>
         <td><a href="#slide8">8</a></td>
       </tr>
       
       
       <tr id="toc-row-9">
-        <th><a href="#slide9">Performance issues</a></th>
+        <th><a href="#slide9">Real-time</a></th>
         <td><a href="#slide9">9</a></td>
       </tr>
       
       
       <tr id="toc-row-10">
-        <th><a href="#slide10">Real-time</a></th>
+        <th><a href="#slide10">ORM</a></th>
         <td><a href="#slide10">10</a></td>
       </tr>
       
       
       <tr id="toc-row-11">
-        <th><a href="#slide11">ORM</a></th>
+        <th><a href="#slide11">Useful tools</a></th>
         <td><a href="#slide11">11</a></td>
       </tr>
       
       
       <tr id="toc-row-12">
-        <th><a href="#slide12">Useful tools</a></th>
+        <th><a href="#slide12">Iwoca</a></th>
         <td><a href="#slide12">12</a></td>
       </tr>
       
       
       <tr id="toc-row-13">
-        <th><a href="#slide13">Iwoca</a></th>
+        <th><a href="#slide13">Conclusion</a></th>
         <td><a href="#slide13">13</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-14">
-        <th><a href="#slide14">Conclusion</a></th>
-        <td><a href="#slide14">14</a></td>
       </tr>
       
       
