@@ -1,4 +1,4 @@
-# Pypi deployment in 5 minutes with GitHub and Travis CI
+# PyPI deployment in 5 minutes with GitHub + Travis CI
 
 ---
 
