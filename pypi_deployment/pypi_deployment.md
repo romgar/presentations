@@ -40,7 +40,6 @@ You only need:
 - Reusable apps tutorial @ [https://docs.djangoproject.com/en/1.8/intro/reusable-apps/](https://docs.djangoproject.com/en/1.8/intro/reusable-apps/)
 
     !python
-
     import os
     from setuptools import setup
 
@@ -76,3 +75,23 @@ You only need:
             'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         ],
     )
+
+---
+
+# Travis-CI
+
+- Continuous integration platform for GitHub project
+- Trigger scripts on every commit on every branch of your GitHub projects
+
+First step: create an account on TravisCI by linking your GitHub account
+
+![travis-landing_page][travis_landing_page]
+
+Second step: activate GitHub repositories you want to use with Travis.
+
+![github-login][github_login]
+
+
+
+[travis_landing_page]: images/travis_landing_page.png
+[github_login]: images/github_login.png
