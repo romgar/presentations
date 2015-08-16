@@ -80,18 +80,80 @@ You only need:
 
 # Travis-CI
 
-- Continuous integration platform for GitHub project
+- Continuous integration platform for GitHub project @ [https://travis-ci.org/](https://travis-ci.org/)
+
 - Trigger scripts on every commit on every branch of your GitHub projects
 
-First step: create an account on TravisCI by linking your GitHub account
+---
 
+# First step: create an account on TravisCI by linking your GitHub account
 ![travis-landing_page][travis_landing_page]
-
-Second step: activate GitHub repositories you want to use with Travis.
-
 ![github-login][github_login]
-
-
 
 [travis_landing_page]: images/travis_landing_page.png
 [github_login]: images/github_login.png
+
+---
+
+# Second step: activate GitHub repositories you want to use with Travis.
+[https://travis-ci.org/profile/romgar](https://travis-ci.org/profile/romgar)
+
+![travis-activate_repo][travis_activate_repo]
+[travis_activate_repo]: images/travis_activate_repo.png
+
+---
+
+# Create a .travis.xml file on your GitHub repository root.
+
+    !python
+    language: python
+
+    python:
+      - "2.7"
+
+    script:
+      - touch foo
+
+---
+
+# Use deploy section of travis config file
+
+    !python
+    language: python
+
+    python:
+        - "2.7"
+
+    script:
+        - touch foo
+
+    deploy:
+        provider: pypi
+        user: romgar
+        password:
+            secure: my_secure_password
+        on:
+            tags: true
+            branch: master
+
+---
+
+# Generate your secure password
+
+    !shell
+    gem install travis
+
+    travis encrypt --add deploy.password
+
+The generated password will be automatically added to your .travis.yml config file.
+
+---
+
+# Summary
+
+- Create a GitHub repository with your package, a README and a setup.py file,
+- Activate Continuous Integration of this repository on TravisCI,
+- Create a .travis.yml, with a deploy section.
+- Generate secure password.
+- Well done !!!
+- Every steps explained in details @ [5minutes.youkidea.com](http://5minutes.youkidea.com/howto-deploy-python-package-on-pypi-with-github-and-travis.html)

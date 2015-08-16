@@ -70,7 +70,7 @@
             </aside>
             
             <aside class="page_number">
-              1/5
+              1/12
             </aside>
           </footer>
         </div>
@@ -105,7 +105,7 @@
             </aside>
             
             <aside class="page_number">
-              2/5
+              2/12
             </aside>
           </footer>
         </div>
@@ -140,7 +140,7 @@
             </aside>
             
             <aside class="page_number">
-              3/5
+              3/12
             </aside>
           </footer>
         </div>
@@ -176,7 +176,7 @@
             </aside>
             
             <aside class="page_number">
-              4/5
+              4/12
             </aside>
           </footer>
         </div>
@@ -243,7 +243,263 @@ from setuptools import setup</p>
             </aside>
             
             <aside class="page_number">
-              5/5
+              5/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: pypi_deployment.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Travis-CI</h1></header>
+            
+            
+            <section><ul>
+<li>
+<p>Continuous integration platform for GitHub project @ <a href="https://travis-ci.org/">https://travis-ci.org/</a></p>
+</li>
+<li>
+<p>Trigger scripts on every commit on every branch of your GitHub projects</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="pypi_deployment.md">pypi_deployment.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: pypi_deployment.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>First step: create an account on TravisCI by linking your GitHub account</h1></header>
+            
+            
+            <section><p><img alt="travis-landing_page" src="images/travis_landing_page.png" />
+<img alt="github-login" src="images/github_login.png" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="pypi_deployment.md">pypi_deployment.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: pypi_deployment.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Second step: activate GitHub repositories you want to use with Travis.</h1></header>
+            
+            
+            <section><p><a href="https://travis-ci.org/profile/romgar">https://travis-ci.org/profile/romgar</a></p>
+<p><img alt="travis-activate_repo" src="images/travis_activate_repo.png" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="pypi_deployment.md">pypi_deployment.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: pypi_deployment.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Create a .travis.xml file on your GitHub repository root.</h1></header>
+            
+            
+            <section><div class="highlight"><pre><span class="lineno">1 </span><span class="n">language</span><span class="p">:</span> <span class="n">python</span>
+<span class="lineno">2 </span>
+<span class="lineno">3 </span><span class="n">python</span><span class="p">:</span>
+<span class="lineno">4 </span>  <span class="o">-</span> <span class="s">&quot;2.7&quot;</span>
+<span class="lineno">5 </span>
+<span class="lineno">6 </span><span class="n">script</span><span class="p">:</span>
+<span class="lineno">7 </span>  <span class="o">-</span> <span class="n">touch</span> <span class="n">foo</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="pypi_deployment.md">pypi_deployment.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: pypi_deployment.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Use deploy section of travis config file</h1></header>
+            
+            
+            <section><div class="highlight"><pre><span class="lineno"> 1 </span><span class="n">language</span><span class="p">:</span> <span class="n">python</span>
+<span class="lineno"> 2 </span>
+<span class="lineno"> 3 </span><span class="n">python</span><span class="p">:</span>
+<span class="lineno"> 4 </span>    <span class="o">-</span> <span class="s">&quot;2.7&quot;</span>
+<span class="lineno"> 5 </span>
+<span class="lineno"> 6 </span><span class="n">script</span><span class="p">:</span>
+<span class="lineno"> 7 </span>    <span class="o">-</span> <span class="n">touch</span> <span class="n">foo</span>
+<span class="lineno"> 8 </span>
+<span class="lineno"> 9 </span><span class="n">deploy</span><span class="p">:</span>
+<span class="lineno">10 </span>    <span class="n">provider</span><span class="p">:</span> <span class="n">pypi</span>
+<span class="lineno">11 </span>    <span class="n">user</span><span class="p">:</span> <span class="n">romgar</span>
+<span class="lineno">12 </span>    <span class="n">password</span><span class="p">:</span>
+<span class="lineno">13 </span>        <span class="n">secure</span><span class="p">:</span> <span class="n">my_secure_password</span>
+<span class="lineno">14 </span>    <span class="n">on</span><span class="p">:</span>
+<span class="lineno">15 </span>        <span class="n">tags</span><span class="p">:</span> <span class="n">true</span>
+<span class="lineno">16 </span>        <span class="n">branch</span><span class="p">:</span> <span class="n">master</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="pypi_deployment.md">pypi_deployment.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: pypi_deployment.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Generate your secure password</h1></header>
+            
+            
+            <section><div class="highlight"><pre><span class="lineno">1 </span>gem install travis
+<span class="lineno">2 </span>
+<span class="lineno">3 </span>travis encrypt --add deploy.password
+</pre></div>
+
+<p>The generated password will be automatically added to your .travis.yml config file.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="pypi_deployment.md">pypi_deployment.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: pypi_deployment.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Summary</h1></header>
+            
+            
+            <section><ul>
+<li>Create a GitHub repository with your package, a README and a setup.py file,</li>
+<li>Activate Continuous Integration of this repository on TravisCI,</li>
+<li>Create a .travis.yml, with a deploy section.</li>
+<li>Generate secure password.</li>
+<li>Well done !!!</li>
+<li>Every steps explained in details @ <a href="http://5minutes.youkidea.com/howto-deploy-python-package-on-pypi-with-github-and-travis.html">5minutes.youkidea.com</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="pypi_deployment.md">pypi_deployment.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/12
             </aside>
           </footer>
         </div>
@@ -284,6 +540,48 @@ from setuptools import setup</p>
       <tr id="toc-row-5">
         <th><a href="#slide5">Setup file</a></th>
         <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Travis-CI</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">First step: create an account on TravisCI by linking your GitHub account</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Second step: activate GitHub repositories you want to use with Travis.</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Create a .travis.xml file on your GitHub repository root.</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Use deploy section of travis config file</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Generate your secure password</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Summary</a></th>
+        <td><a href="#slide12">12</a></td>
       </tr>
       
       
