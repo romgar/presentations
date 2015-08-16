@@ -122,7 +122,8 @@
             <section><p>Be able to install your package with pip:</p>
 <div class="highlight"><pre><span class="lineno">1 </span><span class="nv">$ </span>pip install your_lovely_package
 </pre></div>
-</section>
+
+<p>Easily deploy a new release on PyPI, for example by pushing a tag on master branch.</p></section>
             
           </div>
           <div class="presenter_notes">
@@ -194,25 +195,22 @@
 <p>Example:</p>
 <div class="highlight"><pre><span class="lineno"> 1 </span><span class="kn">import</span> <span class="nn">os</span>
 <span class="lineno"> 2 </span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
-<span class="lineno"> 3 </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;README.md&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">readme</span><span class="p">:</span>
-<span class="lineno"> 4 </span>    <span class="n">README</span> <span class="o">=</span> <span class="n">readme</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="lineno"> 5 </span><span class="c"># allow setup.py to be run from any path</span>
-<span class="lineno"> 6 </span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">)))</span>
-<span class="lineno"> 7 </span><span class="n">setup</span><span class="p">(</span>
-<span class="lineno"> 8 </span>    <span class="n">name</span><span class="o">=</span><span class="s">&#39;your-lovely-package&#39;</span><span class="p">,</span>
-<span class="lineno"> 9 </span>    <span class="n">version</span><span class="o">=</span><span class="s">&#39;0.1&#39;</span><span class="p">,</span>
-<span class="lineno">10 </span>    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;your_lovely_package&#39;</span><span class="p">],</span>
-<span class="lineno">11 </span>    <span class="n">include_package_data</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-<span class="lineno">12 </span>    <span class="n">license</span><span class="o">=</span><span class="s">&#39;BSD License&#39;</span><span class="p">,</span>  <span class="c"># example license</span>
-<span class="lineno">13 </span>    <span class="n">description</span><span class="o">=</span><span class="s">&#39;A simple lovely package.&#39;</span><span class="p">,</span>
-<span class="lineno">14 </span>    <span class="n">long_description</span><span class="o">=</span><span class="n">README</span><span class="p">,</span>
-<span class="lineno">15 </span>    <span class="n">url</span><span class="o">=</span><span class="s">&#39;https://github.com/romgar/your-lovely-package&#39;</span><span class="p">,</span>
-<span class="lineno">16 </span>    <span class="n">author</span><span class="o">=</span><span class="s">&#39;Romain Garrigues&#39;</span><span class="p">,</span>
-<span class="lineno">17 </span>    <span class="n">author_email</span><span class="o">=</span><span class="s">&#39;romain.garrigues.cs@gmail.com&#39;</span><span class="p">,</span>
-<span class="lineno">18 </span>    <span class="n">classifiers</span><span class="o">=</span><span class="p">[</span>
-<span class="lineno">19 </span>        <span class="s">&#39;Framework :: Django&#39;</span><span class="p">,</span>
-<span class="lineno">20 </span>    <span class="p">],</span>
-<span class="lineno">21 </span><span class="p">)</span>
+<span class="lineno"> 3 </span>
+<span class="lineno"> 4 </span><span class="n">setup</span><span class="p">(</span>
+<span class="lineno"> 5 </span>    <span class="n">name</span><span class="o">=</span><span class="s">&#39;your-lovely-package&#39;</span><span class="p">,</span>
+<span class="lineno"> 6 </span>    <span class="n">version</span><span class="o">=</span><span class="s">&#39;0.1&#39;</span><span class="p">,</span>
+<span class="lineno"> 7 </span>    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;your_lovely_package&#39;</span><span class="p">],</span>
+<span class="lineno"> 8 </span>    <span class="n">include_package_data</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="lineno"> 9 </span>    <span class="n">license</span><span class="o">=</span><span class="s">&#39;BSD License&#39;</span><span class="p">,</span>  <span class="c"># example license</span>
+<span class="lineno">10 </span>    <span class="n">description</span><span class="o">=</span><span class="s">&#39;A simple lovely package.&#39;</span><span class="p">,</span>
+<span class="lineno">11 </span>    <span class="n">long_description</span><span class="o">=</span><span class="s">&#39;You could read README file and put it there&#39;</span><span class="p">,</span>
+<span class="lineno">12 </span>    <span class="n">url</span><span class="o">=</span><span class="s">&#39;https://github.com/romgar/your-lovely-package&#39;</span><span class="p">,</span>
+<span class="lineno">13 </span>    <span class="n">author</span><span class="o">=</span><span class="s">&#39;Romain Garrigues&#39;</span><span class="p">,</span>
+<span class="lineno">14 </span>    <span class="n">author_email</span><span class="o">=</span><span class="s">&#39;romain.garrigues.cs@gmail.com&#39;</span><span class="p">,</span>
+<span class="lineno">15 </span>    <span class="n">classifiers</span><span class="o">=</span><span class="p">[</span>
+<span class="lineno">16 </span>        <span class="s">&#39;Framework :: Django&#39;</span><span class="p">,</span>
+<span class="lineno">17 </span>    <span class="p">],</span>
+<span class="lineno">18 </span><span class="p">)</span>
 </pre></div>
 </section>
             
@@ -422,10 +420,12 @@
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Generate your secure password</h1></header>
+            <header><h1>GitHub: deploy section credentials</h1></header>
             
             
-            <section><div class="highlight"><pre><span class="lineno">1 </span><span class="nv">$ </span>gem install travis
+            <section><p>user: your PyPI username</p>
+<p>password: should be generated with:</p>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="nv">$ </span>gem install travis
 <span class="lineno">2 </span><span class="nv">$ </span>travis encrypt --add deploy.password
 </pre></div>
 
@@ -557,7 +557,7 @@
       
       
       <tr id="toc-row-11">
-        <th><a href="#slide11">Generate your secure password</a></th>
+        <th><a href="#slide11">GitHub: deploy section credentials</a></th>
         <td><a href="#slide11">11</a></td>
       </tr>
       

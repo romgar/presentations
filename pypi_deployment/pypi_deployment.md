@@ -20,6 +20,8 @@ Be able to install your package with pip:
     !bash
     $ pip install your_lovely_package
 
+Easily deploy a new release on PyPI, for example by pushing a tag on master branch.
+
 ---
 
 # GitHub: Your project
@@ -44,10 +46,7 @@ Example:
     !python
     import os
     from setuptools import setup
-    with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
-        README = readme.read()
-    # allow setup.py to be run from any path
-    os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+
     setup(
         name='your-lovely-package',
         version='0.1',
@@ -55,7 +54,7 @@ Example:
         include_package_data=True,
         license='BSD License',  # example license
         description='A simple lovely package.',
-        long_description=README,
+        long_description='You could read README file and put it there',
         url='https://github.com/romgar/your-lovely-package',
         author='Romain Garrigues',
         author_email='romain.garrigues.cs@gmail.com',
@@ -128,7 +127,11 @@ Create a .travis.xml file on your GitHub repository root:
 
 ---
 
-# Generate your secure password
+# GitHub: deploy section credentials
+
+user: your PyPI username
+
+password: should be generated with:
 
     !shell
     $ gem install travis
