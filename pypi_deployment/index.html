@@ -122,10 +122,7 @@
             <section><p>Be able to install your package with pip:</p>
 <div class="highlight"><pre><span class="lineno">1 </span><span class="nv">$ </span>pip install your_lovely_package
 </pre></div>
-
-<ul>
-<li>Needs to be available on PyPI</li>
-</ul></section>
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -185,39 +182,39 @@
       
       <!-- slide source: pypi_deployment.md -->
       <div class="slide-wrapper">
-        <div class="slide">
+        <div class="slide has_code">
           <div class="inner">
             
             <header><h1>GitHub: Setup file</h1></header>
             
             
             <section><ul>
-<li>
-<p>Reusable apps tutorial @ <a href="https://docs.djangoproject.com/en/1.8/intro/reusable-apps/">https://docs.djangoproject.com/en/1.8/intro/reusable-apps/</a></p>
-<p>!python
-import os
-from setuptools import setup
-with open(os.path.join(os.path.dirname(<strong>file</strong>), 'README.md')) as readme:
-    README = readme.read()</p>
-<h1>allow setup.py to be run from any path</h1>
-<p>os.chdir(os.path.normpath(os.path.join(os.path.abspath(<strong>file</strong>), os.pardir)))
-setup(
-    name='your-lovely-package',
-    version='0.1',
-    packages=['your_lovely_package'],
-    include_package_data=True,
-    license='BSD License',  # example license
-    description='A simple lovely package.',
-    long_description=README,
-    url='https://github.com/romgar/your-lovely-package',
-    author='Romain Garrigues',
-    author_email='romain.garrigues.cs@gmail.com',
-    classifiers=[
-        'Framework :: Django',
-    ],
-)</p>
-</li>
-</ul></section>
+<li>Reusable apps tutorial @ <a href="https://docs.djangoproject.com/en/1.8/intro/reusable-apps/">https://docs.djangoproject.com/en/1.8/intro/reusable-apps/</a></li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span class="lineno"> 1 </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="lineno"> 2 </span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="lineno"> 3 </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;README.md&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">readme</span><span class="p">:</span>
+<span class="lineno"> 4 </span>    <span class="n">README</span> <span class="o">=</span> <span class="n">readme</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="lineno"> 5 </span><span class="c"># allow setup.py to be run from any path</span>
+<span class="lineno"> 6 </span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">)))</span>
+<span class="lineno"> 7 </span><span class="n">setup</span><span class="p">(</span>
+<span class="lineno"> 8 </span>    <span class="n">name</span><span class="o">=</span><span class="s">&#39;your-lovely-package&#39;</span><span class="p">,</span>
+<span class="lineno"> 9 </span>    <span class="n">version</span><span class="o">=</span><span class="s">&#39;0.1&#39;</span><span class="p">,</span>
+<span class="lineno">10 </span>    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;your_lovely_package&#39;</span><span class="p">],</span>
+<span class="lineno">11 </span>    <span class="n">include_package_data</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="lineno">12 </span>    <span class="n">license</span><span class="o">=</span><span class="s">&#39;BSD License&#39;</span><span class="p">,</span>  <span class="c"># example license</span>
+<span class="lineno">13 </span>    <span class="n">description</span><span class="o">=</span><span class="s">&#39;A simple lovely package.&#39;</span><span class="p">,</span>
+<span class="lineno">14 </span>    <span class="n">long_description</span><span class="o">=</span><span class="n">README</span><span class="p">,</span>
+<span class="lineno">15 </span>    <span class="n">url</span><span class="o">=</span><span class="s">&#39;https://github.com/romgar/your-lovely-package&#39;</span><span class="p">,</span>
+<span class="lineno">16 </span>    <span class="n">author</span><span class="o">=</span><span class="s">&#39;Romain Garrigues&#39;</span><span class="p">,</span>
+<span class="lineno">17 </span>    <span class="n">author_email</span><span class="o">=</span><span class="s">&#39;romain.garrigues.cs@gmail.com&#39;</span><span class="p">,</span>
+<span class="lineno">18 </span>    <span class="n">classifiers</span><span class="o">=</span><span class="p">[</span>
+<span class="lineno">19 </span>        <span class="s">&#39;Framework :: Django&#39;</span><span class="p">,</span>
+<span class="lineno">20 </span>    <span class="p">],</span>
+<span class="lineno">21 </span><span class="p">)</span>
+</pre></div>
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -244,17 +241,14 @@ setup(
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Travis-CI</h1></header>
+            <header><h1>Travis-CI : Create an account</h1></header>
             
             
             <section><ul>
-<li>
-<p>Continuous integration platform for GitHub project @ <a href="https://travis-ci.org/">https://travis-ci.org/</a></p>
-</li>
-<li>
-<p>Trigger scripts on every commit on every branch of your GitHub projects</p>
-</li>
-</ul></section>
+<li>Continuous integration platform for GitHub projects @ <a href="https://travis-ci.org/">https://travis-ci.org/</a></li>
+<li>Trigger scripts on every commit on every branch of your GitHub projects</li>
+</ul>
+<p><img alt="travis-landing_page" src="images/travis_landing_page.png" /></p></section>
             
           </div>
           <div class="presenter_notes">
@@ -281,11 +275,10 @@ setup(
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Travis-CI: Create an account</h1></header>
+            <header><h1>Travis-CI: Link GitHub account</h1></header>
             
             
-            <section><p><img alt="travis-landing_page" src="images/travis_landing_page.png" />
-<img alt="github-login" src="images/github_login.png" /></p></section>
+            <section><p><img alt="github-login" src="images/github_login.png" /></p></section>
             
           </div>
           <div class="presenter_notes">
@@ -340,23 +333,22 @@ setup(
       
       <!-- slide source: pypi_deployment.md -->
       <div class="slide-wrapper">
-        <div class="slide">
+        <div class="slide has_code">
           <div class="inner">
             
             <header><h1>GitHub: configure travis</h1></header>
             
             
-            <section><ul>
-<li>
-<p>Create a .travis.xml file on your GitHub repository root.</p>
-<p>!python
-language: python</p>
-<p>python:
-  - "2.7"</p>
-<p>script:
-  - touch foo</p>
-</li>
-</ul></section>
+            <section><p>Create a .travis.xml file on your GitHub repository root:</p>
+<div class="highlight"><pre><span class="lineno">1 </span>language: python
+<span class="lineno">2 </span>
+<span class="lineno">3 </span>python:
+<span class="lineno">4 </span>  - <span class="s2">&quot;2.7&quot;</span>
+<span class="lineno">5 </span>
+<span class="lineno">6 </span>script:
+<span class="lineno">7 </span>  - touch foo
+</pre></div>
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -386,22 +378,22 @@ language: python</p>
             <header><h1>GitHub: deploy section in travis config file</h1></header>
             
             
-            <section><div class="highlight"><pre><span class="lineno"> 1 </span><span class="n">language</span><span class="p">:</span> <span class="n">python</span>
+            <section><div class="highlight"><pre><span class="lineno"> 1 </span>language: python
 <span class="lineno"> 2 </span>
-<span class="lineno"> 3 </span><span class="n">python</span><span class="p">:</span>
-<span class="lineno"> 4 </span>    <span class="o">-</span> <span class="s">&quot;2.7&quot;</span>
+<span class="lineno"> 3 </span>python:
+<span class="lineno"> 4 </span>    - <span class="s2">&quot;2.7&quot;</span>
 <span class="lineno"> 5 </span>
-<span class="lineno"> 6 </span><span class="n">script</span><span class="p">:</span>
-<span class="lineno"> 7 </span>    <span class="o">-</span> <span class="n">touch</span> <span class="n">foo</span>
+<span class="lineno"> 6 </span>script:
+<span class="lineno"> 7 </span>    - touch foo
 <span class="lineno"> 8 </span>
-<span class="lineno"> 9 </span><span class="n">deploy</span><span class="p">:</span>
-<span class="lineno">10 </span>    <span class="n">provider</span><span class="p">:</span> <span class="n">pypi</span>
-<span class="lineno">11 </span>    <span class="n">user</span><span class="p">:</span> <span class="n">romgar</span>
-<span class="lineno">12 </span>    <span class="n">password</span><span class="p">:</span>
-<span class="lineno">13 </span>        <span class="n">secure</span><span class="p">:</span> <span class="n">my_secure_password</span>
-<span class="lineno">14 </span>    <span class="n">on</span><span class="p">:</span>
-<span class="lineno">15 </span>        <span class="n">tags</span><span class="p">:</span> <span class="n">true</span>
-<span class="lineno">16 </span>        <span class="n">branch</span><span class="p">:</span> <span class="n">master</span>
+<span class="lineno"> 9 </span>deploy:
+<span class="lineno">10 </span>    provider: pypi
+<span class="lineno">11 </span>    user: romgar
+<span class="lineno">12 </span>    password:
+<span class="lineno">13 </span>        secure: my_secure_password
+<span class="lineno">14 </span>    on:
+<span class="lineno">15 </span>        tags: <span class="nb">true</span>
+<span class="lineno">16 </span><span class="nb">        </span>branch: master
 </pre></div>
 </section>
             
@@ -473,7 +465,7 @@ language: python</p>
 <li>Create a .travis.yml, with a deploy section.</li>
 <li>Generate secure password.</li>
 <li>Well done !!!</li>
-<li>Every steps explained in details @ <a href="http://5minutes.youkidea.com/howto-deploy-python-package-on-pypi-with-github-and-travis.html">5minutes.youkidea.com</a></li>
+<li>Every step explained in details @ <a href="http://5minutes.youkidea.com/howto-deploy-python-package-on-pypi-with-github-and-travis.html">5minutes.youkidea.com</a></li>
 </ul></section>
             
           </div>
@@ -535,13 +527,13 @@ language: python</p>
       
       
       <tr id="toc-row-6">
-        <th><a href="#slide6">Travis-CI</a></th>
+        <th><a href="#slide6">Travis-CI : Create an account</a></th>
         <td><a href="#slide6">6</a></td>
       </tr>
       
       
       <tr id="toc-row-7">
-        <th><a href="#slide7">Travis-CI: Create an account</a></th>
+        <th><a href="#slide7">Travis-CI: Link GitHub account</a></th>
         <td><a href="#slide7">7</a></td>
       </tr>
       

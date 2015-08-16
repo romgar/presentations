@@ -20,8 +20,6 @@ Be able to install your package with pip:
     !bash
     $ pip install your_lovely_package
 
-- Needs to be available on PyPI
-
 ---
 
 # GitHub: Your project
@@ -40,6 +38,8 @@ You only need:
 # GitHub: Setup file
 
 - Reusable apps tutorial @ [https://docs.djangoproject.com/en/1.8/intro/reusable-apps/](https://docs.djangoproject.com/en/1.8/intro/reusable-apps/)
+
+Example:
 
     !python
     import os
@@ -66,20 +66,19 @@ You only need:
 
 ---
 
-# Travis-CI
+# Travis-CI : Create an account
 
-- Continuous integration platform for GitHub project @ [https://travis-ci.org/](https://travis-ci.org/)
-
+- Continuous integration platform for GitHub projects @ [https://travis-ci.org/](https://travis-ci.org/)
 - Trigger scripts on every commit on every branch of your GitHub projects
+
+![travis-landing_page][travis_landing_page]
+[travis_landing_page]: images/travis_landing_page.png
 
 ---
 
-# Travis-CI: Create an account
+# Travis-CI: Link GitHub account
 
-![travis-landing_page][travis_landing_page]
 ![github-login][github_login]
-
-[travis_landing_page]: images/travis_landing_page.png
 [github_login]: images/github_login.png
 
 ---
@@ -94,9 +93,9 @@ You only need:
 
 # GitHub: configure travis
 
-- Create a .travis.xml file on your GitHub repository root.
+Create a .travis.xml file on your GitHub repository root:
 
-    !python
+    !shell
     language: python
 
     python:
@@ -109,7 +108,7 @@ You only need:
 
 # GitHub: deploy section in travis config file
 
-    !python
+    !shell
     language: python
 
     python:
@@ -146,4 +145,4 @@ The generated password will be automatically added to your .travis.yml config fi
 - Create a .travis.yml, with a deploy section.
 - Generate secure password.
 - Well done !!!
-- Every steps explained in details @ [5minutes.youkidea.com](http://5minutes.youkidea.com/howto-deploy-python-package-on-pypi-with-github-and-travis.html)
+- Every step explained in details @ [5minutes.youkidea.com](http://5minutes.youkidea.com/howto-deploy-python-package-on-pypi-with-github-and-travis.html)
