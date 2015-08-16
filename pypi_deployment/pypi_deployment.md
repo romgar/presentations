@@ -15,14 +15,16 @@
 
 # The goal
 
-    !python
+Be able to install your package with pip:
+
+    !bash
     $ pip install your_lovely_package
 
 - Needs to be available on PyPI
 
 ---
 
-# Your project on GitHub
+# GitHub: Your project
 
 ![github-defaultproject][default_structure]
 [default_structure]: images/default_structure.png
@@ -35,20 +37,17 @@ You only need:
 
 ---
 
-# Setup file
+# GitHub: Setup file
 
 - Reusable apps tutorial @ [https://docs.djangoproject.com/en/1.8/intro/reusable-apps/](https://docs.djangoproject.com/en/1.8/intro/reusable-apps/)
 
     !python
     import os
     from setuptools import setup
-
     with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
         README = readme.read()
-
     # allow setup.py to be run from any path
     os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
-
     setup(
         name='your-lovely-package',
         version='0.1',
@@ -61,18 +60,7 @@ You only need:
         author='Romain Garrigues',
         author_email='romain.garrigues.cs@gmail.com',
         classifiers=[
-            'Environment :: Web Environment',
             'Framework :: Django',
-            'Intended Audience :: Developers',
-            'License :: OSI Approved :: BSD License', # example license
-            'Operating System :: OS Independent',
-            'Programming Language :: Python',
-            # Replace these appropriately if you are stuck on Python 2.
-            'Programming Language :: Python :: 3',
-            'Programming Language :: Python :: 3.2',
-            'Programming Language :: Python :: 3.3',
-            'Topic :: Internet :: WWW/HTTP',
-            'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         ],
     )
 
@@ -86,7 +74,8 @@ You only need:
 
 ---
 
-# First step: create an account on TravisCI by linking your GitHub account
+# Travis-CI: Create an account
+
 ![travis-landing_page][travis_landing_page]
 ![github-login][github_login]
 
@@ -95,7 +84,7 @@ You only need:
 
 ---
 
-# Second step: activate GitHub repositories you want to use with Travis.
+# Travis-CI: Activate GitHub repositories
 [https://travis-ci.org/profile/romgar](https://travis-ci.org/profile/romgar)
 
 ![travis-activate_repo][travis_activate_repo]
@@ -103,7 +92,9 @@ You only need:
 
 ---
 
-# Create a .travis.xml file on your GitHub repository root.
+# GitHub: configure travis
+
+- Create a .travis.xml file on your GitHub repository root.
 
     !python
     language: python
@@ -116,7 +107,7 @@ You only need:
 
 ---
 
-# Use deploy section of travis config file
+# GitHub: deploy section in travis config file
 
     !python
     language: python
@@ -141,9 +132,8 @@ You only need:
 # Generate your secure password
 
     !shell
-    gem install travis
-
-    travis encrypt --add deploy.password
+    $ gem install travis
+    $ travis encrypt --add deploy.password
 
 The generated password will be automatically added to your .travis.yml config file.
 
