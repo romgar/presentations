@@ -56,9 +56,18 @@ could be:
 ## py.test
 
 - Syntax more pythonic,
-- Error output more explicit,
 - Interesting options (launch only last failed tests)
 - pytest-django: *--reuse-db* and *--create-db*
+
+Added value compare to manage test:
+
+- verbatim output when test is failing, (dict assertion will give exact missing or excess element, instead of full dict)
+- hide all logging when test are passing by default
+- the console output is more readable and intuitive
+
+---
+
+# Testing ... 2
 
 ## Hypothesis
 
@@ -76,8 +85,9 @@ Use randomised data and find edge cases for you
 *(@olasitarska)*
 
 - Use for: small tricks to improve UI
-- **Don't** use for: end-users UI, big customisations
 - Other themes: django-flat-theme, django-suit (commercial)
+- **Don't** use for: end-users UI, big customisations
+- **Don't** allow admin to do massive damage to website. (deleting critical entry, etc)
 
 ![django admin dashboard with django-flat-theme][admin_dashboard]
 
@@ -92,6 +102,7 @@ Use randomised data and find edge cases for you
 - Test 12 basic security issues: [ponycheckup.com](https://www.ponycheckup.com/)
 - Examples of Django protections:
     * Timing attack on password
+    * Sanity checks on choice field (can't give unexpected choice to server)
 - Check your package versions [requires.io](https://requires.io/)
 
 ---
