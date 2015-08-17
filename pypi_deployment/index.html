@@ -239,7 +239,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Travis-CI : Create an account</h1></header>
+            <header><h1>Travis CI : Create an account</h1></header>
             
             
             <section><ul>
@@ -273,7 +273,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Travis-CI: Link GitHub account</h1></header>
+            <header><h1>Travis CI: Link GitHub account</h1></header>
             
             
             <section><p><img alt="github-login" src="images/github_login.png" /></p></section>
@@ -303,7 +303,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Travis-CI: Activate GitHub repositories</h1></header>
+            <header><h1>Travis CI: Activate GitHub repositories</h1></header>
             
             
             <section><p><a href="https://travis-ci.org/profile/romgar">https://travis-ci.org/profile/romgar</a></p>
@@ -373,7 +373,7 @@
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>GitHub: deploy section in travis config file</h1></header>
+            <header><h1>GitHub: deploy section in Travis CI config file</h1></header>
             
             
             <section><div class="highlight"><pre><span class="lineno"> 1 </span>language: python
@@ -386,8 +386,8 @@
 <span class="lineno"> 8 </span>
 <span class="lineno"> 9 </span>deploy:
 <span class="lineno">10 </span>    provider: pypi
-<span class="lineno">11 </span>    user: romgar
-<span class="lineno">12 </span>    password:
+<span class="lineno">11 </span>    user: romgar   &lt;--- your PyPI username
+<span class="lineno">12 </span>    password:      &lt;--- should be generated
 <span class="lineno">13 </span>        secure: my_secure_password
 <span class="lineno">14 </span>    on:
 <span class="lineno">15 </span>        tags: <span class="nb">true</span>
@@ -423,9 +423,7 @@
             <header><h1>GitHub: deploy section credentials</h1></header>
             
             
-            <section><p>user: your PyPI username</p>
-<p>password: should be generated with:</p>
-<div class="highlight"><pre><span class="lineno">1 </span><span class="nv">$ </span>gem install travis
+            <section><div class="highlight"><pre><span class="lineno">1 </span><span class="nv">$ </span>gem install travis
 <span class="lineno">2 </span><span class="nv">$ </span>travis encrypt --add deploy.password
 </pre></div>
 
@@ -461,7 +459,7 @@
             
             <section><ul>
 <li>Create a GitHub repository with your package, a README and a setup.py file,</li>
-<li>Activate Continuous Integration of this repository on TravisCI,</li>
+<li>Activate Continuous Integration of this repository on Travis CI,</li>
 <li>Create a .travis.yml, with a deploy section.</li>
 <li>Generate secure password.</li>
 <li>Well done !!!</li>
@@ -527,19 +525,19 @@
       
       
       <tr id="toc-row-6">
-        <th><a href="#slide6">Travis-CI : Create an account</a></th>
+        <th><a href="#slide6">Travis CI : Create an account</a></th>
         <td><a href="#slide6">6</a></td>
       </tr>
       
       
       <tr id="toc-row-7">
-        <th><a href="#slide7">Travis-CI: Link GitHub account</a></th>
+        <th><a href="#slide7">Travis CI: Link GitHub account</a></th>
         <td><a href="#slide7">7</a></td>
       </tr>
       
       
       <tr id="toc-row-8">
-        <th><a href="#slide8">Travis-CI: Activate GitHub repositories</a></th>
+        <th><a href="#slide8">Travis CI: Activate GitHub repositories</a></th>
         <td><a href="#slide8">8</a></td>
       </tr>
       
@@ -551,7 +549,7 @@
       
       
       <tr id="toc-row-10">
-        <th><a href="#slide10">GitHub: deploy section in travis config file</a></th>
+        <th><a href="#slide10">GitHub: deploy section in Travis CI config file</a></th>
         <td><a href="#slide10">10</a></td>
       </tr>
       

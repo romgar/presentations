@@ -65,7 +65,7 @@ Example:
 
 ---
 
-# Travis-CI : Create an account
+# Travis CI : Create an account
 
 - Continuous integration platform for GitHub projects @ [https://travis-ci.org/](https://travis-ci.org/)
 - Trigger scripts on every commit on every branch of your GitHub projects
@@ -75,14 +75,14 @@ Example:
 
 ---
 
-# Travis-CI: Link GitHub account
+# Travis CI: Link GitHub account
 
 ![github-login][github_login]
 [github_login]: images/github_login.png
 
 ---
 
-# Travis-CI: Activate GitHub repositories
+# Travis CI: Activate GitHub repositories
 [https://travis-ci.org/profile/romgar](https://travis-ci.org/profile/romgar)
 
 ![travis-activate_repo][travis_activate_repo]
@@ -105,7 +105,7 @@ Create a .travis.xml file on your GitHub repository root:
 
 ---
 
-# GitHub: deploy section in travis config file
+# GitHub: deploy section in Travis CI config file
 
     !shell
     language: python
@@ -118,8 +118,8 @@ Create a .travis.xml file on your GitHub repository root:
 
     deploy:
         provider: pypi
-        user: romgar
-        password:
+        user: romgar   <--- your PyPI username
+        password:      <--- should be generated
             secure: my_secure_password
         on:
             tags: true
@@ -128,10 +128,6 @@ Create a .travis.xml file on your GitHub repository root:
 ---
 
 # GitHub: deploy section credentials
-
-user: your PyPI username
-
-password: should be generated with:
 
     !shell
     $ gem install travis
@@ -144,7 +140,7 @@ The generated password will be automatically added to your .travis.yml config fi
 # Summary
 
 - Create a GitHub repository with your package, a README and a setup.py file,
-- Activate Continuous Integration of this repository on TravisCI,
+- Activate Continuous Integration of this repository on Travis CI,
 - Create a .travis.yml, with a deploy section.
 - Generate secure password.
 - Well done !!!
