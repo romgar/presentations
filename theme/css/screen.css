@@ -572,3 +572,8 @@ img[alt=iwoca-logo] {
   width: 120px;
   display: inline-block;
 }
+
+/** PyPI deployment custom one **/
+h1 img[alt=github-logo], h1 img[alt=travis-logo] {
+  display: inline-block;
+}
