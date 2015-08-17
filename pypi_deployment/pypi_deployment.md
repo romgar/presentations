@@ -18,12 +18,12 @@
 
 # The goal
 
-Be able to install your package with pip:
+x Be able to install your_lovely_package with pip
 
     !bash
     $ pip install your_lovely_package
 
-Easily deploy a new release on PyPI, for example by pushing a tag on master branch.
+x Easily deploy a new release on PyPI, for example by pushing a tag on master branch.
 
 ---
 
@@ -95,7 +95,7 @@ Example:
 
 # GitHub: configure travis
 
-Create a .travis.xml file on your GitHub repository root:
+Create a *.travis.yml* file on your GitHub repository root:
 
     !shell
     language: python
@@ -108,7 +108,7 @@ Create a .travis.xml file on your GitHub repository root:
 
 ---
 
-# GitHub: deploy section in Travis CI config file
+# GitHub: deploy section in Travis CI config
 
     !shell
     language: python
@@ -122,8 +122,8 @@ Create a .travis.xml file on your GitHub repository root:
     deploy:
         provider: pypi
         user: romgar   <--- your PyPI username
-        password:      <--- should be generated
-            secure: my_secure_password
+        password:
+            secure: my_secure_password <--- to be generated
         on:
             tags: true
             branch: master
@@ -136,7 +136,7 @@ Create a .travis.xml file on your GitHub repository root:
     $ gem install travis
     $ travis encrypt --add deploy.password
 
-The generated password will be automatically added to your .travis.yml config file.
+The generated password will be automatically added to your *.travis.yml* config file.
 
 ---
 
@@ -144,7 +144,8 @@ The generated password will be automatically added to your .travis.yml config fi
 
 - Create a GitHub repository with your package, a README and a setup.py file,
 - Activate Continuous Integration of this repository on Travis CI,
-- Create a .travis.yml, with a deploy section.
-- Generate secure password.
+- Create a *.travis.yml*, with a deploy section,
+- Generate secure password,
+- Push files, and deploy it automatically on PyPI depending on conditions,
 - Well done !!!
 - Every step explained in details @ [5minutes.youkidea.com](http://5minutes.youkidea.com/howto-deploy-python-package-on-pypi-with-github-and-travis.html)

@@ -119,11 +119,11 @@
             <header><h1>The goal</h1></header>
             
             
-            <section><p>Be able to install your package with pip:</p>
+            <section><p>x Be able to install your_lovely_package with pip</p>
 <div class="highlight"><pre><span class="lineno">1 </span><span class="nv">$ </span>pip install your_lovely_package
 </pre></div>
 
-<p>Easily deploy a new release on PyPI, for example by pushing a tag on master branch.</p></section>
+<p>x Easily deploy a new release on PyPI, for example by pushing a tag on master branch.</p></section>
             
           </div>
           <div class="presenter_notes">
@@ -337,7 +337,7 @@
             <header><h1>GitHub: configure travis</h1></header>
             
             
-            <section><p>Create a .travis.xml file on your GitHub repository root:</p>
+            <section><p>Create a <em>.travis.yml</em> file on your GitHub repository root:</p>
 <div class="highlight"><pre><span class="lineno">1 </span>language: python
 <span class="lineno">2 </span>
 <span class="lineno">3 </span>python:
@@ -373,7 +373,7 @@
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>GitHub: deploy section in Travis CI config file</h1></header>
+            <header><h1>GitHub: deploy section in Travis CI config</h1></header>
             
             
             <section><div class="highlight"><pre><span class="lineno"> 1 </span>language: python
@@ -387,8 +387,8 @@
 <span class="lineno"> 9 </span>deploy:
 <span class="lineno">10 </span>    provider: pypi
 <span class="lineno">11 </span>    user: romgar   &lt;--- your PyPI username
-<span class="lineno">12 </span>    password:      &lt;--- should be generated
-<span class="lineno">13 </span>        secure: my_secure_password
+<span class="lineno">12 </span>    password:
+<span class="lineno">13 </span>        secure: my_secure_password &lt;--- to be generated
 <span class="lineno">14 </span>    on:
 <span class="lineno">15 </span>        tags: <span class="nb">true</span>
 <span class="lineno">16 </span><span class="nb">        </span>branch: master
@@ -427,7 +427,7 @@
 <span class="lineno">2 </span><span class="nv">$ </span>travis encrypt --add deploy.password
 </pre></div>
 
-<p>The generated password will be automatically added to your .travis.yml config file.</p></section>
+<p>The generated password will be automatically added to your <em>.travis.yml</em> config file.</p></section>
             
           </div>
           <div class="presenter_notes">
@@ -460,8 +460,9 @@
             <section><ul>
 <li>Create a GitHub repository with your package, a README and a setup.py file,</li>
 <li>Activate Continuous Integration of this repository on Travis CI,</li>
-<li>Create a .travis.yml, with a deploy section.</li>
-<li>Generate secure password.</li>
+<li>Create a <em>.travis.yml</em>, with a deploy section,</li>
+<li>Generate secure password,</li>
+<li>Push files, and deploy it automatically on PyPI depending on conditions,</li>
 <li>Well done !!!</li>
 <li>Every step explained in details @ <a href="http://5minutes.youkidea.com/howto-deploy-python-package-on-pypi-with-github-and-travis.html">5minutes.youkidea.com</a></li>
 </ul></section>
@@ -549,7 +550,7 @@
       
       
       <tr id="toc-row-10">
-        <th><a href="#slide10">GitHub: deploy section in Travis CI config file</a></th>
+        <th><a href="#slide10">GitHub: deploy section in Travis CI config</a></th>
         <td><a href="#slide10">10</a></td>
       </tr>
       
