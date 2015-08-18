@@ -5,6 +5,8 @@ Why we need to use (and reuse) factory_boy => [presentation](http://romgar.githu
 
 DjangoCon2015 lightning recap => [presentation](http://romgar.github.io/presentations/djangocon_2015)
 
+How to deploy a python package on PyPI in 5 minutes with GitHub + Travis CI => [presentation](http://romgar.github.io/presentations/pypi_deployment)
+
 
 Generate a presentation with landslide
 ======================================
