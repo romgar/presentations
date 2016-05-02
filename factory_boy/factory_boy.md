@@ -225,16 +225,88 @@ Less infos, and you focus on what is really important for your test.
 
 ---
 
-# factory_boy extras
+# Django relations (TODO)
 
-factory_boy can manage Django model relationships
+ForeignKey
 
-- ForeignKey
-- ManyToMany
-- ManyToMany with intermediary table
-- GenericForeignKey
+    class BookFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Book
+
+        author = factory.SubFactory(AuthorFactory)
+
+---
+
+# Django relations (TODO)
+
+OneToOne
+
+    class BookFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Book
+
+        author = factory.SubFactory(AuthorFactory)
+
+---
+
+# Django relations (TODO)
+
+ManyToMany
+
+    class BookFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Book
+
+        author = factory.SubFactory(AuthorFactory)
+
+---
+
+# Django relations (TODO)
+
+ManyToMany with intermediary table
+
+    class BookFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Book
+
+        author = factory.SubFactory(AuthorFactory)
+
+---
+
+# Django relations (TODO)
+
+GenericForeignKey
+
+    class BookFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Book
+
+        author = factory.SubFactory(AuthorFactory)
+
+---
+
+Data generation
 
 **factory.fuzzy** module, to generate random datas for some defined types : string,
  integer, float, decimal, date, datetime, choiceField, ...
 
-**@post_generation** decorator to add some logic after factory object creation
+**faker**
+
+---
+
+Data generation on already existing data
+
+django_get_or_create
+
+---
+
+Not-so-great ideas
+
+Create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWithAuthorAndAddressFactory.
+-> better to create utils functions
+-> nice to initialise some states easily
+
+Only set mandatory fields:
+
+If field not defined on factory instantiation, neither in factory definition, then it will take model default value.
+Always better to set data if default is not wanted than unset in tests.
