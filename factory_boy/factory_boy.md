@@ -311,6 +311,20 @@ django_get_or_create
 
 ---
 
+Where should your factories live ?
+
+    .
+    +-- manage.py
+    +-- settings
+    +-- your_app
+    |   +-- admin.py
+    |   +-- factories.py  <---
+    |   +-- models.py
+    |   +-- urls.py
+    |   +-- views.py
+
+---
+
 Not-so-great ideas
 
 Create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWithAuthorAndAddressFactory.
