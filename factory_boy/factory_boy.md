@@ -253,11 +253,22 @@ OneToOne
 
 ManyToMany
 
-    class BookFactory(factory.django.DjangoModelFactory):
+    class Author(models.Model):
+        books = models.ManyToManyField(Book)
+
+    class AuthorFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Book
 
-        author = factory.SubFactory(AuthorFactory)
+    @factory.post_generation
+    def add_books_to_author(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            for book in extracted:
+                self.books.add(book)
+
+    AuthorFactory.create(add_books_to_author=[book1, book2, book3])
 
 ---
 
