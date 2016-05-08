@@ -334,9 +334,7 @@ Similar to ForeignKey
 
 ---
 
-# Django relations (TODO)
-
-ManyToMany with intermediary table
+# Django relations: ManyToManyField through
 
     class BookFactory(factory.django.DjangoModelFactory):
         class Meta:
@@ -358,32 +356,37 @@ GenericForeignKey
 
 ---
 
-Data generation
+Tips: fancy data generation
 
-**factory.fuzzy** module, to generate random datas for some defined types : string,
- integer, float, decimal, date, datetime, choiceField, ...
+factory.fuzzy module to generate random datas for some defined types:
 
-**faker**
+    class SomethingFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Something
+        random_int = factory.fuzzy.FuzzyInteger(30, 99)
+        randow_values_from_list = factory.fuzzy.FuzzyChoice(['Low', 'Medium', 'High'])
+        [...]
+
 
 ---
 
-Data generation on already existing data
+Tips: "real" data generation
+
+Faker python module can be used to generate "real" data
+
+    class AuthorFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Author
+        name = factory.LazyAttribute(lambda x: faker.name())
+        phone_number = factory.LazyAttribute(lambda x: faker.phone_number())
+
+Faker can generate addresses, datetimes, ...
+
+---
+
+Tips: data generation on already existing data
 
 django_get_or_create
-
----
-
-Where should your factories live ?
-
-    .
-    +-- manage.py
-    +-- settings
-    +-- your_app
-    |   +-- admin.py
-    |   +-- factories.py  <---
-    |   +-- models.py
-    |   +-- urls.py
-    |   +-- views.py
 
 ---
 
