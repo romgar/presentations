@@ -301,17 +301,18 @@ Less infos, and you focus on what is really important for your test.
 
 Similar to ForeignKey
 
+    !python
+    class Book(models.Model):
+        author = models.OneToOneField(Author)
+
     class BookFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Book
-
         author = factory.SubFactory(AuthorFactory)
 
 ---
 
-# Django relations (TODO)
-
-ManyToMany
+# Django relations: ManyToManyField
 
     class Author(models.Model):
         books = models.ManyToManyField(Book)
@@ -320,14 +321,15 @@ ManyToMany
         class Meta:
             model = Book
 
-    @factory.post_generation
-    def add_books_to_author(self, create, extracted, **kwargs):
-        if not create:
-            return
-        if extracted:
-            for book in extracted:
-                self.books.add(book)
+        @factory.post_generation
+        def add_books_to_author(self, create, extracted, **kwargs):
+            if not create:
+                return
+            if extracted:
+                for book in extracted:
+                    self.books.add(book)
 
+    # In a test
     AuthorFactory.create(add_books_to_author=[book1, book2, book3])
 
 ---
