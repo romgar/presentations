@@ -2,6 +2,61 @@
 
 ---
 
+Current problem
+
+How to create a complex context (objects in database) in tests ?
+We would like to do something like:
+
+    MyCentralComplexObject.create()
+
+
+---
+
+How to switch to factory_boy ?
+
+- Not switch directly all your tests
+- Begin to create new factories on your new tests, in a separate file for example:
+
+    .
+    +-- manage.py
+    +-- settings
+    +-- your_app
+    |   +-- admin.py
+    |   +-- factories.py  <---
+    |   +-- models.py
+    |   +-- urls.py
+    |   +-- views.py
+
+- When you modify/fix/add tests in an app, update them with factories instead of direct orm calls.
+
+---
+
+Different initialisation steps
+
+By priority:
+
+- On factory instanciation:
+
+    MyFactory.create(my_field='foo')
+
+- if not defined, on factory definition:
+
+    MyFactory.create()
+
+    class MyFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = MyFactory
+    my_field = factory.Sequence(lambda n: u'author#%s' % n)
+
+- If not defined, on Django models definition:
+
+    MyFactory.create()
+
+    class MyFactory(models.Model):
+        my_field = models.CharField(max_length=255, default='bar')
+
+---
+
 # Overview
 
 Why factory_boy ?
@@ -11,6 +66,8 @@ Why factory_boy ?
 - Tests are more readable
 
 ---
+
+
 
 # Simplify nested object creation
 
@@ -331,7 +388,16 @@ Create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWit
 -> better to create utils functions
 -> nice to initialise some states easily
 
+Use it for non-test purposes: be really careful on random generated fields (!).
+
 Only set mandatory fields:
 
 If field not defined on factory instantiation, neither in factory definition, then it will take model default value.
 Always better to set data if default is not wanted than unset in tests.
+
+---
+
+Other fancy stuff:
+
+- Bulk creation
+- Attributes defined from other attributes / other factories
