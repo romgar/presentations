@@ -52,6 +52,7 @@ Why factory_boy ?
 
 # Use it
 
+    !python
     class TestObjectCreation(TestCase):
 
         def test_without_factory_boy(self):
@@ -59,15 +60,15 @@ Why factory_boy ?
             self.assertEquals(author.name, 'George RR Martin')
 
         def test_with_factory_boy(self):
-            author = AuthorFactory.create(name='George RR Martin')
+            author = AuthorFactory(name='George RR Martin')
             self.assertEquals(author.name, 'George RR Martin')
 
         def test_with_factory_boy_auto_creation(self):
-            author = AuthorFactory.create()
+            author = AuthorFactory()
             self.assertEquals(author.name, 'name#1')
 
-        def test_with_factory_boy_auto_creation_on_factory_undefined_field(self):
-            author = AuthorFactory.create()
+        def test_with_factory_boy_auto_creation_and_undefined_field(self):
+            author = AuthorFactory()
             self.assertEquals(author.name2, 'we_dont_care')
 
 ---
@@ -90,7 +91,7 @@ Why factory_boy ?
             Book.objects.create(author=author, title="Game of Scones")
 
         def test_with_factory_boy(self):
-            BookFactory.create()            
+            BookFactory()
 
 ---
 
@@ -142,9 +143,10 @@ Specify nested objects values
             Book.objects.create(author=author, title="Game of Scones")
 
         def test_with_factory_boy(self):
-            BookFactory.create(
+            BookFactory(
                 title="Game of Scones",
-                author__name="George RR Martin")
+                author__name="George RR Martin"
+            )
 
 ---
 
@@ -273,9 +275,10 @@ Less infos, and you focus on what is really important for your test.
     class TestBookAuthorFavoriteCereals(TestCase):
 
         def test_with_factory_boy(self):
-            BookFactory.create(
+            BookFactory(
                 category="cooking",
-                author__favorite_breakfast_cereals="Honey smacks")
+                author__favorite_breakfast_cereals="Honey smacks"
+            )
 
             query = Book.objects.filter(
                 category="cooking",
@@ -331,7 +334,7 @@ Similar to ForeignKey
                     self.books.add(book)
 
     # In a test
-    AuthorFactory.create(add_books_to_author=[book1, book2, book3])
+    AuthorFactory(add_books_to_author=[book1, book2, book3])
 
     Also possible to manage m2m with intermediary tables, GenericForeignKeys, ...
 
@@ -379,7 +382,7 @@ Tips: data generation conflicts
 
         def test_author(self):
             # IntegrityError because the factory will try to create an author with name='author#1'
-            AuthorFactory.create()
+            AuthorFactory()
 
 ---
 
@@ -399,7 +402,7 @@ Use django_get_or_create
 
         def test_author(self):
             # No more IntegrityError
-            AuthorFactory.create()
+            AuthorFactory()
 
             self.assertEquals(Author.objects.filter(name='author#1).count(), 1)
 
