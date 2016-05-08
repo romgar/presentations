@@ -344,6 +344,7 @@ Extra: fancy data generation
 
 factory.fuzzy module to generate random datas for some defined types:
 
+    !python
     class SomethingFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Something
@@ -358,6 +359,7 @@ Extra: "real" data generation
 
 Faker python module can be used to generate "real" data
 
+    !python
     class AuthorFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Author
@@ -366,20 +368,28 @@ Faker python module can be used to generate "real" data
 
 Faker can generate addresses, datetimes, ...
 
-
 ---
 
-Extra: Bulk creation
+Extra: batch creation
 
+    !python
+    class AuthorFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Author
+        name = factory.LazyAttribute(lambda x: faker.name())
 
+    !python
+    class TestBatchAuthorCreation(TestCase):
 
-
+        def test_creation(self):
+            AuthorFactory.create_batch(20)
+            self.assertEquals(Author.objects.count(), 20)
 
 ---
 
 Extra: relations between several fields
 
-
+TODO: give an example
 
 
 ---
