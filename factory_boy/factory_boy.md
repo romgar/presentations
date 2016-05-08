@@ -336,7 +336,7 @@ Similar to ForeignKey
     # In a test
     AuthorFactory(add_books_to_author=[book1, book2, book3])
 
-    Also possible to manage m2m with intermediary tables, GenericForeignKeys, ...
+Also possible to manage ManyToManyFields with intermediary tables, GenericForeignKeys, ...
 
 ---
 
