@@ -314,6 +314,7 @@ Similar to ForeignKey
 
 # Django relations: ManyToManyField
 
+    !python
     class Author(models.Model):
         books = models.ManyToManyField(Book)
 
@@ -332,27 +333,7 @@ Similar to ForeignKey
     # In a test
     AuthorFactory.create(add_books_to_author=[book1, book2, book3])
 
----
-
-# Django relations: ManyToManyField through
-
-    class BookFactory(factory.django.DjangoModelFactory):
-        class Meta:
-            model = Book
-
-        author = factory.SubFactory(AuthorFactory)
-
----
-
-# Django relations (TODO)
-
-GenericForeignKey
-
-    class BookFactory(factory.django.DjangoModelFactory):
-        class Meta:
-            model = Book
-
-        author = factory.SubFactory(AuthorFactory)
+    Also possible to manage m2m with intermediary tables, GenericForeignKeys, ...
 
 ---
 
@@ -384,9 +365,43 @@ Faker can generate addresses, datetimes, ...
 
 ---
 
-Tips: data generation on already existing data
+Tips: data generation conflicts
 
-django_get_or_create
+    !python
+    class AuthorFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Author
+        name = factory.Sequence(lambda n: u'author#%s' % n)
+
+    # Imagine you have created an author in an initial data migration with name='author#1'
+
+    class TestAuthorCreation(TestCase):
+
+        def test_author(self):
+            # IntegrityError because the factory will try to create an author with name='author#1'
+            AuthorFactory.create()
+
+---
+
+Tips: data generation conflicts (2)
+
+Use django_get_or_create
+
+    !python
+    class AuthorFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Author
+            django_get_or_create = ('name', )
+
+        name = factory.Sequence(lambda n: u'author#%s' % n)
+
+    class TestAuthorCreation(TestCase):
+
+        def test_author(self):
+            # No more IntegrityError
+            AuthorFactory.create()
+
+            self.assertEquals(Author.objects.filter(name='author#1).count(), 1)
 
 ---
 
