@@ -4,20 +4,20 @@
 
 # Current problem
 
-How to create a complex set of data in tests that is:
-- Fast
-- Simple
-- DRY
+Find a way to create a complex set of data in test environment that is:
 
-For example, a model A that needs 10 other different models to be instantiated.
+    - Fast
+    - Simple
+    - Readable
+    - DRY
 
 ---
 
 # Several solutions
 
--
-- Django built-in fixtures (xml/yaml/json).
-
+- Create your own code
+- Use Django built-in fixtures (xml/yaml/json)
+- Use some python packages created for that purpose: factory_boy, model_mummy
 
 
 ---
