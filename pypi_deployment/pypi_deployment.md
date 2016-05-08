@@ -95,7 +95,7 @@ Example:
 
 # GitHub: configure travis
 
-Create a *.travis.yml* file on your GitHub repository root:
+Create a *.travis.yml* file on your GitHub repository root folder:
 
     !shell
     language: python
@@ -130,7 +130,7 @@ Create a *.travis.yml* file on your GitHub repository root:
 
 ---
 
-# GitHub: deploy section credentials
+# GitHub: generate secure password
 
     !shell
     $ gem install travis

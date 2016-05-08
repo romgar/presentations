@@ -25,7 +25,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Django tests with factory_boy</title>
+    <title>Django tests with factory_boy (@rgarrigues)</title>
     <!-- Styles -->
     
     <link rel="stylesheet" media="print" href="../theme/css/print.css">
@@ -51,7 +51,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Django tests with factory_boy</h1></header>
+            <header><h1>Django tests with factory_boy (@rgarrigues)</h1></header>
             
             
           </div>
@@ -68,7 +68,76 @@
             </aside>
             
             <aside class="page_number">
-              1/13
+              1/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Current problem</h1></header>
+            
+            
+            <section><p>Find a way to create a complex set of data in test environment that is:</p>
+<pre><code>- Fast
+- Simple
+- Readable
+- DRY
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Several solutions</h1></header>
+            
+            
+            <section><ul>
+<li>Create your own code</li>
+<li>Use Django built-in fixtures (xml/yaml/json)</li>
+<li>Use some python packages created for that purpose: factory_boy, model_mummy</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/27
             </aside>
           </footer>
         </div>
@@ -87,6 +156,7 @@
 <li>Simplify object creation for testing purpose</li>
 <li>Avoid painful test code refactoring if your models are changing</li>
 <li>Tests are more readable</li>
+<li>Well adapted to Django, with Django-like syntax, managing all relations</li>
 </ul></section>
             
           </div>
@@ -103,7 +173,7 @@
             </aside>
             
             <aside class="page_number">
-              2/13
+              4/27
             </aside>
           </footer>
         </div>
@@ -114,26 +184,19 @@
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Simplify nested object creation</h1></header>
+            <header><h1>How it works: create your factory</h1></header>
             
             
-            <section><p>Object creation with/without factory_boy</p>
-<div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-<span class="lineno"> 2 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">666</span><span class="p">)</span>
-<span class="lineno"> 3 </span>
-<span class="lineno"> 4 </span><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-<span class="lineno"> 5 </span>    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Author</span><span class="p">)</span>
-<span class="lineno"> 6 </span>    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
-<span class="lineno"> 7 </span>
-<span class="lineno"> 8 </span>
-<span class="lineno"> 9 </span><span class="k">class</span> <span class="nc">TestObjectCreation</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
-<span class="lineno">10 </span>
-<span class="lineno">11 </span>    <span class="k">def</span> <span class="nf">test_without_factory_boy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="lineno">12 </span>        <span class="n">author</span> <span class="o">=</span> <span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;George RR Martin&quot;</span><span class="p">)</span>
-<span class="lineno">13 </span>        <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="n">author</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Game of Scones&quot;</span><span class="p">)</span>
-<span class="lineno">14 </span>
-<span class="lineno">15 </span>    <span class="k">def</span> <span class="nf">test_with_factory_boy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="lineno">16 </span>        <span class="n">BookFactory</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+            <section><div class="highlight"><pre><span class="lineno"> 1 </span><span class="c"># Django &quot;classic&quot; model</span>
+<span class="lineno"> 2 </span><span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno"> 3 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">666</span><span class="p">)</span>
+<span class="lineno"> 4 </span>    <span class="n">name2</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s">&#39;we_dont_care&#39;</span><span class="p">)</span>
+<span class="lineno"> 5 </span>
+<span class="lineno"> 6 </span><span class="c"># factory_boy factory definition for that model</span>
+<span class="lineno"> 7 </span><span class="k">class</span> <span class="nc">AuthorFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+<span class="lineno"> 8 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="lineno"> 9 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Author</span>
+<span class="lineno">10 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s">u&#39;name#</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">n</span><span class="p">)</span>
 </pre></div>
 </section>
             
@@ -151,7 +214,55 @@
             </aside>
             
             <aside class="page_number">
-              3/13
+              5/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Use it</h1></header>
+            
+            
+            <section><div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">TestObjectCreation</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="lineno"> 2 </span>
+<span class="lineno"> 3 </span>    <span class="k">def</span> <span class="nf">test_without_factory_boy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="lineno"> 4 </span>        <span class="n">author</span> <span class="o">=</span> <span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;George RR Martin&#39;</span><span class="p">)</span>
+<span class="lineno"> 5 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;George RR Martin&#39;</span><span class="p">)</span>
+<span class="lineno"> 6 </span>
+<span class="lineno"> 7 </span>    <span class="k">def</span> <span class="nf">test_with_factory_boy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="lineno"> 8 </span>        <span class="n">author</span> <span class="o">=</span> <span class="n">AuthorFactory</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;George RR Martin&#39;</span><span class="p">)</span>
+<span class="lineno"> 9 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;George RR Martin&#39;</span><span class="p">)</span>
+<span class="lineno">10 </span>
+<span class="lineno">11 </span>    <span class="k">def</span> <span class="nf">test_with_factory_boy_auto_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="lineno">12 </span>        <span class="n">author</span> <span class="o">=</span> <span class="n">AuthorFactory</span><span class="p">()</span>
+<span class="lineno">13 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;name#1&#39;</span><span class="p">)</span>
+<span class="lineno">14 </span>
+<span class="lineno">15 </span>    <span class="k">def</span> <span class="nf">test_with_factory_boy_auto_creation_and_undefined_field</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="lineno">16 </span>        <span class="n">author</span> <span class="o">=</span> <span class="n">AuthorFactory</span><span class="p">()</span>
+<span class="lineno">17 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name2</span><span class="p">,</span> <span class="s">&#39;we_dont_care&#39;</span><span class="p">)</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/27
             </aside>
           </footer>
         </div>
@@ -165,7 +276,54 @@
             <header><h1>Simplify nested object creation</h1></header>
             
             
-            <section><p>Factory definition (django model like)</p>
+            <section><div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno"> 2 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">666</span><span class="p">)</span>
+<span class="lineno"> 3 </span>
+<span class="lineno"> 4 </span><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno"> 5 </span>    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Author</span><span class="p">)</span>
+<span class="lineno"> 6 </span>    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+<span class="lineno"> 7 </span>
+<span class="lineno"> 8 </span>
+<span class="lineno"> 9 </span><span class="k">class</span> <span class="nc">TestObjectCreation</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="lineno">10 </span>
+<span class="lineno">11 </span>    <span class="k">def</span> <span class="nf">test_without_factory_boy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="lineno">12 </span>        <span class="n">author</span> <span class="o">=</span> <span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;George RR Martin&quot;</span><span class="p">)</span>
+<span class="lineno">13 </span>        <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="n">author</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Game of Scones&quot;</span><span class="p">)</span>
+<span class="lineno">14 </span>
+<span class="lineno">15 </span>    <span class="k">def</span> <span class="nf">test_with_factory_boy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="lineno">16 </span>        <span class="n">BookFactory</span><span class="p">()</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Simplify nested object creation (2)</h1></header>
+            
+            
+            <section><p>Factory definition</p>
 <div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 <span class="lineno"> 2 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">666</span><span class="p">)</span>
 <span class="lineno"> 3 </span>
@@ -203,7 +361,7 @@
             </aside>
             
             <aside class="page_number">
-              4/13
+              8/27
             </aside>
           </footer>
         </div>
@@ -214,7 +372,7 @@
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Simplify nested object creation</h1></header>
+            <header><h1>Simplify nested object creation (2)</h1></header>
             
             
             <section><p>Specify nested objects values</p>
@@ -233,9 +391,10 @@
 <span class="lineno">13 </span>        <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="n">author</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Game of Scones&quot;</span><span class="p">)</span>
 <span class="lineno">14 </span>
 <span class="lineno">15 </span>    <span class="k">def</span> <span class="nf">test_with_factory_boy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="lineno">16 </span>        <span class="n">BookFactory</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<span class="lineno">16 </span>        <span class="n">BookFactory</span><span class="p">(</span>
 <span class="lineno">17 </span>            <span class="n">title</span><span class="o">=</span><span class="s">&quot;Game of Scones&quot;</span><span class="p">,</span>
-<span class="lineno">18 </span>            <span class="n">author__name</span><span class="o">=</span><span class="s">&quot;George RR Martin&quot;</span><span class="p">)</span>
+<span class="lineno">18 </span>            <span class="n">author__name</span><span class="o">=</span><span class="s">&quot;George RR Martin&quot;</span>
+<span class="lineno">19 </span>        <span class="p">)</span>
 </pre></div>
 </section>
             
@@ -253,7 +412,7 @@
             </aside>
             
             <aside class="page_number">
-              5/13
+              9/27
             </aside>
           </footer>
         </div>
@@ -292,7 +451,7 @@
             </aside>
             
             <aside class="page_number">
-              6/13
+              10/27
             </aside>
           </footer>
         </div>
@@ -303,7 +462,7 @@
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Avoid test code refactoring</h1></header>
+            <header><h1>Avoid test code refactoring (2)</h1></header>
             
             
             <section><p>Without factory_boy, we have to update each test that is using Author model</p>
@@ -340,7 +499,7 @@ does the job :-)</p></section>
             </aside>
             
             <aside class="page_number">
-              7/13
+              11/27
             </aside>
           </footer>
         </div>
@@ -351,7 +510,7 @@ does the job :-)</p></section>
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Avoid test code refactoring</h1></header>
+            <header><h1>Avoid test code refactoring (3)</h1></header>
             
             
             <section><p>With factory_boy, we just have to update the factory.</p>
@@ -380,7 +539,7 @@ does the job :-)</p></section>
             </aside>
             
             <aside class="page_number">
-              8/13
+              12/27
             </aside>
           </footer>
         </div>
@@ -415,7 +574,7 @@ does the job :-)</p></section>
             </aside>
             
             <aside class="page_number">
-              9/13
+              13/27
             </aside>
           </footer>
         </div>
@@ -426,7 +585,7 @@ does the job :-)</p></section>
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Test readability</h1></header>
+            <header><h1>Test readability (2)</h1></header>
             
             
             <section><p>Example with models that contain more fields</p>
@@ -459,7 +618,7 @@ does the job :-)</p></section>
             </aside>
             
             <aside class="page_number">
-              10/13
+              14/27
             </aside>
           </footer>
         </div>
@@ -470,7 +629,7 @@ does the job :-)</p></section>
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Test readability</h1></header>
+            <header><h1>Test readability (3)</h1></header>
             
             
             <section><p>Too many useless data impact test readability, and are... useless !</p>
@@ -512,7 +671,7 @@ does the job :-)</p></section>
             </aside>
             
             <aside class="page_number">
-              11/13
+              15/27
             </aside>
           </footer>
         </div>
@@ -523,21 +682,22 @@ does the job :-)</p></section>
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Test readability</h1></header>
+            <header><h1>Test readability (4)</h1></header>
             
             
             <section><p>Less infos, and you focus on what is really important for your test.</p>
 <div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">TestBookAuthorFavoriteCereals</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
 <span class="lineno"> 2 </span>
 <span class="lineno"> 3 </span>    <span class="k">def</span> <span class="nf">test_with_factory_boy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="lineno"> 4 </span>        <span class="n">BookFactory</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<span class="lineno"> 4 </span>        <span class="n">BookFactory</span><span class="p">(</span>
 <span class="lineno"> 5 </span>            <span class="n">category</span><span class="o">=</span><span class="s">&quot;cooking&quot;</span><span class="p">,</span>
-<span class="lineno"> 6 </span>            <span class="n">author__favorite_breakfast_cereals</span><span class="o">=</span><span class="s">&quot;Honey smacks&quot;</span><span class="p">)</span>
-<span class="lineno"> 7 </span>
-<span class="lineno"> 8 </span>        <span class="n">query</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-<span class="lineno"> 9 </span>            <span class="n">category</span><span class="o">=</span><span class="s">&quot;cooking&quot;</span><span class="p">,</span>
-<span class="lineno">10 </span>            <span class="n">author__favorite_breakfast_cereals</span><span class="o">=</span><span class="s">&quot;Honey smacks&quot;</span><span class="p">)</span>
-<span class="lineno">11 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="lineno"> 6 </span>            <span class="n">author__favorite_breakfast_cereals</span><span class="o">=</span><span class="s">&quot;Honey smacks&quot;</span>
+<span class="lineno"> 7 </span>        <span class="p">)</span>
+<span class="lineno"> 8 </span>
+<span class="lineno"> 9 </span>        <span class="n">query</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+<span class="lineno">10 </span>            <span class="n">category</span><span class="o">=</span><span class="s">&quot;cooking&quot;</span><span class="p">,</span>
+<span class="lineno">11 </span>            <span class="n">author__favorite_breakfast_cereals</span><span class="o">=</span><span class="s">&quot;Honey smacks&quot;</span><span class="p">)</span>
+<span class="lineno">12 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </section>
             
@@ -555,7 +715,7 @@ does the job :-)</p></section>
             </aside>
             
             <aside class="page_number">
-              12/13
+              16/27
             </aside>
           </footer>
         </div>
@@ -563,22 +723,21 @@ does the job :-)</p></section>
       
       <!-- slide source: factory_boy.md -->
       <div class="slide-wrapper">
-        <div class="slide">
+        <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>factory_boy extras</h1></header>
+            <header><h1>Django relations: ForeignKey</h1></header>
             
             
-            <section><p>factory_boy can manage Django model relationships</p>
-<ul>
-<li>ForeignKey</li>
-<li>ManyToMany</li>
-<li>ManyToMany with intermediary table</li>
-<li>GenericForeignKey</li>
-</ul>
-<p><strong>factory.fuzzy</strong> module, to generate random datas for some defined types : string,
- integer, float, decimal, date, datetime, choiceField, ...</p>
-<p><strong>@post_generation</strong> decorator to add some logic after factory object creation</p></section>
+            <section><div class="highlight"><pre><span class="lineno">1 </span><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno">2 </span>    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Author</span><span class="p">)</span>
+<span class="lineno">3 </span>
+<span class="lineno">4 </span><span class="k">class</span> <span class="nc">BookFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+<span class="lineno">5 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="lineno">6 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Book</span>
+<span class="lineno">7 </span>    <span class="n">author</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">SubFactory</span><span class="p">(</span><span class="n">AuthorFactory</span><span class="p">)</span>
+</pre></div>
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -594,7 +753,404 @@ does the job :-)</p></section>
             </aside>
             
             <aside class="page_number">
-              13/13
+              17/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Django relations: OneToOneField</h1></header>
+            
+            
+            <section><p>Similar to ForeignKey</p>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno">2 </span>    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">Author</span><span class="p">)</span>
+<span class="lineno">3 </span>
+<span class="lineno">4 </span><span class="k">class</span> <span class="nc">BookFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+<span class="lineno">5 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="lineno">6 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Book</span>
+<span class="lineno">7 </span>    <span class="n">author</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">SubFactory</span><span class="p">(</span><span class="n">AuthorFactory</span><span class="p">)</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Django relations: ManyToManyField</h1></header>
+            
+            
+            <section><div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno"> 2 </span>    <span class="n">books</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Book</span><span class="p">)</span>
+<span class="lineno"> 3 </span>
+<span class="lineno"> 4 </span><span class="k">class</span> <span class="nc">AuthorFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+<span class="lineno"> 5 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="lineno"> 6 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Book</span>
+<span class="lineno"> 7 </span>
+<span class="lineno"> 8 </span>    <span class="nd">@factory.post_generation</span>
+<span class="lineno"> 9 </span>    <span class="k">def</span> <span class="nf">add_books_to_author</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">extracted</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="lineno">10 </span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">create</span><span class="p">:</span>
+<span class="lineno">11 </span>            <span class="k">return</span>
+<span class="lineno">12 </span>        <span class="k">if</span> <span class="n">extracted</span><span class="p">:</span>
+<span class="lineno">13 </span>            <span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">extracted</span><span class="p">:</span>
+<span class="lineno">14 </span>                <span class="bp">self</span><span class="o">.</span><span class="n">books</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">book</span><span class="p">)</span>
+<span class="lineno">15 </span>
+<span class="lineno">16 </span><span class="c"># In a test</span>
+<span class="lineno">17 </span><span class="n">AuthorFactory</span><span class="p">(</span><span class="n">add_books_to_author</span><span class="o">=</span><span class="p">[</span><span class="n">book1</span><span class="p">,</span> <span class="n">book2</span><span class="p">,</span> <span class="n">book3</span><span class="p">])</span>
+<span class="lineno">18 </span>
+<span class="lineno">19 </span><span class="n">Also</span> <span class="n">possible</span> <span class="n">to</span> <span class="n">manage</span> <span class="n">m2m</span> <span class="k">with</span> <span class="n">intermediary</span> <span class="n">tables</span><span class="p">,</span> <span class="n">GenericForeignKeys</span><span class="p">,</span> <span class="o">...</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            
+            <section><p>Extra: fancy data generation</p>
+<p>factory.fuzzy module to generate random datas for some defined types:</p>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="k">class</span> <span class="nc">SomethingFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+<span class="lineno">2 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="lineno">3 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Something</span>
+<span class="lineno">4 </span>    <span class="n">random_int</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">fuzzy</span><span class="o">.</span><span class="n">FuzzyInteger</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span>
+<span class="lineno">5 </span>    <span class="n">randow_values_from_list</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">fuzzy</span><span class="o">.</span><span class="n">FuzzyChoice</span><span class="p">([</span><span class="s">&#39;Low&#39;</span><span class="p">,</span> <span class="s">&#39;Medium&#39;</span><span class="p">,</span> <span class="s">&#39;High&#39;</span><span class="p">])</span>
+<span class="lineno">6 </span>    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            
+            <section><p>Extra: "real" data generation</p>
+<p>Faker python module can be used to generate "real" data</p>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="k">class</span> <span class="nc">AuthorFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+<span class="lineno">2 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="lineno">3 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Author</span>
+<span class="lineno">4 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">LazyAttribute</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">faker</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+<span class="lineno">5 </span>    <span class="n">phone_number</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">LazyAttribute</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">faker</span><span class="o">.</span><span class="n">phone_number</span><span class="p">())</span>
+</pre></div>
+
+<p>Faker can generate addresses, datetimes, ...</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            
+            <section><p>Extra: batch creation</p>
+<div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">AuthorFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+<span class="lineno"> 2 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="lineno"> 3 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Author</span>
+<span class="lineno"> 4 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">LazyAttribute</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">faker</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+<span class="lineno"> 5 </span>
+<span class="lineno"> 6 </span><span class="err">!</span><span class="n">python</span>
+<span class="lineno"> 7 </span><span class="k">class</span> <span class="nc">TestBatchAuthorCreation</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="lineno"> 8 </span>
+<span class="lineno"> 9 </span>    <span class="k">def</span> <span class="nf">test_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="lineno">10 </span>        <span class="n">AuthorFactory</span><span class="o">.</span><span class="n">create_batch</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="lineno">11 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            
+            <section><p>Extra: relations between several fields</p>
+<p>TODO: give an example</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            
+            <section><p>Tips: data generation conflicts</p>
+<div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">AuthorFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+<span class="lineno"> 2 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="lineno"> 3 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Author</span>
+<span class="lineno"> 4 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s">u&#39;author#</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">n</span><span class="p">)</span>
+<span class="lineno"> 5 </span>
+<span class="lineno"> 6 </span><span class="c"># Imagine you have created an author in an initial data migration with name=&#39;author#1&#39;</span>
+<span class="lineno"> 7 </span>
+<span class="lineno"> 8 </span><span class="k">class</span> <span class="nc">TestAuthorCreation</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="lineno"> 9 </span>
+<span class="lineno">10 </span>    <span class="k">def</span> <span class="nf">test_author</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="lineno">11 </span>        <span class="c"># IntegrityError because the factory will try to create an author with name=&#39;author#1&#39;</span>
+<span class="lineno">12 </span>        <span class="n">AuthorFactory</span><span class="p">()</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              24/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            
+            <section><p>Tips: data generation conflicts (2)</p>
+<p>Use django_get_or_create</p>
+<div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">AuthorFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+<span class="lineno"> 2 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="lineno"> 3 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Author</span>
+<span class="lineno"> 4 </span>        <span class="n">django_get_or_create</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="p">)</span>
+<span class="lineno"> 5 </span>
+<span class="lineno"> 6 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s">u&#39;author#</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">n</span><span class="p">)</span>
+<span class="lineno"> 7 </span>
+<span class="lineno"> 8 </span><span class="k">class</span> <span class="nc">TestAuthorCreation</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="lineno"> 9 </span>
+<span class="lineno">10 </span>    <span class="k">def</span> <span class="nf">test_author</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="lineno">11 </span>        <span class="c"># No more IntegrityError</span>
+<span class="lineno">12 </span>        <span class="n">AuthorFactory</span><span class="p">()</span>
+<span class="lineno">13 </span>
+<span class="lineno">14 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;author#1).count(), 1)</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              25/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            
+            <section><p>Tips: "not-so-good" practices</p>
+<p><em>Don't</em> create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWithAuthorAndAddressFactory, ...
+    - better to create util functions that uses different factories, depending on the context.</p>
+<p><em>Don't</em> use it outside of a test environment:
+    - be really careful on random generated fields (!).</p>
+<p><em>Don't</em> define ALL model fields in your factories, just mandatory ones and without default values:
+    - Always better to set data (if default is not wanted) than unset.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              26/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: factory_boy.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>How to switch to factory_boy ?</h1></header>
+            
+            
+            <section><p>Not switch directly all your tests
+Begin to create new factories on your new tests, in a separate file for example</p>
+<div class="highlight"><pre><span class="lineno">1 </span><span class="o">.</span>
+<span class="lineno">2 </span><span class="o">+--</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span>
+<span class="lineno">3 </span><span class="o">+--</span> <span class="n">settings</span>
+<span class="lineno">4 </span><span class="o">+--</span> <span class="n">your_app</span>
+<span class="lineno">5 </span><span class="o">|</span>   <span class="o">+--</span> <span class="n">admin</span><span class="o">.</span><span class="n">py</span>
+<span class="lineno">6 </span><span class="o">|</span>   <span class="o">+--</span> <span class="n">factories</span><span class="o">.</span><span class="n">py</span>  <span class="o">&lt;---</span>
+<span class="lineno">7 </span><span class="o">|</span>   <span class="o">+--</span> <span class="n">models</span><span class="o">.</span><span class="n">py</span>
+<span class="lineno">8 </span><span class="o">|</span>   <span class="o">+--</span> <span class="n">urls</span><span class="o">.</span><span class="n">py</span>
+<span class="lineno">9 </span><span class="o">|</span>   <span class="o">+--</span> <span class="n">views</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+
+<p>When you modify/fix/add tests in an app, update them with factories instead of direct orm calls</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="factory_boy.md">factory_boy.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              27/27
             </aside>
           </footer>
         </div>
@@ -609,80 +1165,164 @@ does the job :-)</p></section>
       <caption>Table of Contents</caption>
       
       <tr id="toc-row-1">
-        <th><a href="#slide1">Django tests with factory_boy</a></th>
+        <th><a href="#slide1">Django tests with factory_boy (@rgarrigues)</a></th>
         <td><a href="#slide1">1</a></td>
       </tr>
       
       
       <tr id="toc-row-2">
-        <th><a href="#slide2">Overview</a></th>
+        <th><a href="#slide2">Current problem</a></th>
         <td><a href="#slide2">2</a></td>
       </tr>
       
       
       <tr id="toc-row-3">
-        <th><a href="#slide3">Simplify nested object creation</a></th>
+        <th><a href="#slide3">Several solutions</a></th>
         <td><a href="#slide3">3</a></td>
       </tr>
       
       
       <tr id="toc-row-4">
-        <th><a href="#slide4">Simplify nested object creation</a></th>
+        <th><a href="#slide4">Overview</a></th>
         <td><a href="#slide4">4</a></td>
       </tr>
       
       
       <tr id="toc-row-5">
-        <th><a href="#slide5">Simplify nested object creation</a></th>
+        <th><a href="#slide5">How it works: create your factory</a></th>
         <td><a href="#slide5">5</a></td>
       </tr>
       
       
       <tr id="toc-row-6">
-        <th><a href="#slide6">Avoid test code refactoring</a></th>
+        <th><a href="#slide6">Use it</a></th>
         <td><a href="#slide6">6</a></td>
       </tr>
       
       
       <tr id="toc-row-7">
-        <th><a href="#slide7">Avoid test code refactoring</a></th>
+        <th><a href="#slide7">Simplify nested object creation</a></th>
         <td><a href="#slide7">7</a></td>
       </tr>
       
       
       <tr id="toc-row-8">
-        <th><a href="#slide8">Avoid test code refactoring</a></th>
+        <th><a href="#slide8">Simplify nested object creation (2)</a></th>
         <td><a href="#slide8">8</a></td>
       </tr>
       
       
       <tr id="toc-row-9">
-        <th><a href="#slide9">Test readability</a></th>
+        <th><a href="#slide9">Simplify nested object creation (2)</a></th>
         <td><a href="#slide9">9</a></td>
       </tr>
       
       
       <tr id="toc-row-10">
-        <th><a href="#slide10">Test readability</a></th>
+        <th><a href="#slide10">Avoid test code refactoring</a></th>
         <td><a href="#slide10">10</a></td>
       </tr>
       
       
       <tr id="toc-row-11">
-        <th><a href="#slide11">Test readability</a></th>
+        <th><a href="#slide11">Avoid test code refactoring (2)</a></th>
         <td><a href="#slide11">11</a></td>
       </tr>
       
       
       <tr id="toc-row-12">
-        <th><a href="#slide12">Test readability</a></th>
+        <th><a href="#slide12">Avoid test code refactoring (3)</a></th>
         <td><a href="#slide12">12</a></td>
       </tr>
       
       
       <tr id="toc-row-13">
-        <th><a href="#slide13">factory_boy extras</a></th>
+        <th><a href="#slide13">Test readability</a></th>
         <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Test readability (2)</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Test readability (3)</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Test readability (4)</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Django relations: ForeignKey</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">Django relations: OneToOneField</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">Django relations: ManyToManyField</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">-</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">-</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-22">
+        <th><a href="#slide22">-</a></th>
+        <td><a href="#slide22">22</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-23">
+        <th><a href="#slide23">-</a></th>
+        <td><a href="#slide23">23</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-24">
+        <th><a href="#slide24">-</a></th>
+        <td><a href="#slide24">24</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-25">
+        <th><a href="#slide25">-</a></th>
+        <td><a href="#slide25">25</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-26">
+        <th><a href="#slide26">-</a></th>
+        <td><a href="#slide26">26</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-27">
+        <th><a href="#slide27">How to switch to factory_boy ?</a></th>
+        <td><a href="#slide27">27</a></td>
       </tr>
       
       
