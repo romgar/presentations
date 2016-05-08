@@ -12,11 +12,12 @@ We would like to do something like:
 
 ---
 
-How to switch to factory_boy ?
+# How to switch to factory_boy ?
 
-- Not switch directly all your tests
-- Begin to create new factories on your new tests, in a separate file for example:
+Not switch directly all your tests
+Begin to create new factories on your new tests, in a separate file for example
 
+    !python
     .
     +-- manage.py
     +-- settings
@@ -27,29 +28,30 @@ How to switch to factory_boy ?
     |   +-- urls.py
     |   +-- views.py
 
-- When you modify/fix/add tests in an app, update them with factories instead of direct orm calls.
+When you modify/fix/add tests in an app, update them with factories instead of direct orm calls
 
 ---
 
-Different initialisation steps
+# Different initialisation steps
 
-By priority:
+On factory instantiation
 
-- On factory instanciation:
-
+    !python
     MyFactory.create(my_field='foo')
 
-- if not defined, on factory definition:
+If not defined, on factory definition
 
+    !python
     MyFactory.create()
 
     class MyFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = MyFactory
-    my_field = factory.Sequence(lambda n: u'author#%s' % n)
+        my_field = factory.Sequence(lambda n: u'author#%s' % n)
 
-- If not defined, on Django models definition:
+If not defined, on Django models definition
 
+    !python
     MyFactory.create()
 
     class MyFactory(models.Model):
