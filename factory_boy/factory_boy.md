@@ -340,7 +340,7 @@ Similar to ForeignKey
 
 ---
 
-Tips: fancy data generation
+Extra: fancy data generation
 
 factory.fuzzy module to generate random datas for some defined types:
 
@@ -354,7 +354,7 @@ factory.fuzzy module to generate random datas for some defined types:
 
 ---
 
-Tips: "real" data generation
+Extra: "real" data generation
 
 Faker python module can be used to generate "real" data
 
@@ -365,6 +365,22 @@ Faker python module can be used to generate "real" data
         phone_number = factory.LazyAttribute(lambda x: faker.phone_number())
 
 Faker can generate addresses, datetimes, ...
+
+
+---
+
+Extra: Bulk creation
+
+
+
+
+
+---
+
+Extra: relations between several fields
+
+
+
 
 ---
 
@@ -408,25 +424,16 @@ Use django_get_or_create
 
 ---
 
-Not-so-great ideas
+Tips: "not-so-good" practices
 
-Create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWithAuthorAndAddressFactory.
--> better to create utils functions
--> nice to initialise some states easily
+*Don't* create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWithAuthorAndAddressFactory, ...
+    - better to create util functions that uses different factories, depending on the context.
 
-Use it for non-test purposes: be really careful on random generated fields (!).
+*Don't* use it outside of a test environment:
+    - be really careful on random generated fields (!).
 
-Only set mandatory fields:
-
-If field not defined on factory instantiation, neither in factory definition, then it will take model default value.
-Always better to set data if default is not wanted than unset in tests.
-
----
-
-Other fancy stuff:
-
-- Bulk creation
-- Attributes defined from other attributes / other factories
+*Don't* define ALL model fields in your factories, just mandatory ones and without default values:
+    - Always better to set data (if default is not wanted) than unset.
 
 ---
 
@@ -447,4 +454,3 @@ Begin to create new factories on your new tests, in a separate file for example
     |   +-- views.py
 
 When you modify/fix/add tests in an app, update them with factories instead of direct orm calls
-
