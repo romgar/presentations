@@ -1,4 +1,4 @@
-# Django tests with factory_boy
+# Django tests with factory_boy (@rgarrigues)
 
 ---
 
@@ -32,7 +32,7 @@ When you modify/fix/add tests in an app, update them with factories instead of d
 
 ---
 
-# Different initialisation steps
+# Different field initialisation steps
 
 On factory instantiation
 
