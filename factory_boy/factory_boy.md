@@ -2,60 +2,23 @@
 
 ---
 
-Current problem
+# Current problem
 
-How to create a complex context (objects in database) in tests ?
-We would like to do something like:
+How to create a complex set of data in tests that is:
+- Fast
+- Simple
+- DRY
 
-    MyCentralComplexObject.create()
-
-
----
-
-# How to switch to factory_boy ?
-
-Not switch directly all your tests
-Begin to create new factories on your new tests, in a separate file for example
-
-    !python
-    .
-    +-- manage.py
-    +-- settings
-    +-- your_app
-    |   +-- admin.py
-    |   +-- factories.py  <---
-    |   +-- models.py
-    |   +-- urls.py
-    |   +-- views.py
-
-When you modify/fix/add tests in an app, update them with factories instead of direct orm calls
+For example, a model A that needs 10 other different models to be instantiated.
 
 ---
 
-# Different field initialisation steps
+# Several solutions
 
-On factory instantiation
+-
+- Django built-in fixtures (xml/yaml/json).
 
-    !python
-    MyFactory.create(my_field='foo')
 
-If not defined, on factory definition
-
-    !python
-    MyFactory.create()
-
-    class MyFactory(factory.django.DjangoModelFactory):
-        class Meta:
-            model = MyFactory
-        my_field = factory.Sequence(lambda n: u'author#%s' % n)
-
-If not defined, on Django models definition
-
-    !python
-    MyFactory.create()
-
-    class MyFactory(models.Model):
-        my_field = models.CharField(max_length=255, default='bar')
 
 ---
 
@@ -66,14 +29,50 @@ Why factory_boy ?
 - Simplify object creation for testing purpose
 - Avoid painful test code refactoring if your models are changing
 - Tests are more readable
+- Well adapted to Django, with Django-like syntax, managing all relations
+
 
 ---
 
+# How it works: create your factory
 
+    !python
+    # Django "classic" model
+    class Author(models.Model):
+        name = models.CharField(max_length=666)
+        name2 = models.CharField(default='we_dont_care')
+
+    # factory_boy factory definition for that model
+    class AuthorFactory(factory.django.DjangoModelFactory):
+        class Meta:
+            model = Author
+        name = factory.Sequence(lambda n: u'name#%s' % n)
+
+---
+
+# Use it
+
+    class TestObjectCreation(TestCase):
+
+        def test_without_factory_boy(self):
+            author = Author.objects.create(name='George RR Martin')
+            self.assertEquals(author.name, 'George RR Martin')
+
+        def test_with_factory_boy(self):
+            author = AuthorFactory.create(name='George RR Martin')
+            self.assertEquals(author.name, 'George RR Martin')
+
+        def test_with_factory_boy_auto_creation(self):
+            author = AuthorFactory.create()
+            self.assertEquals(author.name, 'name#1')
+
+        def test_with_factory_boy_auto_creation_on_factory_undefined_field(self):
+            author = AuthorFactory.create()
+            self.assertEquals(author.name2, 'we_dont_care')
+
+---
 
 # Simplify nested object creation
-
-Object creation with/without factory_boy
 
     !python
     class Author(models.Model):
@@ -95,9 +94,9 @@ Object creation with/without factory_boy
 
 ---
 
-# Simplify nested object creation
+# Simplify nested object creation (2)
 
-Factory definition (django model like)
+Factory definition
 
     !python
     class Author(models.Model):
@@ -123,7 +122,7 @@ Factory definition (django model like)
 
 ---
 
-# Simplify nested object creation
+# Simplify nested object creation (2)
 
 Specify nested objects values
 
@@ -146,6 +145,7 @@ Specify nested objects values
             BookFactory.create(
                 title="Game of Scones",
                 author__name="George RR Martin")
+
 ---
 
 # Avoid test code refactoring
@@ -163,7 +163,7 @@ We have just added a "new_field" in Author model that is **required**
 
 ---
 
-# Avoid test code refactoring
+# Avoid test code refactoring (2)
 
 Without factory_boy, we have to update each test that is using Author model
 
@@ -189,7 +189,7 @@ does the job :-)
 
 ---
 
-# Avoid test code refactoring
+# Avoid test code refactoring (3)
 
 With factory_boy, we just have to update the factory.
 
@@ -216,7 +216,7 @@ Only initialise data that are really important.
 
 ---
 
-# Test readability
+# Test readability (2)
 
 Example with models that contain more fields
 
@@ -236,7 +236,7 @@ Example with models that contain more fields
 
 ---
 
-# Test readability
+# Test readability (3)
 
 Too many useless data impact test readability, and are... useless !
 
@@ -265,7 +265,7 @@ Too many useless data impact test readability, and are... useless !
 
 ---
 
-# Test readability
+# Test readability (4)
 
 Less infos, and you focus on what is really important for your test.
 
@@ -284,21 +284,22 @@ Less infos, and you focus on what is really important for your test.
 
 ---
 
-# Django relations (TODO)
+# Django relations: ForeignKey
 
-ForeignKey
+    !python
+    class Book(models.Model):
+        author = models.ForeignKey(Author)
 
     class BookFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Book
-
         author = factory.SubFactory(AuthorFactory)
 
 ---
 
-# Django relations (TODO)
+# Django relations: OneToOneField
 
-OneToOne
+Similar to ForeignKey
 
     class BookFactory(factory.django.DjangoModelFactory):
         class Meta:
@@ -403,3 +404,24 @@ Other fancy stuff:
 
 - Bulk creation
 - Attributes defined from other attributes / other factories
+
+---
+
+# How to switch to factory_boy ?
+
+Not switch directly all your tests
+Begin to create new factories on your new tests, in a separate file for example
+
+    !python
+    .
+    +-- manage.py
+    +-- settings
+    +-- your_app
+    |   +-- admin.py
+    |   +-- factories.py  <---
+    |   +-- models.py
+    |   +-- urls.py
+    |   +-- views.py
+
+When you modify/fix/add tests in an app, update them with factories instead of direct orm calls
+
