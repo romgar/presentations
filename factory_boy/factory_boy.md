@@ -39,8 +39,8 @@ Why factory_boy ?
     !python
     # Django "classic" model
     class Author(models.Model):
-        name = models.CharField(max_length=666)
-        name2 = models.CharField(default='we_dont_care')
+        name = models.CharField(max_length=255)
+        name2 = models.CharField(max_length=255, default='we_dont_care')
 
     # factory_boy factory definition for that model
     class AuthorFactory(factory.django.DjangoModelFactory):
@@ -77,7 +77,7 @@ Why factory_boy ?
 
     !python
     class Author(models.Model):
-        name = models.CharField(max_length=666)
+        name = models.CharField(max_length=255)
 
     class Book(models.Model):
         author = models.ForeignKey(Author)
@@ -101,7 +101,7 @@ Factory definition
 
     !python
     class Author(models.Model):
-        name = models.CharField(max_length=666)
+        name = models.CharField(max_length=255)
 
     class Book(models.Model):
         author = models.ForeignKey(Author)
@@ -156,8 +156,8 @@ We have just added a "new_field" in Author model that is **required**
 
     !python
     class Author(models.Model):
-        name = models.CharField(max_length=666)
-        new_field = models.CharField(max_length=666)
+        name = models.CharField(max_length=255)
+        new_field = models.CharField(max_length=255)
 
     class Book(models.Model):
         author = models.ForeignKey(Author)
@@ -223,8 +223,8 @@ Only initialise data that are really important.
 Example with models that contain more fields
 
     !python
-    class Author(factory.django.DjangoModelFactory):
-        name = models.CharField(max_length=666)
+    class Author(models.Model):
+        name = models.CharField(max_length=255)
         birth_date = models.DateTimeField()
         favorite_color = models.CharField(max_length=50)
         favorite_expression = models.CharField(max_length=1050)
