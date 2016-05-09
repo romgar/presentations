@@ -336,26 +336,26 @@ Similar to ForeignKey
     # In a test
     AuthorFactory(add_books_to_author=[book1, book2, book3])
 
-    Also possible to manage m2m with intermediary tables, GenericForeignKeys, ...
+Also possible to manage ManyToManyFields with intermediary tables, GenericForeignKeys, ...
 
 ---
 
-Extra: fancy data generation
+# Extra: fancy data generation
 
-factory.fuzzy module to generate random datas for some defined types:
+factory.fuzzy module to generate random data for some defined types:
 
     !python
     class SomethingFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Something
         random_int = factory.fuzzy.FuzzyInteger(30, 99)
-        randow_values_from_list = factory.fuzzy.FuzzyChoice(['Low', 'Medium', 'High'])
+        random_char = factory.fuzzy.FuzzyChoice(['Low', 'Medium', 'High'])
         [...]
 
 
 ---
 
-Extra: "real" data generation
+# Extra: "real" data generation
 
 Faker python module can be used to generate "real" data
 
@@ -370,7 +370,7 @@ Faker can generate addresses, datetimes, ...
 
 ---
 
-Extra: batch creation
+# Extra: batch creation
 
     !python
     class AuthorFactory(factory.django.DjangoModelFactory):
@@ -378,7 +378,6 @@ Extra: batch creation
             model = Author
         name = factory.LazyAttribute(lambda x: faker.name())
 
-    !python
     class TestBatchAuthorCreation(TestCase):
 
         def test_creation(self):
@@ -387,14 +386,14 @@ Extra: batch creation
 
 ---
 
-Extra: relations between several fields
+# Extra: relations between several fields
 
 TODO: give an example
 
 
 ---
 
-Tips: data generation conflicts
+# Tips: data generation conflicts
 
     !python
     class AuthorFactory(factory.django.DjangoModelFactory):
@@ -402,17 +401,19 @@ Tips: data generation conflicts
             model = Author
         name = factory.Sequence(lambda n: u'author#%s' % n)
 
-    # Imagine you have created an author in an initial data migration with name='author#1'
+    # Imagine you have created an author in an initial data migration
+    # with name='author#1'
 
     class TestAuthorCreation(TestCase):
 
         def test_author(self):
-            # IntegrityError because the factory will try to create an author with name='author#1'
+            # IntegrityError because the factory will try to create
+            # an author with name='author#1'
             AuthorFactory()
 
 ---
 
-Tips: data generation conflicts (2)
+# Tips: data generation conflicts (2)
 
 Use django_get_or_create
 
@@ -430,19 +431,20 @@ Use django_get_or_create
             # No more IntegrityError
             AuthorFactory()
 
-            self.assertEquals(Author.objects.filter(name='author#1).count(), 1)
+            self.assertEquals(
+                Author.objects.filter(name='author#1).count(), 1)
 
 ---
 
-Tips: "not-so-good" practices
+# Tips: "not-so-good" practices
 
-*Don't* create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWithAuthorAndAddressFactory, ...
+**Don't** create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWithAuthorAndAddressFactory, ...
     - better to create util functions that uses different factories, depending on the context.
 
-*Don't* use it outside of a test environment:
+**Don't** use it outside of a test environment:
     - be really careful on random generated fields (!).
 
-*Don't* define ALL model fields in your factories, just mandatory ones and without default values:
+**Don't** define ALL model fields in your factories, just mandatory ones and without default values:
     - Always better to set data (if default is not wanted) than unset.
 
 ---
