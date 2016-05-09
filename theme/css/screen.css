@@ -577,3 +577,11 @@ img[alt=iwoca-logo] {
 h1 img[alt=github-logo], h1 img[alt=travis-logo] {
   display: inline-block;
 }
+
+h2 {
+  font-size: 2.5em;
+}
+
+h3 {
+  font-size: 2em;
+}

@@ -1,35 +1,42 @@
-# Django tests with factory_boy (@rgarrigues)
+# Django tests with factory_boy (@rgarrigues - ![iwoca-logo][iwoca_logo])
+
+[iwoca_logo]: images/logo_iwoca.png
 
 ---
 
 # Current problem
 
-Find a way to create a complex set of data in test environment that is:
+## Create a complex set of data in test environment that is:
 
-    - Fast
-    - Simple
-    - Readable
-    - DRY
+### - Fast
+
+### - Simple
+
+### - Readable
+
+### - Don't Repeat Yourself (DRY)
 
 ---
 
 # Several solutions
 
-- Create your own code
-- Use Django built-in fixtures (xml/yaml/json)
-- Use some python packages created for that purpose: factory_boy, model_mummy
+### - "Direct" Django ORM
+
+### - Django built-in fixtures (xml/yaml/json)
+
+### - Some python packages created for that purpose: factory_boy, model_mummy
 
 
 ---
 
 # Overview
 
-Why factory_boy ?
+## Why factory_boy ?
 
-- Simplify object creation for testing purpose
-- Avoid painful test code refactoring if your models are changing
-- Tests are more readable
-- Well adapted to Django, with Django-like syntax, managing all relations
+### - Simplify object creation for testing purpose
+### - Avoid painful test code refactoring if your models are changing
+### - Tests are more readable
+### - Well adapted to Django, with Django-like syntax, managing all relations
 
 
 ---
@@ -39,8 +46,8 @@ Why factory_boy ?
     !python
     # Django "classic" model
     class Author(models.Model):
-        name = models.CharField(max_length=666)
-        name2 = models.CharField(default='we_dont_care')
+        name = models.CharField(max_length=255)
+        name2 = models.CharField(max_length=255, default='we_dont_care')
 
     # factory_boy factory definition for that model
     class AuthorFactory(factory.django.DjangoModelFactory):
@@ -75,9 +82,13 @@ Why factory_boy ?
 
 # Simplify nested object creation
 
+---
+
+# Simplify nested object creation
+
     !python
     class Author(models.Model):
-        name = models.CharField(max_length=666)
+        name = models.CharField(max_length=255)
 
     class Book(models.Model):
         author = models.ForeignKey(Author)
@@ -97,35 +108,29 @@ Why factory_boy ?
 
 # Simplify nested object creation (2)
 
-Factory definition
-
     !python
     class Author(models.Model):
-        name = models.CharField(max_length=666)
+        name = models.CharField(max_length=255)
 
     class Book(models.Model):
         author = models.ForeignKey(Author)
         title = models.CharField(max_length=255)
 
-
+    # Factory definition
     class AuthorFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Author
-
         name = factory.Sequence(lambda n: u'name#%s' % n)
 
     class BookFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Book
-
         author = factory.SubFactory(AuthorFactory)
         title = factory.Sequence(lambda n: u'title#%s' % n)
 
 ---
 
-# Simplify nested object creation (2)
-
-Specify nested objects values
+# Simplify nested object creation (3)
 
     !python
     class Author(factory.django.DjangoModelFactory):
@@ -143,6 +148,7 @@ Specify nested objects values
             Book.objects.create(author=author, title="Game of Scones")
 
         def test_with_factory_boy(self):
+            # Specify nested objects values
             BookFactory(
                 title="Game of Scones",
                 author__name="George RR Martin"
@@ -152,12 +158,16 @@ Specify nested objects values
 
 # Avoid test code refactoring
 
-We have just added a "new_field" in Author model that is **required**
+---
+
+# Avoid test code refactoring
+
+We have just added a **new_field** in Author model that is **required**
 
     !python
     class Author(models.Model):
-        name = models.CharField(max_length=666)
-        new_field = models.CharField(max_length=666)
+        name = models.CharField(max_length=255)
+        new_field = models.CharField(max_length=255)
 
     class Book(models.Model):
         author = models.ForeignKey(Author)
@@ -199,22 +209,23 @@ With factory_boy, we just have to update the factory.
     class AuthorFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Author
-
         name = factory.Sequence(lambda n: u'author#%s' % n)
         new_field = factory.Sequence(lambda n: u'new_field#%s' % n)
 
 Each old test is not impacted by the newly added field, and we can use the 
-"new_field" on new tests.
+**new_field** on new tests.
+
+---
+
+# Improve test readability
 
 ---
 
 # Test readability
 
-Only initialise data that are really important.
-
-- Only focus on what is useful for the test
-- Tests are more understandable, as we directly see what is needed
-- Don't forget that other people will read your tests for code comprehension
+### - Only focus on what is useful for the test
+### - Tests are more understandable, as we directly see what is needed
+### - Don't forget that other people will read your tests for code comprehension
 
 ---
 
@@ -223,8 +234,8 @@ Only initialise data that are really important.
 Example with models that contain more fields
 
     !python
-    class Author(factory.django.DjangoModelFactory):
-        name = models.CharField(max_length=666)
+    class Author(models.Model):
+        name = models.CharField(max_length=255)
         birth_date = models.DateTimeField()
         favorite_color = models.CharField(max_length=50)
         favorite_expression = models.CharField(max_length=1050)
@@ -287,6 +298,10 @@ Less infos, and you focus on what is really important for your test.
 
 ---
 
+# Manage all Django ORM relations
+
+---
+
 # Django relations: ForeignKey
 
     !python
@@ -336,26 +351,32 @@ Similar to ForeignKey
     # In a test
     AuthorFactory(add_books_to_author=[book1, book2, book3])
 
-    Also possible to manage m2m with intermediary tables, GenericForeignKeys, ...
+
+Also possible to manage ManyToManyFields with intermediary tables, GenericForeignKeys, ...
 
 ---
 
-Extra: fancy data generation
+# Extras
 
-factory.fuzzy module to generate random datas for some defined types:
+---
+
+# Extra: fancy data generation
+
+factory.fuzzy module to generate random data for some defined types:
 
     !python
-    class SomethingFactory(factory.django.DjangoModelFactory):
+    class FuzzyFactory(factory.django.DjangoModelFactory):
         class Meta:
-            model = Something
+            model = FuzzyModel
+
         random_int = factory.fuzzy.FuzzyInteger(30, 99)
-        randow_values_from_list = factory.fuzzy.FuzzyChoice(['Low', 'Medium', 'High'])
+        random_char = factory.fuzzy.FuzzyChoice(['Low', 'Medium', 'High'])
         [...]
 
 
 ---
 
-Extra: "real" data generation
+# Extra: "real" data generation
 
 Faker python module can be used to generate "real" data
 
@@ -363,38 +384,76 @@ Faker python module can be used to generate "real" data
     class AuthorFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Author
+
         name = factory.LazyAttribute(lambda x: faker.name())
         phone_number = factory.LazyAttribute(lambda x: faker.phone_number())
 
 Faker can generate addresses, datetimes, ...
 
+
 ---
 
-Extra: batch creation
+# Extra: LazyAttribute
+
+We can generate some fields depending on other fields
 
     !python
-    class AuthorFactory(factory.django.DjangoModelFactory):
+    class AuthorFactory(factory.Factory):
         class Meta:
-            model = Author
-        name = factory.LazyAttribute(lambda x: faker.name())
+            model = User
+        name = factory.Sequence(lambda n: 'name%s' % n)
+        email = factory.LazyAttribute(lambda o: '%s@example.com' % o.name)
+
+    class TestLazyAttributes(TestCase):
+
+        def test_lazy(self):
+            author = AuthorFactory()
+            self.assertEqual(author.name, 'name1')
+            self.assertEqual(author.email, 'name1@example.com')
+
+---
+
+# Extra: build vs create
+
+Build: create python object
+
+Create: build + database saving
 
     !python
-    class TestBatchAuthorCreation(TestCase):
+    class TestAuthorCreation(TestCase):
+
+        def test_build(self):
+            AuthorFactory.build()
+            self.assertEqual(Author.objects.count(), 0)
 
         def test_creation(self):
+            # Equivalent to AuthorFactory()
+            AuthorFactory.create()
+            self.assertEquals(Author.objects.count(), 1)
+
+---
+
+# Extra: batch build/create
+
+    !python
+    class TestBatchAuthorOperations(TestCase):
+
+        def test_build(self):
+            authors = AuthorFactory.build_batch(20)
+            self.assertEquals(len(authors), 20)
+            self.assertFalse(Author.objects.exists())
+
+        def test_create(self):
             AuthorFactory.create_batch(20)
             self.assertEquals(Author.objects.count(), 20)
 
 ---
 
-Extra: relations between several fields
-
-TODO: give an example
-
+# Tips
 
 ---
 
-Tips: data generation conflicts
+# Tips: data generation conflicts
 
     !python
     class AuthorFactory(factory.django.DjangoModelFactory):
@@ -402,17 +461,19 @@ Tips: data generation conflicts
             model = Author
         name = factory.Sequence(lambda n: u'author#%s' % n)
 
-    # Imagine you have created an author in an initial data migration with name='author#1'
+    # Imagine you have created an author in an initial data migration
+    # with name='author#1'
 
     class TestAuthorCreation(TestCase):
 
         def test_author(self):
-            # IntegrityError because the factory will try to create an author with name='author#1'
+            # IntegrityError because the factory will try to create
+            # an author with name='author#1'
             AuthorFactory()
 
 ---
 
-Tips: data generation conflicts (2)
+# Tips: data generation conflicts (2)
 
 Use django_get_or_create
 
@@ -421,36 +482,42 @@ Use django_get_or_create
         class Meta:
             model = Author
             django_get_or_create = ('name', )
-
         name = factory.Sequence(lambda n: u'author#%s' % n)
 
     class TestAuthorCreation(TestCase):
 
         def test_author(self):
+            query = Author.objects.filter(name='author#1')
+            self.assertEquals(query.count(), 1)
+
             # No more IntegrityError
             AuthorFactory()
-
-            self.assertEquals(Author.objects.filter(name='author#1).count(), 1)
-
----
-
-Tips: "not-so-good" practices
-
-*Don't* create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWithAuthorAndAddressFactory, ...
-    - better to create util functions that uses different factories, depending on the context.
-
-*Don't* use it outside of a test environment:
-    - be really careful on random generated fields (!).
-
-*Don't* define ALL model fields in your factories, just mandatory ones and without default values:
-    - Always better to set data (if default is not wanted) than unset.
+            self.assertEquals(query.count(), 1)
 
 ---
 
-# How to switch to factory_boy ?
+# Tips: Anti-patterns
 
-Not switch directly all your tests
-Begin to create new factories on your new tests, in a separate file for example
+**DON'T** create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWithAuthorAndAddressFactory, ...
+
+    -> create util functions that uses different factories, depending
+    on the context.
+
+**DON'T** use it outside of a test environment:
+
+    -> be really careful on random generated fields (!).
+
+**DON'T** define ALL model fields in your factories, just mandatory ones and without default values:
+
+    -> Always better to set data (if default is not wanted) than unset.
+
+---
+
+# Tips: How to switch to factory_boy ?
+
+### Not switch directly all your tests
+
+### Begin to create new factories on your new tests, in a separate file for example
 
     !python
     .
@@ -463,4 +530,4 @@ Begin to create new factories on your new tests, in a separate file for example
     |   +-- urls.py
     |   +-- views.py
 
-When you modify/fix/add tests in an app, update them with factories instead of direct orm calls
+### When you modify/fix/add tests in an app, update them with factories instead of direct orm calls
