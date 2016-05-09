@@ -67,19 +67,19 @@
 
         def test_without_factory_boy(self):
             author = Author.objects.create(name='George RR Martin')
-            self.assertEquals(author.name, 'George RR Martin')
+            self.assertEqual(author.name, 'George RR Martin')
 
         def test_with_factory_boy(self):
             author = AuthorFactory(name='George RR Martin')
-            self.assertEquals(author.name, 'George RR Martin')
+            self.assertEqual(author.name, 'George RR Martin')
 
         def test_with_factory_boy_auto_creation(self):
             author = AuthorFactory()
-            self.assertEquals(author.name, 'name#1')
+            self.assertEqual(author.name, 'name#1')
 
         def test_with_factory_boy_auto_creation_and_undefined_field(self):
             author = AuthorFactory()
-            self.assertEquals(author.name2, 'we_dont_care')
+            self.assertEqual(author.name2, 'we_dont_care')
 
 ---
 
@@ -277,7 +277,7 @@ Too many useless data impact test readability, and are... useless !
             query = Book.objects.filter(
                 category="cooking",
                 author__favorite_breakfast_cereals="Honey smacks")
-            self.assertEquals(query.count(), 1)
+            self.assertEqual(query.count(), 1)
 
 ---
 
@@ -297,7 +297,7 @@ Less infos, and you focus on what is really important for your test.
             query = Book.objects.filter(
                 category="cooking",
                 author__favorite_breakfast_cereals="Honey smacks")
-            self.assertEquals(query.count(), 1)
+            self.assertEqual(query.count(), 1)
 
 ---
 
@@ -432,7 +432,7 @@ Create: build + database saving
         def test_creation(self):
             # Equivalent to AuthorFactory()
             AuthorFactory.create()
-            self.assertEquals(Author.objects.count(), 1)
+            self.assertEqual(Author.objects.count(), 1)
 
 ---
 
@@ -443,12 +443,12 @@ Create: build + database saving
 
         def test_build(self):
             authors = AuthorFactory.build_batch(20)
-            self.assertEquals(len(authors), 20)
+            self.assertEqual(len(authors), 20)
             self.assertFalse(Author.objects.exists())
 
         def test_create(self):
             AuthorFactory.create_batch(20)
-            self.assertEquals(Author.objects.count(), 20)
+            self.assertEqual(Author.objects.count(), 20)
 
 ---
 
@@ -491,11 +491,11 @@ Use django_get_or_create
 
         def test_author(self):
             query = Author.objects.filter(name='author#1')
-            self.assertEquals(query.count(), 1)
+            self.assertEqual(query.count(), 1)
 
             # No more IntegrityError
             AuthorFactory()
-            self.assertEquals(query.count(), 1)
+            self.assertEqual(query.count(), 1)
 
 ---
 
