@@ -1,35 +1,42 @@
-# Django tests with factory_boy (@rgarrigues)
+# Django tests with factory_boy (@rgarrigues - ![iwoca-logo][iwoca_logo])
+
+[iwoca_logo]: images/logo_iwoca.png
 
 ---
 
 # Current problem
 
-Find a way to create a complex set of data in test environment that is:
+## Create a complex set of data in test environment that is:
 
-    - Fast
-    - Simple
-    - Readable
-    - DRY
+## - Fast
+
+## - Simple
+
+## - Readable
+
+## - Don't Repeat Yourself (DRY)
 
 ---
 
 # Several solutions
 
-- Create your own code
-- Use Django built-in fixtures (xml/yaml/json)
-- Use some python packages created for that purpose: factory_boy, model_mummy
+## - Direct Django orm
+
+## - Django built-in fixtures (xml/yaml/json)
+
+## - Some python packages created for that purpose: factory_boy, model_mummy
 
 
 ---
 
 # Overview
 
-Why factory_boy ?
+## Why factory_boy ?
 
-- Simplify object creation for testing purpose
-- Avoid painful test code refactoring if your models are changing
-- Tests are more readable
-- Well adapted to Django, with Django-like syntax, managing all relations
+## - Simplify object creation for testing purpose
+## - Avoid painful test code refactoring if your models are changing
+## - Tests are more readable
+## - Well adapted to Django, with Django-like syntax, managing all relations
 
 
 ---
@@ -123,7 +130,7 @@ Factory definition
 
 ---
 
-# Simplify nested object creation (2)
+# Simplify nested object creation (3)
 
 Specify nested objects values
 
@@ -436,15 +443,18 @@ Use django_get_or_create
 
 ---
 
-# Tips: "not-so-good" practices
+# Tips: Anti-patterns
 
 **Don't** create a factory per "context", like BookFactory, BookWithAuthorFactory, BookWithAuthorAndAddressFactory, ...
+
     - better to create util functions that uses different factories, depending on the context.
 
 **Don't** use it outside of a test environment:
+
     - be really careful on random generated fields (!).
 
 **Don't** define ALL model fields in your factories, just mandatory ones and without default values:
+
     - Always better to set data (if default is not wanted) than unset.
 
 ---
