@@ -257,19 +257,19 @@
 <span class="lineno"> 2 </span>
 <span class="lineno"> 3 </span>    <span class="k">def</span> <span class="nf">test_without_factory_boy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="lineno"> 4 </span>        <span class="n">author</span> <span class="o">=</span> <span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;George RR Martin&#39;</span><span class="p">)</span>
-<span class="lineno"> 5 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;George RR Martin&#39;</span><span class="p">)</span>
+<span class="lineno"> 5 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;George RR Martin&#39;</span><span class="p">)</span>
 <span class="lineno"> 6 </span>
 <span class="lineno"> 7 </span>    <span class="k">def</span> <span class="nf">test_with_factory_boy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="lineno"> 8 </span>        <span class="n">author</span> <span class="o">=</span> <span class="n">AuthorFactory</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;George RR Martin&#39;</span><span class="p">)</span>
-<span class="lineno"> 9 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;George RR Martin&#39;</span><span class="p">)</span>
+<span class="lineno"> 9 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;George RR Martin&#39;</span><span class="p">)</span>
 <span class="lineno">10 </span>
 <span class="lineno">11 </span>    <span class="k">def</span> <span class="nf">test_with_factory_boy_auto_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="lineno">12 </span>        <span class="n">author</span> <span class="o">=</span> <span class="n">AuthorFactory</span><span class="p">()</span>
-<span class="lineno">13 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;name#1&#39;</span><span class="p">)</span>
+<span class="lineno">13 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;name#1&#39;</span><span class="p">)</span>
 <span class="lineno">14 </span>
 <span class="lineno">15 </span>    <span class="k">def</span> <span class="nf">test_with_factory_boy_auto_creation_and_undefined_field</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="lineno">16 </span>        <span class="n">author</span> <span class="o">=</span> <span class="n">AuthorFactory</span><span class="p">()</span>
-<span class="lineno">17 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name2</span><span class="p">,</span> <span class="s">&#39;we_dont_care&#39;</span><span class="p">)</span>
+<span class="lineno">17 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">name2</span><span class="p">,</span> <span class="s">&#39;we_dont_care&#39;</span><span class="p">)</span>
 </pre></div>
 </section>
             
@@ -755,7 +755,7 @@ does the job :-)</p></section>
 <span class="lineno">18 </span>        <span class="n">query</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
 <span class="lineno">19 </span>            <span class="n">category</span><span class="o">=</span><span class="s">&quot;cooking&quot;</span><span class="p">,</span>
 <span class="lineno">20 </span>            <span class="n">author__favorite_breakfast_cereals</span><span class="o">=</span><span class="s">&quot;Honey smacks&quot;</span><span class="p">)</span>
-<span class="lineno">21 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="lineno">21 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </section>
             
@@ -799,7 +799,7 @@ does the job :-)</p></section>
 <span class="lineno"> 9 </span>        <span class="n">query</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
 <span class="lineno">10 </span>            <span class="n">category</span><span class="o">=</span><span class="s">&quot;cooking&quot;</span><span class="p">,</span>
 <span class="lineno">11 </span>            <span class="n">author__favorite_breakfast_cereals</span><span class="o">=</span><span class="s">&quot;Honey smacks&quot;</span><span class="p">)</span>
-<span class="lineno">12 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="lineno">12 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </section>
             
@@ -1146,7 +1146,7 @@ does the job :-)</p></section>
 <span class="lineno"> 7 </span>    <span class="k">def</span> <span class="nf">test_creation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="lineno"> 8 </span>        <span class="c"># Equivalent to AuthorFactory()</span>
 <span class="lineno"> 9 </span>        <span class="n">AuthorFactory</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="lineno">10 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="lineno">10 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </section>
             
@@ -1182,12 +1182,12 @@ does the job :-)</p></section>
 <span class="lineno"> 2 </span>
 <span class="lineno"> 3 </span>    <span class="k">def</span> <span class="nf">test_build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="lineno"> 4 </span>        <span class="n">authors</span> <span class="o">=</span> <span class="n">AuthorFactory</span><span class="o">.</span><span class="n">build_batch</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="lineno"> 5 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">authors</span><span class="p">),</span> <span class="mi">20</span><span class="p">)</span>
+<span class="lineno"> 5 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">authors</span><span class="p">),</span> <span class="mi">20</span><span class="p">)</span>
 <span class="lineno"> 6 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exists</span><span class="p">())</span>
 <span class="lineno"> 7 </span>
 <span class="lineno"> 8 </span>    <span class="k">def</span> <span class="nf">test_create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="lineno"> 9 </span>        <span class="n">AuthorFactory</span><span class="o">.</span><span class="n">create_batch</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="lineno">10 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">20</span><span class="p">)</span>
+<span class="lineno">10 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </section>
             
@@ -1303,11 +1303,11 @@ does the job :-)</p></section>
 <span class="lineno"> 8 </span>
 <span class="lineno"> 9 </span>    <span class="k">def</span> <span class="nf">test_author</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="lineno">10 </span>        <span class="n">query</span> <span class="o">=</span> <span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;author#1&#39;</span><span class="p">)</span>
-<span class="lineno">11 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="lineno">11 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
 <span class="lineno">12 </span>
 <span class="lineno">13 </span>        <span class="c"># No more IntegrityError</span>
 <span class="lineno">14 </span>        <span class="n">AuthorFactory</span><span class="p">()</span>
-<span class="lineno">15 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="lineno">15 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </section>
             
