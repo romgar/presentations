@@ -38,6 +38,9 @@
 ### - Tests are more readable
 ### - Well adapted to Django, with Django-like syntax, managing all relations
 
+---
+
+How it works
 
 ---
 
@@ -531,3 +534,10 @@ Use django_get_or_create
     |   +-- views.py
 
 ### When you modify/fix/add tests in an app, update them with factories instead of direct orm calls
+
+---
+
+# ![iwoca-logo][iwoca_logo] is looking for factory boys !!
+
+[iwoca_logo]: images/logo_iwoca.png
+
