@@ -1,4 +1,4 @@
-# Django tests with factory_boy (@rgarrigues - ![iwoca-logo][iwoca_logo])
+# Django tests with factory_boy - @rgarrigues - ![iwoca-logo][iwoca_logo])
 
 [iwoca_logo]: images/logo_iwoca.png
 
@@ -6,7 +6,7 @@
 
 # Current problem
 
-## Create a complex set of data in test environment that is:
+## Find a way to create a complex set of data in test environment that is:
 
 ### - Simple to use
 
