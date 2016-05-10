@@ -1181,12 +1181,12 @@ does the job :-)</p></section>
             <section><div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">TestBatchAuthorOperations</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
 <span class="lineno"> 2 </span>
 <span class="lineno"> 3 </span>    <span class="k">def</span> <span class="nf">test_build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="lineno"> 4 </span>        <span class="n">authors</span> <span class="o">=</span> <span class="n">AuthorFactory</span><span class="o">.</span><span class="n">build_batch</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="lineno"> 4 </span>        <span class="n">authors</span> <span class="o">=</span> <span class="n">AuthorFactory</span><span class="o">.</span><span class="n">build_batch</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="lineno"> 5 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">authors</span><span class="p">),</span> <span class="mi">20</span><span class="p">)</span>
 <span class="lineno"> 6 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exists</span><span class="p">())</span>
 <span class="lineno"> 7 </span>
 <span class="lineno"> 8 </span>    <span class="k">def</span> <span class="nf">test_create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="lineno"> 9 </span>        <span class="n">AuthorFactory</span><span class="o">.</span><span class="n">create_batch</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="lineno"> 9 </span>        <span class="n">AuthorFactory</span><span class="o">.</span><span class="n">create_batch</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="lineno">10 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </section>
