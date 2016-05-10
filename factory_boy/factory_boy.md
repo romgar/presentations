@@ -459,6 +459,9 @@ Create: build + database saving
 # Tips: data generation conflicts
 
     !python
+    class Author(models.Model):
+        name = models.CharField(max_length=255, unique=True)
+
     class AuthorFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Author
