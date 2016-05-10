@@ -1242,23 +1242,26 @@ does the job :-)</p></section>
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Tips: data generation conflicts</h1></header>
+            <header><h1>Tips: data migration conflicts</h1></header>
             
             
-            <section><div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">AuthorFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
-<span class="lineno"> 2 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-<span class="lineno"> 3 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Author</span>
-<span class="lineno"> 4 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s">u&#39;author#</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">n</span><span class="p">)</span>
-<span class="lineno"> 5 </span>
-<span class="lineno"> 6 </span><span class="c"># Imagine you have created an author in an initial data migration</span>
-<span class="lineno"> 7 </span><span class="c"># with name=&#39;author#1&#39;</span>
+            <section><div class="highlight"><pre><span class="lineno"> 1 </span><span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="lineno"> 2 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="lineno"> 3 </span>
+<span class="lineno"> 4 </span><span class="k">class</span> <span class="nc">AuthorFactory</span><span class="p">(</span><span class="n">factory</span><span class="o">.</span><span class="n">django</span><span class="o">.</span><span class="n">DjangoModelFactory</span><span class="p">):</span>
+<span class="lineno"> 5 </span>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="lineno"> 6 </span>        <span class="n">model</span> <span class="o">=</span> <span class="n">Author</span>
+<span class="lineno"> 7 </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s">u&#39;author#</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">n</span><span class="p">)</span>
 <span class="lineno"> 8 </span>
-<span class="lineno"> 9 </span><span class="k">class</span> <span class="nc">TestAuthorCreation</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
-<span class="lineno">10 </span>
-<span class="lineno">11 </span>    <span class="k">def</span> <span class="nf">test_author</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="lineno">12 </span>        <span class="c"># IntegrityError because the factory will try to create</span>
-<span class="lineno">13 </span>        <span class="c"># an author with name=&#39;author#1&#39;</span>
-<span class="lineno">14 </span>        <span class="n">AuthorFactory</span><span class="p">()</span>
+<span class="lineno"> 9 </span><span class="c"># Imagine you have created an author in an initial data migration</span>
+<span class="lineno">10 </span><span class="c"># with name=&#39;author#1&#39;</span>
+<span class="lineno">11 </span>
+<span class="lineno">12 </span><span class="k">class</span> <span class="nc">TestAuthorCreation</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="lineno">13 </span>
+<span class="lineno">14 </span>    <span class="k">def</span> <span class="nf">test_author</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="lineno">15 </span>        <span class="c"># IntegrityError because the factory will try to create</span>
+<span class="lineno">16 </span>        <span class="c"># an author with name=&#39;author#1&#39;</span>
+<span class="lineno">17 </span>        <span class="n">AuthorFactory</span><span class="p">()</span>
 </pre></div>
 </section>
             
@@ -1287,7 +1290,7 @@ does the job :-)</p></section>
         <div class="slide has_code">
           <div class="inner">
             
-            <header><h1>Tips: data generation conflicts (2)</h1></header>
+            <header><h1>Tips: data migration conflicts (2)</h1></header>
             
             
             <section><p>Use django_get_or_create</p>
@@ -1634,13 +1637,13 @@ on the context.
       
       
       <tr id="toc-row-32">
-        <th><a href="#slide32">Tips: data generation conflicts</a></th>
+        <th><a href="#slide32">Tips: data migration conflicts</a></th>
         <td><a href="#slide32">32</a></td>
       </tr>
       
       
       <tr id="toc-row-33">
-        <th><a href="#slide33">Tips: data generation conflicts (2)</a></th>
+        <th><a href="#slide33">Tips: data migration conflicts (2)</a></th>
         <td><a href="#slide33">33</a></td>
       </tr>
       

@@ -456,9 +456,12 @@ Create: build + database saving
 
 ---
 
-# Tips: data generation conflicts
+# Tips: data migration conflicts
 
     !python
+    class Author(models.Model):
+        name = models.CharField(max_length=255, unique=True)
+
     class AuthorFactory(factory.django.DjangoModelFactory):
         class Meta:
             model = Author
@@ -476,7 +479,7 @@ Create: build + database saving
 
 ---
 
-# Tips: data generation conflicts (2)
+# Tips: data migration conflicts (2)
 
 Use django_get_or_create
 
