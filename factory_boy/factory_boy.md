@@ -442,12 +442,12 @@ Create: build + database saving
     class TestBatchAuthorOperations(TestCase):
 
         def test_build(self):
-            authors = AuthorFactory.build_batch(20)
+            authors = AuthorFactory.build_batch(size=20)
             self.assertEqual(len(authors), 20)
             self.assertFalse(Author.objects.exists())
 
         def test_create(self):
-            AuthorFactory.create_batch(20)
+            AuthorFactory.create_batch(size=20)
             self.assertEqual(Author.objects.count(), 20)
 
 ---
