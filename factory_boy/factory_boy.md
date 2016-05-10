@@ -1,4 +1,4 @@
-# Django tests with factory_boy - @rgarrigues - ![iwoca-logo][iwoca_logo])
+# Django tests with factory_boy - @rgarrigues - ![iwoca-logo][iwoca_logo]
 
 [iwoca_logo]: images/logo_iwoca.png
 
