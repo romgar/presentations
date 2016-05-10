@@ -456,7 +456,7 @@ Create: build + database saving
 
 ---
 
-# Tips: data generation conflicts
+# Tips: data migration conflicts
 
     !python
     class Author(models.Model):
@@ -479,7 +479,7 @@ Create: build + database saving
 
 ---
 
-# Tips: data generation conflicts (2)
+# Tips: data migration conflicts (2)
 
 Use django_get_or_create
 
