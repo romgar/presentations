@@ -8,13 +8,13 @@
 
 ## Create a complex set of data in test environment that is:
 
-### - Fast
+### - Simple to use
 
-### - Simple
+### - Easy to read
 
-### - Readable
+### - Fast to learn
 
-### - Don't Repeat Yourself (DRY)
+### - Be used on any project
 
 ---
 
