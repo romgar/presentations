@@ -1,84 +1,92 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="../revealjs/css/reveal.css">
-		<link rel="stylesheet" href="../revealjs/css/theme/black.css">
+    <link rel="stylesheet" href="../revealjs/css/reveal.css">
+    <link rel="stylesheet" href="../revealjs/css/theme/black.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? '../revealjs/css/print/pdf.css' : '../revealjs/css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>
-					<h1>Django upgrade (1.4 to 1.9) in a 100+ app project</h1>
-					<h2>Romain Garrigues (@rgarrigues)</h2>
-				</section>
-				<section>
-					<h1>Context @ iwoca</h1>
-					<ul>
-						<li>Aout 2014: end of life for Django 1.4 LTS</li>
-						<li>Quite big monolithic Django project (100+ custom apps)</li>
-						<li>Continuous deployment (~10 releases/day)</li>
-						<li>Continuous deployment (~10 releases/day)</li>
-						<li>20 developers full time</li>
-					</ul>
-				</section>
-				<section>
-					<h1>Problem to solve</h1>
-					<ul>
-						<li>Massive upgrade (1.4 to 1.8)</li>
-						<li>Upgrade current code while 1.4 code still produced</li>
-				</section>
-				<section>
-					<img src="images/upgrade_summary.png">
-				</section>
-				<section>
-					<h1>Solution</h1>
-					<ul>
-						<li>One version a time (1.5, 1.6, 1.7, 1.8, 1.9)</li>
-						<li>Read Django Release</li>
-						<li>Create env with new Django version</li>
-						<li>Run tests</li>
-						<li>Fix each issue</li>
-					</ul>
-					<section>
-						<img src="images/django_release_notes.png">
-					</section>
-				</section>
-			</div>
-		</div>
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../revealjs/css/print/pdf.css' : '../revealjs/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Django upgrade (1.4 -> 1.9) in a 100+ app project</h2>
+            <h3>Romain Garrigues (@rgarrigues)</h3>
+        </section>
+        <section>
+            <h2>Context @ iwoca</h2>
+            <ul>
+                <li>August 2014: end of life for Django 1.4 LTS</li>
+                <li>Monolithic Django project (100+ custom apps)</li>
+                <li>Continuous deployment (~10 releases/day)</li>
+                <li>20 full-time developers</li>
+            </ul>
+        </section>
+        <section>
+            <section>
+                <h2>Problem to solve</h2>
+                <ul>
+                    <li>Massive upgrade (1.4 to 1.8)</li>
+                    <li>Upgrade current code while 1.4 code still produced</li>
+                </ul>
+            </section>
+            <section>
+                <img src="images/upgrade_summary.png">
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Solution</h2>
+                <ul>
+                    <li>One version a time (1.5, 1.6, 1.7, 1.8, 1.9)</li>
+                    <li>Read Django Release</li>
+                    <li>Create env with new Django version</li>
+                    <li>Run tests</li>
+                    <li>Fix each issue</li>
+                </ul>
+            </section>
+            <section>
+                <img src="images/django_release_notes.png">
+            </section>
+        </section>
+    </div>
+</div>
 
-		<script src="../revealjs/lib/js/head.min.js"></script>
-		<script src="../revealjs/js/reveal.js"></script>
+<script src="../revealjs/lib/js/head.min.js"></script>
+<script src="../revealjs/js/reveal.js"></script>
 
-		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: '../revealjs/plugin/markdown/marked.js' },
-					{ src: '../revealjs/plugin/markdown/markdown.js' },
-					{ src: '../revealjs/plugin/notes/notes.js', async: true },
-					{ src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            {src: '../revealjs/plugin/markdown/marked.js'},
+            {src: '../revealjs/plugin/markdown/markdown.js'},
+            {src: '../revealjs/plugin/notes/notes.js', async: true},
+            {
+                src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
 </html>
