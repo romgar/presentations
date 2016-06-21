@@ -24,8 +24,42 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
- 				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>Django upgrade (1.4 to 1.9) in a 100+ app project</h1>
+					<h2>Romain Garrigues (@rgarrigues)</h2>
+				</section>
+				<section>
+					<h1>Context @ iwoca</h1>
+					<ul>
+						<li>Aout 2014: end of life for Django 1.4 LTS</li>
+						<li>Quite big monolithic Django project (100+ custom apps)</li>
+						<li>Continuous deployment (~10 releases/day)</li>
+						<li>Continuous deployment (~10 releases/day)</li>
+						<li>20 developers full time</li>
+					</ul>
+				</section>
+				<section>
+					<h1>Problem to solve</h1>
+					<ul>
+						<li>Massive upgrade (1.4 to 1.8)</li>
+						<li>Upgrade current code while 1.4 code still produced</li>
+				</section>
+				<section>
+					<img src="images/upgrade_summary.png">
+				</section>
+				<section>
+					<h1>Solution</h1>
+					<ul>
+						<li>One version a time (1.5, 1.6, 1.7, 1.8, 1.9)</li>
+						<li>Read Django Release</li>
+						<li>Create env with new Django version</li>
+						<li>Run tests</li>
+						<li>Fix each issue</li>
+					</ul>
+					<section>
+						<img src="images/django_release_notes.png">
+					</section>
+				</section>
 			</div>
 		</div>
 
