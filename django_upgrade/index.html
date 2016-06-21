@@ -61,8 +61,43 @@
                 </ul>
             </section>
             <section>
-                <img src="images/django_release_notes.png">
+                <img src="images/django_release_notes_2.png">
             </section>
+        </section>
+        <section>
+            <h2>Process to fix</h2>
+            <ul>
+                <li>Compatibility 1.4 <--> 1.X</li>
+                <li>Deprecated rules</li>
+                <li>Documentation</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Compatibility</h2>
+            Create a compat module
+            TODO: Design abstract pattern
+            Example
+        </section>
+        <section>
+            <h2>Deprecated rules</h2>
+            Applied in deployment process to avoid regression
+            Example
+        </section>
+        <section>
+            <h2>Documentation</h2>
+            Not block developers, specially to fix deprecated rules
+            Example
+        </section>
+        <section>
+            <h2>Benefits</h2>
+            Each change has small impacts on production code
+            Final deployment is really trivial (easy to revert):
+            Diff with only Django version change
+        </section>
+        <section>
+            <h2>Results</h2>
+            Only small problems, essentially django admin (non-tested parts)
+            One production AttributeError bug (investigate)
         </section>
     </div>
 </div>
