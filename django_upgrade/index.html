@@ -1,50 +1,220 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>Django upgrade</title>
 
-		<link rel="stylesheet" href="../revealjs/css/reveal.css">
-		<link rel="stylesheet" href="../revealjs/css/theme/black.css">
+    <link rel="stylesheet" href="../revealjs/css/reveal.css">
+    <link rel="stylesheet" href="../revealjs/css/theme/black.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? '../revealjs/css/print/pdf.css' : '../revealjs/css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
- 				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../revealjs/css/print/pdf.css' : '../revealjs/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Django upgrade (1.4 -> 1.9) in a 100+ app project</h2>
+            <h3>Romain Garrigues (@rgarrigues)</h3>
+        </section>
+        <section>
+            <h2>Context @ iwoca</h2>
+            <ul>
+                <li>August 2015: end of life for Django 1.4 LTS</li>
+                <li>Monolithic Django project:
+                    <ul>
+                        <li>100+ custom apps</li>
+                        <li>200K lines of code</li>
+                    </ul>
+                <li>Continuous deployment (~10 releases/day)</li>
+                <li>20 full-time developers</li>
+            </ul>
+        </section>
+        <section>
+            <section>
+                <h2>Problem to solve</h2>
+                <ul>
+                    <li>Massive upgrade (1.4 to 1.8)</li>
+                    <li>Upgrade current code while 1.4 code still produced</li>
+                </ul>
+            </section>
+            <section>
+                <img src="images/upgrade_summary.png">
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Solutions</h2>
+                <ul>
+                    <li>Separate branch, then final merge</li>
+                    <li>Update the project continuously</li>
+                    TODO: Create a schema to illustrate?
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Process</h2>
+                <ul>
+                    <li>One version a time (1.5, 1.6, 1.7, 1.8, 1.9)</li>
+                    <li>Read Django release notes</li>
+                    <li>Create env with new Django version</li>
+                    <li>Run tests</li>
+                    <li>Fix each issue</li>
+                </ul>
+            </section>
+            <section>
+                <img src="images/django_release_notes_2.png">
+            </section>
+        </section>
+        <section>
+            <h2>One fix at a time</h2>
+            <ul>
+                <li>Compatibility 1.4 <--> 1.X</li>
+                <li>Deprecated rules</li>
+                <li>Documentation</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Compatibility</h2>
+            <img src="images/facade_pattern.jpg">
+        </section>
+        <section>
+            <section>
+                <h2>Examples</h2>
+                <pre>
+                <code class="python hljs">
+from django.db import transaction
 
-		<script src="../revealjs/lib/js/head.min.js"></script>
-		<script src="../revealjs/js/reveal.js"></script>
+if django.VERSION < (1, 6):
+    atomic_compat_transaction = transaction.commit_on_success
+else:
+    atomic_compat_transaction = transaction.atomic
+                    </code>
+                    </pre>
+            </section>
+            <section>
+                <h2>Examples</h2>
+                <pre>
+                <code class="python hljs">
+if django.VERSION < (1, 8):
+    ALL_FIELDS = None
+else:
+    ALL_FIELDS = '__all__'
 
-		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: '../revealjs/plugin/markdown/marked.js' },
-					{ src: '../revealjs/plugin/markdown/markdown.js' },
-					{ src: '../revealjs/plugin/notes/notes.js', async: true },
-					{ src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+class YourForm(forms.ModelForm):
+
+    class Meta:
+        model = YourModel
+        fields = ALL_FIELDS
+                </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <h2>Deprecated rules</h2>
+            <ul>
+                <li>Automatic script launched during test phase</li>
+                <li>Prevent regressions</li>
+                <li>Help people to fix it themself</li>
+            </ul>
+        </section>
+        <section>
+            <section>
+                <h2>Examples</h2>
+            <pre>
+                <code class="shell hljs">
+$ ./manage.py check_deprecated_rules
+
+./my_app/views.py
+1603: Transaction management has been completely changed.
+      atomic is replacing old commit_on_success and other utils.
+L204: @transaction.commit_on_success
+                </code>
+                </pre>
+            </section>
+            <section>
+                <h2>Examples</h2>
+            <pre>
+                <code class="shell hljs">
+$ ./manage.py check_deprecated_rules
+
+./mon_app/models.py
+1601: models.BooleanField has to be initialised with default
+      parameter, as implicit default has changed between
+      Django 1.4 (False) and 1.6 (None).
+L192:     is_active = models.BooleanField()
+
+                </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <h2>Documentation</h2>
+            <img src="images/documentation.jpg">
+        </section>
+        <section>
+            <h2>Migrations</h2>
+            <pre>
+                <code class="shell hljs">
+$ ./manage.py diff_migrations
+
+TODO: Add output
+                </code>
+                </pre>
+        </section>
+        <section>
+            <h2>Benefits</h2>
+            <ul>
+                <li>Each change has small impacts on production code</li>
+                <li>Final deployment is really trivial</li>
+            </ul>
+            <img src="images/final_diff.jpg">
+        </section>
+        <section>
+            <h2>Results</h2>
+            <ul>
+                <li>Only small problems, essentially custom django admin (non-covered)</li>
+                <li>One production AttributeError bug (investigate)</li>
+                <li>No stress during the whole upgrade (months)</li>
+                <li>Will be open-source released</li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+<script src="../revealjs/lib/js/head.min.js"></script>
+<script src="../revealjs/js/reveal.js"></script>
+
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            {src: '../revealjs/plugin/markdown/marked.js'},
+            {src: '../revealjs/plugin/markdown/markdown.js'},
+            {src: '../revealjs/plugin/notes/notes.js', async: true},
+            {
+                src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
 </html>
