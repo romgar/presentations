@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>reveal.js</title>
+    <title>Django upgrade</title>
 
     <link rel="stylesheet" href="../revealjs/css/reveal.css">
     <link rel="stylesheet" href="../revealjs/css/theme/black.css">
@@ -55,10 +55,19 @@
         </section>
         <section>
             <section>
-                <h2>Solution</h2>
+                <h2>Solutions</h2>
+                <ul>
+                    <li>Separate branch, then final merge</li>
+                    <li>Update the project continuously</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Process</h2>
                 <ul>
                     <li>One version a time (1.5, 1.6, 1.7, 1.8, 1.9)</li>
-                    <li>Read Django Release</li>
+                    <li>Read Django release notes</li>
                     <li>Create env with new Django version</li>
                     <li>Run tests</li>
                     <li>Fix each issue</li>
@@ -69,7 +78,7 @@
             </section>
         </section>
         <section>
-            <h2>Process to fix</h2>
+            <h2>One fix at a time</h2>
             <ul>
                 <li>Compatibility 1.4 <--> 1.X</li>
                 <li>Deprecated rules</li>
@@ -78,9 +87,39 @@
         </section>
         <section>
             <h2>Compatibility</h2>
-            Create a compat module
-            TODO: Design abstract pattern
-            Example
+            <img src="images/facade_pattern.jpg">
+        </section>
+        <section>
+            <section>
+                <h2>Examples</h2>
+                <pre>
+                <code class="python hljs">
+from django.db import transaction
+
+if django.VERSION < (1, 6):
+    atomic_compat_transaction = transaction.commit_on_success
+else:
+    atomic_compat_transaction = transaction.atomic
+                    </code>
+                    </pre>
+            </section>
+            <section>
+                <h2>Examples</h2>
+                <pre>
+                <code class="python hljs">
+if django.VERSION < (1, 8):
+    ALL_FIELDS = None
+else:
+    ALL_FIELDS = '__all__'
+
+
+class YourForm(forms.ModelForm):
+    class Meta:
+        model = YourModel
+        fields = ALL_FIELDS
+                </code>
+            </pre>
+            </section>
         </section>
         <section>
             <h2>Deprecated rules</h2>
