@@ -101,6 +101,10 @@ if django.VERSION < (1, 6):
     atomic_compat_transaction = transaction.commit_on_success
 else:
     atomic_compat_transaction = transaction.atomic
+
+@atomic_compat_transaction
+def your_view(request):
+    # Your code here
                     </code>
                     </pre>
             </section>
