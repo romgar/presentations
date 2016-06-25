@@ -29,9 +29,9 @@
             <h3>Romain Garrigues (@rgarrigues)</h3>
         </section>
         <section>
-            <h2>Context @ iwoca</h2>
+            <img src="images/logo_iwoca.png" style="border: 0; background:none; width: 35%;">
             <ul>
-                <li>August 2015: end of life for Django 1.4 LTS</li>
+                <li>August 2015, Django 1.4</li>
                 <li>Monolithic Django project:
                     <ul>
                         <li>100+ custom apps</li>
@@ -43,24 +43,25 @@
         </section>
         <section>
             <section>
-                <h2>Problem to solve</h2>
+                <h2>Problem: EOL Django 1.4</h2>
                 <ul>
-                    <li>Massive upgrade (1.4 to 1.8)</li>
-                    <li>Upgrade current code while 1.4 code still produced</li>
+                    <li>1.4: 23/03/2012</li>
+                    <li>1.5: 26/02/2013 (no more supported)</li>
+                    <li>1.6: 06/11/2013 (no more supported)</li>
+                    <li>1.7: 02/09/2014</li>
+                    <li>1.8: 01/04/2015</li>
+                    <li>---> We are here: 01/08/2015 <---</li>
+                    <li>1.4 EOL: 01/10/2015</li>
+                    <li>1.9: 01/12/2015</li>
                 </ul>
             </section>
             <section>
+                <h2>Massive upgrade to next secure version</h2>
                 <img src="images/upgrade_summary.png">
             </section>
-        </section>
-        <section>
             <section>
-                <h2>Solutions</h2>
-                <ul>
-                    <li>Separate branch, then final merge</li>
-                    <li>Update the project continuously</li>
-                    TODO: Create a schema to illustrate?
-                </ul>
+                <h2>Old 1.4 code still produced</h2>
+                <img src="images/git_workflow.png">
             </section>
         </section>
         <section>
@@ -72,6 +73,7 @@
                     <li>Create env with new Django version</li>
                     <li>Run tests</li>
                     <li>Fix each issue</li>
+                    <li>Manual testing</li>
                 </ul>
             </section>
             <section>
@@ -87,36 +89,50 @@
             </ul>
         </section>
         <section>
-            <h2>Compatibility</h2>
-            <img src="images/facade_pattern.jpg">
-        </section>
-        <section>
             <section>
-                <h2>Examples</h2>
+                <h2>Compatibility</h2>
+                <img src="images/facade_pattern.jpg">
+            </section>
+            <section>
+                <h2>Example 1</h2>
                 <pre>
-                <code class="python hljs">
+                    <code>
+# compat/db.py
 from django.db import transaction
 
 if django.VERSION < (1, 6):
     atomic_compat_transaction = transaction.commit_on_success
 else:
     atomic_compat_transaction = transaction.atomic
+                    </code>
+                </pre>
+                <pre>
+                    <code>
+# your_app/views.py
+from compat.db import atomic_compat_transaction
 
 @atomic_compat_transaction
 def your_view(request):
-    # Your code here
+    # Your view code here
                     </code>
-                    </pre>
+                </pre>
             </section>
             <section>
-                <h2>Examples</h2>
+                <h2>Example 2</h2>
                 <pre>
-                <code class="python hljs">
+                    <code>
+# compat/fields.py
+
 if django.VERSION < (1, 8):
     ALL_FIELDS = None
 else:
     ALL_FIELDS = '__all__'
-
+                    </code>
+                </pre>
+                <pre>
+                    <code>
+# your_app/forms.py
+from compat.fields import ALL_FIELDS
 
 class YourForm(forms.ModelForm):
 
@@ -128,18 +144,30 @@ class YourForm(forms.ModelForm):
             </section>
         </section>
         <section>
-            <h2>Deprecated rules</h2>
-            <ul>
-                <li>Automatic script launched during test phase</li>
-                <li>Prevent regressions</li>
-                <li>Help people to fix it themself</li>
-            </ul>
-        </section>
-        <section>
             <section>
-                <h2>Examples</h2>
+                <h2>Deprecated rules</h2>
+                <ul>
+                    <li>Prevent regressions</li>
+                    <li>Management command launched during test phase</li>
+                    <li>Help people to fix it themself</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Rules definition</h2>
+                <pre>
+                    <code>
+'deprecated_transaction_system': {
+    'message': 'Transaction management has been completely changed. atomic is replacing old commit_on_success and other utils.',
+    'regex': r'.*(((@|with\s)transaction\.(commit_on_success|commit_manually))).*',
+    'number': '1603'
+},
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h2>Example 1</h2>
             <pre>
-                <code class="shell hljs">
+                <code>
 $ ./manage.py check_deprecated_rules
 
 ./my_app/views.py
@@ -150,9 +178,9 @@ L204: @transaction.commit_on_success
                 </pre>
             </section>
             <section>
-                <h2>Examples</h2>
+                <h2>Example 2</h2>
             <pre>
-                <code class="shell hljs">
+                <code>
 $ ./manage.py check_deprecated_rules
 
 ./mon_app/models.py
@@ -171,30 +199,37 @@ L192:     is_active = models.BooleanField()
         </section>
         <section>
             <h2>Migrations</h2>
+            Know migrations still generated in old-style (<1.7)
             <pre>
-                <code class="shell hljs">
+                <code>
 $ ./manage.py diff_migrations
 
-TODO: Add output
+Migrations diff:
+{'your_app': ['0001_initial.py', '0002_add_new_field']}
                 </code>
                 </pre>
         </section>
         <section>
-            <h2>Benefits</h2>
-            <ul>
-                <li>Each change has small impacts on production code</li>
-                <li>Final deployment is really trivial</li>
-            </ul>
-            <img src="images/final_diff.jpg">
-        </section>
-        <section>
             <h2>Results</h2>
             <ul>
-                <li>Only small problems, essentially custom django admin (non-covered)</li>
+                <li>No major issue</li>
+                <li>Only small issues (custom django admin pages)</li>
                 <li>One production AttributeError bug (investigate)</li>
                 <li>No stress during the whole upgrade (months)</li>
-                <li>Will be open-source released</li>
+                <li>django-seven</li>
             </ul>
+        </section>
+        <section>
+            <h2>Key points for success</h2>
+            <ul>
+                <li>Decent test coverage (>60%)</li>
+                <li>Django documentation</li>
+                <li>Django deprecation cycle</li>
+                <li>Respect of Django standards (avoid internal APIs)</li>
+                <li>Lot of small changes</li>
+                <li>Trivial final deployment</li>
+            </ul>
+            <img src="images/final_diff.jpg">
         </section>
     </div>
 </div>
