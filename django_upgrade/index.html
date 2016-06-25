@@ -199,11 +199,13 @@ L192:     is_active = models.BooleanField()
         </section>
         <section>
             <h2>Migrations</h2>
+            Know migrations still generated in old-style (<1.7)
             <pre>
-                <code class="shell hljs">
+                <code>
 $ ./manage.py diff_migrations
 
-TODO: Add output
+Migrations diff:
+{'your_app': ['0001_initial.py', '0002_add_new_field']}
                 </code>
                 </pre>
         </section>
@@ -223,6 +225,7 @@ TODO: Add output
                 <li>Decent test coverage (>60%)</li>
                 <li>Django documentation</li>
                 <li>Django deprecation cycle</li>
+                <li>Respect of Django standards</li>
                 <li>Lot of small changes</li>
                 <li>Trivial final deployment</li>
             </ul>
