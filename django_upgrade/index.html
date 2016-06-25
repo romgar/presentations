@@ -43,7 +43,7 @@
         </section>
         <section>
             <section>
-                <h2>Main Problem: EOL Django 1.4</h2>
+                <h2>Problem: EOL Django 1.4</h2>
                 <ul>
                     <li>1.4: 23/03/2012</li>
                     <li>1.5: 26/02/2013 (no more supported)</li>
@@ -93,10 +93,8 @@
                 <h2>Compatibility</h2>
                 <img src="images/facade_pattern.jpg">
             </section>
-        </section>
-        <section>
             <section>
-                <h2>Examples</h2>
+                <h2>Example 1</h2>
                 <pre>
                     <code>
 # compat/db.py
@@ -120,7 +118,7 @@ def your_view(request):
                 </pre>
             </section>
             <section>
-                <h2>Examples</h2>
+                <h2>Example 2</h2>
                 <pre>
                     <code>
 # compat/fields.py
@@ -146,18 +144,30 @@ class YourForm(forms.ModelForm):
             </section>
         </section>
         <section>
-            <h2>Deprecated rules</h2>
-            <ul>
-                <li>Automatic script launched during test phase</li>
-                <li>Prevent regressions</li>
-                <li>Help people to fix it themself</li>
-            </ul>
-        </section>
-        <section>
             <section>
-                <h2>Examples</h2>
+                <h2>Deprecated rules</h2>
+                <ul>
+                    <li>Prevent regressions</li>
+                    <li>Management command launched during test phase</li>
+                    <li>Help people to fix it themself</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Rules definition</h2>
+                <pre>
+                    <code>
+'deprecated_transaction_system': {
+    'message': 'Transaction management has been completely changed. atomic is replacing old commit_on_success and other utils.',
+    'regex': r'.*(((@|with\s)transaction\.(commit_on_success|commit_manually))).*',
+    'number': '1603'
+},
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h2>Example 1</h2>
             <pre>
-                <code class="shell hljs">
+                <code>
 $ ./manage.py check_deprecated_rules
 
 ./my_app/views.py
@@ -168,9 +178,9 @@ L204: @transaction.commit_on_success
                 </pre>
             </section>
             <section>
-                <h2>Examples</h2>
+                <h2>Example 2</h2>
             <pre>
-                <code class="shell hljs">
+                <code>
 $ ./manage.py check_deprecated_rules
 
 ./mon_app/models.py
@@ -210,11 +220,11 @@ TODO: Add output
         <section>
             <h2>Key points for victory</h2>
             <ul>
-                <li>Decent test coverage (60%)</li>
+                <li>Decent test coverage (>60%)</li>
                 <li>Django documentation</li>
                 <li>Django deprecation cycle</li>
                 <li>Lot of small changes</li>
-                <li>Final deployment trivial</li>
+                <li>Trivial final deployment</li>
             </ul>
             <img src="images/final_diff.jpg">
         </section>
