@@ -94,29 +94,43 @@
             <section>
                 <h2>Examples</h2>
                 <pre>
-                <code class="python hljs">
+                    <code>
+# compat/db.py
 from django.db import transaction
 
 if django.VERSION < (1, 6):
     atomic_compat_transaction = transaction.commit_on_success
 else:
     atomic_compat_transaction = transaction.atomic
+                    </code>
+                </pre>
+                <pre>
+                    <code>
+# your_app/views.py
+from compat.db import atomic_compat_transaction
 
 @atomic_compat_transaction
 def your_view(request):
-    # Your code here
+    # Your view code here
                     </code>
-                    </pre>
+                </pre>
             </section>
             <section>
                 <h2>Examples</h2>
                 <pre>
-                <code class="python hljs">
+                    <code>
+# compat/fields.py
+
 if django.VERSION < (1, 8):
     ALL_FIELDS = None
 else:
     ALL_FIELDS = '__all__'
-
+                    </code>
+                </pre>
+                <pre>
+                    <code>
+# your_app/forms.py
+from compat.fields import ALL_FIELDS
 
 class YourForm(forms.ModelForm):
 
