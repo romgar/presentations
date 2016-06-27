@@ -68,12 +68,13 @@
             <section>
                 <h2>Process</h2>
                 <ul>
-                    <li>One version a time (1.5, 1.6, 1.7, 1.8, 1.9)</li>
-                    <li>Read Django release notes</li>
-                    <li>Create env with new Django version</li>
-                    <li>Run tests</li>
-                    <li>Fix each issue</li>
-                    <li>Manual testing</li>
+                    <li>For each Django version (1.5, 1.6, ...):</li>
+                    <ul>
+                        <li>Read Django release notes</li>
+                        <li>Run automatic tests</li>
+                        <li>Do manual testing</li>
+                        <li>Fix each issue</li>
+                    </ul>
                 </ul>
             </section>
             <section>
@@ -97,30 +98,6 @@
                 <h2>Example 1</h2>
                 <pre>
                     <code>
-# compat/db.py
-from django.db import transaction
-
-if django.VERSION < (1, 6):
-    atomic_compat_transaction = transaction.commit_on_success
-else:
-    atomic_compat_transaction = transaction.atomic
-                    </code>
-                </pre>
-                <pre>
-                    <code>
-# your_app/views.py
-from compat.db import atomic_compat_transaction
-
-@atomic_compat_transaction
-def your_view(request):
-    # Your view code here
-                    </code>
-                </pre>
-            </section>
-            <section>
-                <h2>Example 2</h2>
-                <pre>
-                    <code>
 # compat/fields.py
 
 if django.VERSION < (1, 8):
@@ -141,6 +118,30 @@ class YourForm(forms.ModelForm):
         fields = ALL_FIELDS
                 </code>
             </pre>
+            </section>
+            <section>
+                <h2>Example 2</h2>
+                <pre>
+                    <code>
+# compat/db.py
+from django.db import transaction
+
+if django.VERSION < (1, 6):
+    atomic_compat_transaction = transaction.commit_on_success
+else:
+    atomic_compat_transaction = transaction.atomic
+                    </code>
+                </pre>
+                <pre>
+                    <code>
+# your_app/views.py
+from compat.db import atomic_compat_transaction
+
+@atomic_compat_transaction
+def your_view(request):
+    # Your view code here
+                    </code>
+                </pre>
             </section>
         </section>
         <section>
