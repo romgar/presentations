@@ -31,7 +31,6 @@
         <section>
             <img src="images/logo_iwoca.png" style="border: 0; background:none; width: 35%;">
             <ul>
-                <li>August 2015, Django 1.4</li>
                 <li>Monolithic Django project:
                     <ul>
                         <li>100+ custom apps</li>
@@ -39,6 +38,7 @@
                     </ul>
                 <li>Continuous deployment (~10 releases/day)</li>
                 <li>20 full-time developers</li>
+                <li>August 2015, Django 1.4</li>
             </ul>
         </section>
         <section>
@@ -98,6 +98,30 @@
                 <h2>Example 1</h2>
                 <pre>
                     <code>
+# compat/db.py
+from django.db import transaction
+
+if django.VERSION < (1, 6):
+    atomic_compat_transaction = transaction.commit_on_success
+else:
+    atomic_compat_transaction = transaction.atomic
+                    </code>
+                </pre>
+                <pre>
+                    <code>
+# your_app/views.py
+from compat.db import atomic_compat_transaction
+
+@atomic_compat_transaction
+def your_view(request):
+    # Your view code here
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h2>Example 2</h2>
+                <pre>
+                    <code>
 # compat/fields.py
 
 if django.VERSION < (1, 8):
@@ -118,30 +142,6 @@ class YourForm(forms.ModelForm):
         fields = ALL_FIELDS
                 </code>
             </pre>
-            </section>
-            <section>
-                <h2>Example 2</h2>
-                <pre>
-                    <code>
-# compat/db.py
-from django.db import transaction
-
-if django.VERSION < (1, 6):
-    atomic_compat_transaction = transaction.commit_on_success
-else:
-    atomic_compat_transaction = transaction.atomic
-                    </code>
-                </pre>
-                <pre>
-                    <code>
-# your_app/views.py
-from compat.db import atomic_compat_transaction
-
-@atomic_compat_transaction
-def your_view(request):
-    # Your view code here
-                    </code>
-                </pre>
             </section>
         </section>
         <section>
@@ -213,9 +213,9 @@ Migrations diff:
         <section>
             <h2>Results</h2>
             <ul>
-                <li>No major issue</li>
                 <li>Only small issues (custom django admin pages)</li>
-                <li>No stress during the whole upgrade (months)</li>
+                <li>No regressions</li>
+                <li>No stress during the whole upgrade</li>
                 <li>django-seven</li>
             </ul>
         </section>
@@ -230,6 +230,10 @@ Migrations diff:
                 <li>Trivial final deployment</li>
             </ul>
             <img src="images/final_diff.jpg">
+        </section>
+        <section>
+            <img src="images/logo_iwoca.png" style="border: 0; background:none; width: 35%;">
+            <h2>needs to upgrade its team!</h2>
         </section>
     </div>
 </div>
