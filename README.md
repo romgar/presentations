@@ -7,6 +7,8 @@ DjangoCon2015 lightning recap => [presentation](http://romgar.github.io/presenta
 
 How to deploy a python package on PyPI in 5 minutes with GitHub + Travis CI => [presentation](http://romgar.github.io/presentations/pypi_deployment)
 
+How to make a Django upgrade as smooth as possible => [presentation](http://romgar.github.io/presentations/django_upgrade)
+
 
 Generate a presentation with landslide
 ======================================
